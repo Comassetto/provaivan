@@ -7,7 +7,7 @@ Pasta de estudo compartilhada. Slides das Aulas 1–6, gabaritos das listas, e m
 **Usando com o Claude Code:** clone o repositório, abra o Claude Code dentro da pasta e pergunte. O arquivo `CLAUDE.md` já dá ao Claude o contexto da disciplina, o escopo da prova, onde está cada material e como explicar (do zero, passo a passo).
 
 ```
-git clone <url-do-repo>
-cd "Linguagens Formais e Compiladores"
+git clone https://github.com/Comassetto/provaivan.git
+cd provaivan
 claude
 ```
