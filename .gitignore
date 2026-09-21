@@ -1,0 +1,12 @@
+# Duplicata exata de "Aula06 - Gramáticas Livres de Contexto.pdf"
+Aula06 - Gramáticas Livres de Contexto (1).pdf
+
+# Lixo do sistema / OneDrive
+Thumbs.db
+desktop.ini
+.DS_Store
+~$*
+*.tmp
+
+# Sessões locais do Claude Code (não compartilhar)
+.claude/settings.local.json
