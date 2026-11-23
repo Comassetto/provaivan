@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <title>Questões Prova 2 LFC</title>
 <style>
-@page { size: A4; margin: 9mm 10mm; }
+@page { size: A4; margin: 7mm 9mm; }
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; background: #fff; color: #111; }
-body { font-family: "Segoe UI", Arial, sans-serif; font-size: 8.6pt; line-height: 1.3;
+body { font-family: "Segoe UI", Arial, sans-serif; font-size: 8.3pt; line-height: 1.25;
   -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 h1 { font-size: 13pt; margin: 0 0 1mm; color: #12385e; }
 h2 { font-size: 10.5pt; background: #12385e; color: #fff; padding: 1mm 2mm; margin: 4mm 0 1.5mm;
@@ -43,61 +43,90 @@ td.d { color: #888; }
 .small { font-size: 7.8pt; color: #444; }
 .dica { background: #fff7e0; border-left: 2.5pt solid #b26a00; padding: 0.6mm 2mm; margin: 0.8mm 0; font-size: 8.2pt; }
 .dica b:first-child { color: #7a4100; }
+pre.g { font-family: "Segoe UI", Arial, sans-serif; font-size: 8.3pt; line-height: 1.15; margin: 0.6mm 0; white-space: pre-wrap; }
+.esc { margin: 0.8mm 0 0.4mm; color: #333; }
+.ops { margin: 0.8mm 0; }
+.op1 { border: 0.5pt solid #777; padding: 0 1.2mm; margin: 0 0.4mm; white-space: nowrap; }
+.gl div { margin: 1.1mm 0; }
+.rb { border: 0.5pt solid #2e7d32; background: #dff0df; color: #0f4d12; font-weight: 700; padding: 0 1.2mm; }
+table.c td { white-space: nowrap; }
 </style>
 </head>
 <body>
 
 <h1>Questões — Prova 2 · Linguagens Formais e Compiladores</h1>
-<p>Todas as questões que já apareceram: as <span class="tag lista">Lista</span> dos PDFs das aulas, os <span class="tag slide">Slide</span> (exemplos e perguntas feitos em aula) e as <span class="tag ava">★ AVA</span> (as 10 questões de estudo). A resposta certa está <b style="color:#0f4d12">em verde com ✔</b>, as erradas aparecem em cinza com ✘, e nas tabelas o que você preencheria está em verde. Cada bloco diz qual seção da <b>colinha</b> ensina a resolver, e as questões do AVA têm uma linha <b>"Como acertar"</b> com o atalho.</p>
+<p>Todas as questões que já apareceram: as <span class="tag lista">Lista</span> dos PDFs das aulas, os <span class="tag slide">Slide</span> (exemplos e perguntas feitos em aula) e as <span class="tag ava">★ AVA</span> (as 10 questões de estudo). A resposta certa está <b style="color:#0f4d12">em verde com ✔</b>, as erradas aparecem em cinza com ✘, e nas tabelas o que você preencheria está em verde. Cada bloco diz qual seção da <b>colinha</b> ensina a resolver. Os enunciados das <b>Listas</b> e do <b>AVA</b> foram copiados do professor; nas de <b>Slide</b> a pergunta foi montada a partir do exemplo do slide. Além disso, as questões do AVA têm uma linha <b>"Como acertar"</b> com o atalho.</p>
 <div class="idx">
-<div><b>1. FIRST e FOLLOW</b> → §3</div>
-<div><b>2. Tabela preditiva</b> → §4</div>
-<div><b>3. Pilha da análise preditiva</b> → §5</div>
-<div><b>4. Teoria: descendente e ascendente</b> → §1, §2</div>
-<div><b>5. Itens, CLOSURE, GOTO</b> → §1, §6</div>
-<div><b>6. Tabela LR</b> → §7</div>
-<div><b>7. Pilha da análise LR</b> → §8</div>
-<div><b>8. Lex / Flex</b> → §9</div>
-<div><b>9. Análise semântica</b> → §1, §10</div>
+<div><b>1. FIRST e FOLLOW</b>: colinha §3</div>
+<div><b>2. Tabela preditiva</b>: colinha §4</div>
+<div><b>3. Pilha da análise preditiva</b>: colinha §5</div>
+<div><b>4. Teoria: descendente e ascendente</b>: colinha §1, §2</div>
+<div><b>5. Itens, CLOSURE, GOTO</b>: colinha §1, §6</div>
+<div><b>6. Tabela LR</b>: colinha §7</div>
+<div><b>7. Pilha da análise LR</b>: colinha §8</div>
+<div><b>8. Lex / Flex</b>: colinha §9</div>
+<div><b>9. Análise semântica</b>: colinha §1, §10</div>
 </div>
 
 <!-- ============ 1 ============ -->
 <h2>1. FIRST e FOLLOW <span class="r">— colinha §3</span></h2>
 
 <div class="q"><div class="qh">1.1 <span class="tag ava">★ AVA Q10</span></div>
-<div class="dica"><b>Como acertar:</b> elimine. A <b>e</b> tem $ no FIRST. A regra de A começa com i, então FIRST(A) = {i} e a <b>d</b> sai. C começa com n ou i, então FIRST(C) = {n, i} e a <b>b</b> sai. Entre a e c: o B só aparece antes de "]" e não fica no fim de nenhuma regra do inicial, então o FOLLOW(B) não tem $ → <b>a</b>.</div>
-Dada a gramática a seguir, assinale a opção que apresenta corretamente os conjuntos FIRST e FOLLOW:<br>
-<span class="m">A → i [ B ] = C · B → n | n B · C → n | i | i C</span>
+<p>Dada a Gramática a seguir, assinale a opção que apresenta corretamente os conjuntos FIRST e FOLLOW:</p><pre class="g">G = (N, T, P, A)
+N = {A, B, C}
+T = {i, n, =, [, ], +}
+P = {
+    A -&gt; i [ B ] = C
+    B -&gt; n | n B
+    C -&gt; n | i | i C
+}</pre><p class="esc">Escolha uma opção:</p>
 <ul class="op">
-<li class="ok">a. FIRST(A) = {i} · FIRST(B) = {n} · FIRST(C) = {n, i} — FOLLOW(A) = {$} · FOLLOW(B) = {]} · FOLLOW(C) = {$}</li>
-<li class="no">b. FIRST(A) = {i} · FIRST(B) = {n} · FIRST(C) = {n} — FOLLOW(A) = {$} · FOLLOW(B) = {], $} · FOLLOW(C) = {$}</li>
-<li class="no">c. FIRST(A) = {i} · FIRST(B) = {n} · FIRST(C) = {n, i} — FOLLOW(A) = {$} · FOLLOW(B) = {], $} · FOLLOW(C) = {$}</li>
-<li class="no">d. FIRST(A) = {i, [} · FIRST(B) = {n} · FIRST(C) = {n} — FOLLOW(A) = {$} · FOLLOW(B) = {], $} · FOLLOW(C) = {$}</li>
-<li class="no">e. FIRST(A) = {$} · FIRST(B) = {]} · FIRST(C) = {$} — FOLLOW(A) = {i} · FOLLOW(B) = {n} · FOLLOW(C) = {n, i}</li>
-</ul></div>
+<li class="ok">a. FIRST(A) = {i} · FIRST(B) = {n} · FIRST(C) = {n, i}<br>&emsp;&emsp;FOLLOW(A) = {$} · FOLLOW(B) = {]} · FOLLOW(C) = {$}</li>
+<li class="no">b. FIRST(A) = {i} · FIRST(B) = {n} · FIRST(C) = {n}<br>&emsp;&emsp;FOLLOW(A) = {$} · FOLLOW(B) = {], $} · FOLLOW(C) = {$}</li>
+<li class="no">c. FIRST(A) = {i} · FIRST(B) = {n} · FIRST(C) = {n, i}<br>&emsp;&emsp;FOLLOW(A) = {$} · FOLLOW(B) = {], $} · FOLLOW(C) = {$}</li>
+<li class="no">d. FIRST(A) = {i, [} · FIRST(B) = {n} · FIRST(C) = {n}<br>&emsp;&emsp;FOLLOW(A) = {$} · FOLLOW(B) = {], $} · FOLLOW(C) = {$}</li>
+<li class="no">e. FIRST(A) = {$} · FIRST(B) = {]} · FIRST(C) = {$}<br>&emsp;&emsp;FOLLOW(A) = {i} · FOLLOW(B) = {n} · FOLLOW(C) = {n, i}</li>
+</ul>
+<div class="dica"><b>Como acertar:</b> elimine. A <b>e</b> tem $ no FIRST. A regra de A começa com i, então FIRST(A) = {i} e a <b>d</b> sai. C começa com n ou i, então FIRST(C) = {n, i} e a <b>b</b> sai. Entre a e c: o B só aparece antes de "]" e não fica no fim de nenhuma regra do inicial, então o FOLLOW(B) não tem $. Resposta: <b>a</b>.</div></div>
 
 <div class="q"><div class="qh">1.2 <span class="tag lista">Lista 7.1</span></div>
-Determine os conjuntos FIRST e FOLLOW: <span class="m">E → TE' · E' → +TE' | ε · T → a</span>
+<p>7.1. Determine os conjuntos FIRST e FOLLOW da gramática a seguir:</p><pre class="g">G1: { E -&gt; TE'
+        E' -&gt; +TE' | ε
+        T -&gt; a}</pre>
 <div class="ans"><b>Resposta:</b> FIRST(E) = {a} · FIRST(E') = {+, ε} · FIRST(T) = {a}<br>
 FOLLOW(E) = {$} · FOLLOW(E') = {$} · FOLLOW(T) = {+, $}</div></div>
 
 <div class="q"><div class="qh">1.3 <span class="tag lista">Lista 7.2</span></div>
-Determine os conjuntos FIRST e FOLLOW: <span class="m">S → ( S ) | [ S ] | A · A → a</span>
+<p>7.2. Determine os conjuntos FIRST e FOLLOW da gramática a seguir:</p><pre class="g">G2: { S -&gt; ( S ) | [ S ] | A
+        A -&gt; a}</pre>
 <div class="ans"><b>Resposta:</b> FIRST(S) = {(, [, a} · FIRST(A) = {a}<br>
 FOLLOW(S) = {$, ), ]} · FOLLOW(A) = {$, ), ]}</div></div>
 
 <div class="q"><div class="qh">1.4 <span class="tag lista">Lista 8.1</span></div>
-Determine os conjuntos FIRST e FOLLOW: <span class="m">S → TX · X → +TX | ε · T → FY · Y → *FY | ε · F → (S) | i</span>
+<p>Considere a gramática a seguir:</p><pre class="g">G = ({S, T, F, X, Y}, {+, *, (, ), i}, P, S)
+P =
+S -&gt; TX
+X -&gt; +TX | ε
+T -&gt; FY
+Y -&gt; *FY | ε
+F -&gt; (S) | i</pre><p>8.1. Determine os conjuntos FIRST e FOLLOW;</p>
 <div class="ans"><b>Resposta:</b> FIRST(S) = {(, i} · FIRST(T) = {(, i} · FIRST(F) = {(, i} · FIRST(X) = {+, ε} · FIRST(Y) = {*, ε}<br>
 FOLLOW(S) = {$, )} · FOLLOW(X) = {$, )} · FOLLOW(T) = {+, $, )} · FOLLOW(Y) = {+, $, )} · FOLLOW(F) = {*, +, $, )}</div></div>
 
 <div class="q"><div class="qh">1.5 <span class="tag slide">Slide Aula07 sl.11–17</span></div>
-Determine os conjuntos FIRST e FOLLOW: <span class="m">E → TE' · E' → vTE' | ε · T → FT' · T' → &amp;FT' | ε · F → *F | id</span>
+<p>Exemplo do slide: determine os conjuntos FIRST e FOLLOW.</p><pre class="g">E -&gt; TE'
+T -&gt; FT'
+F -&gt; *F | id
+T' -&gt; &amp;FT' | ε
+E' -&gt; vTE' | ε</pre>
 <div class="ans"><b>Resposta:</b> FIRST(E) = FIRST(T) = FIRST(F) = {*, id} · FIRST(E') = {v, ε} · FIRST(T') = {&amp;, ε}<br>
 FOLLOW(E) = {$} · FOLLOW(E') = {$} · FOLLOW(T) = {v, $} · FOLLOW(T') = {v, $} · FOLLOW(F) = {&amp;, v, $}</div></div>
 
 <div class="q"><div class="qh">1.6 <span class="tag lista">Lista 7.3</span> (parte do FIRST/FOLLOW; a tabela está em 2.3)</div>
-<span class="m">E → TA | E' · E' → +TE' | ε · T → a · A → x</span>
+<p>7.3. Considerando a gramática a seguir, determine os conjuntos FIRST e FOLLOW e preencha a tabela de Análise Preditiva</p><pre class="g">G3: { E -&gt; TA | E'
+        E' -&gt; +TE' | ε
+        T -&gt; a
+        A -&gt; x}</pre>
 <div class="ans"><b>Resposta:</b> FIRST(E) = {a, +, ε} · FIRST(E') = {+, ε} · FIRST(T) = {a} · FIRST(A) = {x}<br>
 FOLLOW(E) = {$} · FOLLOW(E') = {$} · FOLLOW(T) = {x, +, $} · FOLLOW(A) = {$}</div></div>
 
@@ -105,139 +134,156 @@ FOLLOW(E) = {$} · FOLLOW(E') = {$} · FOLLOW(T) = {x, +, $} · FOLLOW(A) = {$}<
 <h2>2. Tabela preditiva <span class="r">— colinha §4</span></h2>
 
 <div class="q"><div class="qh">2.1 <span class="tag ava">★ AVA Q2</span></div>
-<div class="dica"><b>Como acertar:</b> linha por linha. A regra que começa com terminal vai na coluna dele (V → 45N7 na coluna 4). A regra que começa com maiúscula vai nas colunas do FIRST dela (A → N6N nas colunas 3 e 4). V → ε vai nas colunas do FOLLOW(V). O resto fica "-".</div>
-Dada a gramática <span class="m">G = ({I, V, A, N}, {0, 1, 2, 3, 4, 5, 6, 7}, P, I)</span>, com <span class="m">I → 01A2V · V → 45N7 | ε · A → N6N · N → 4I | 34</span>, determine os conjuntos FIRST e FOLLOW e arraste as produções para as células da tabela preditiva. Se a célula não deve ser preenchida, arraste "-".
+<p>Dada a seguinte gramática: G = ({I, V, A, N}, {0, 1, 2, 3, 4, 5, 6, 7}, P, I)</p><pre class="g">P = {
+I -&gt; 01A2V
+V -&gt; 45N7 | ε
+A -&gt; N6N
+N -&gt; 4I | 34}</pre><p>Determine os conjuntos FIRST e FOLLOW e em seguida arraste as produções correspondentes a cada uma das células da tabela preditiva a seguir.</p><p>Obs.: Se você julgar que uma célula não deve ser preenchida arraste a opção "-".</p><p class="ops">Opções para arrastar: <span class="op1">A -&gt; N6N</span> <span class="op1">V -&gt; ε</span> <span class="op1">I -&gt; 01A2V</span> <span class="op1">N -&gt; 4I</span> <span class="op1">-</span> <span class="op1">V -&gt; 45N7</span> <span class="op1">N -&gt; 34</span></p>
 <div class="ans"><b>FIRST/FOLLOW:</b> FIRST(I) = {0} · FIRST(V) = {4, ε} · FIRST(A) = FIRST(N) = {3, 4} · FOLLOW(I) = FOLLOW(V) = {$, 2, 6, 7} · FOLLOW(A) = {2} · FOLLOW(N) = {2, 6, 7}</div>
 <table class="c"><tr><th></th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>$</th></tr>
-<tr><td>I</td><td class="a">I→01A2V</td><td></td><td></td><td class="a">-</td><td class="a">-</td><td></td><td></td><td></td><td></td></tr>
-<tr><td>V</td><td class="a">-</td><td class="a">-</td><td class="a">V→ε</td><td class="a">-</td><td class="a">V→45N7</td><td class="a">-</td><td class="a">V→ε</td><td class="a">V→ε</td><td class="a">V→ε</td></tr>
-<tr><td>A</td><td class="a">-</td><td></td><td></td><td class="a">A→N6N</td><td class="a">A→N6N</td><td></td><td></td><td></td><td></td></tr>
-<tr><td>N</td><td class="a">-</td><td></td><td></td><td class="a">N→34</td><td class="a">N→4I</td><td></td><td></td><td></td><td></td></tr></table></div>
+<tr><td>I</td><td class="a">I -&gt; 01A2V</td><td></td><td></td><td class="a">-</td><td class="a">-</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>V</td><td class="a">-</td><td class="a">-</td><td class="a">V -&gt; ε</td><td class="a">-</td><td class="a">V -&gt; 45N7</td><td class="a">-</td><td class="a">V -&gt; ε</td><td class="a">V -&gt; ε</td><td class="a">V -&gt; ε</td></tr>
+<tr><td>A</td><td class="a">-</td><td></td><td></td><td class="a">A -&gt; N6N</td><td class="a">A -&gt; N6N</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>N</td><td class="a">-</td><td></td><td></td><td class="a">N -&gt; 34</td><td class="a">N -&gt; 4I</td><td></td><td></td><td></td><td></td></tr></table>
+<div class="dica"><b>Como acertar:</b> linha por linha. A regra que começa com terminal vai na coluna dele (V -&gt; 45N7 na coluna 4). A regra que começa com maiúscula vai nas colunas do FIRST dela (A -&gt; N6N nas colunas 3 e 4). V -&gt; ε vai nas colunas do FOLLOW(V). O resto fica "-".</div></div>
 
 <div class="q"><div class="qh">2.2 <span class="tag slide">Slide Aula07 sl.21–25</span> (gramática da 7.1)</div>
-Preencha a tabela de análise preditiva de <span class="m">E → TE' · E' → +TE' | ε · T → a</span>.
+<p>Preenchimento da tabela (exemplo do slide), considerando a gramática do ex 7.1:</p><pre class="g">G1: { E -&gt; TE'
+        E' -&gt; +TE'
+        E' -&gt; ε
+        T -&gt; a}</pre>
 <table class="c"><tr><th></th><th>+</th><th>a</th><th>$</th></tr>
-<tr><td>E</td><td></td><td class="a">E→TE'</td><td></td></tr>
-<tr><td>E'</td><td class="a">E'→+TE'</td><td></td><td class="a">E'→ε</td></tr>
-<tr><td>T</td><td></td><td class="a">T→a</td><td></td></tr></table></div>
+<tr><td>E</td><td></td><td class="a">E -&gt; TE'</td><td></td></tr>
+<tr><td>E'</td><td class="a">E' -&gt; +TE'</td><td></td><td class="a">E' -&gt; ε</td></tr>
+<tr><td>T</td><td></td><td class="a">T -&gt; a</td><td></td></tr></table></div>
 
 <div class="q"><div class="qh">2.3 <span class="tag lista">Lista 7.3</span></div>
-Determine FIRST e FOLLOW e preencha a tabela de análise preditiva: <span class="m">E → TA | E' · E' → +TE' | ε · T → a · A → x</span> (FIRST/FOLLOW em 1.6)
+<p>7.3. Considerando a gramática a seguir, determine os conjuntos FIRST e FOLLOW e preencha a tabela de Análise Preditiva</p><pre class="g">G3: { E -&gt; TA | E'
+        E' -&gt; +TE' | ε
+        T -&gt; a
+        A -&gt; x}</pre>
 <table class="c"><tr><th></th><th>+</th><th>a</th><th>x</th><th>$</th></tr>
-<tr><td>E</td><td class="a">E→E'</td><td class="a">E→TA</td><td></td><td class="a">E→E'</td></tr>
-<tr><td>E'</td><td class="a">E'→+TE'</td><td></td><td></td><td class="a">E'→ε</td></tr>
-<tr><td>T</td><td></td><td class="a">T→a</td><td></td><td></td></tr>
-<tr><td>A</td><td></td><td></td><td class="a">A→x</td><td></td></tr></table>
-<p class="small">E → E' fica em + (o FIRST de E') e também em $, porque E' pode sumir e o FOLLOW(E) = {$}.</p></div>
+<tr><td>E</td><td class="a">E -&gt; E'</td><td class="a">E -&gt; TA</td><td></td><td class="a">E -&gt; E'</td></tr>
+<tr><td>E'</td><td class="a">E' -&gt; +TE'</td><td></td><td></td><td class="a">E' -&gt; ε</td></tr>
+<tr><td>T</td><td></td><td class="a">T -&gt; a</td><td></td><td></td></tr>
+<tr><td>A</td><td></td><td></td><td class="a">A -&gt; x</td><td></td></tr></table>
+<p class="small">E -&gt; E' fica em + (o FIRST de E') e também em $, porque E' pode sumir e o FOLLOW(E) = {$}.</p></div>
 
 <div class="q"><div class="qh">2.4 <span class="tag lista">Lista 8.2</span></div>
-Construa a tabela de análise preditiva de <span class="m">S → TX · X → +TX | ε · T → FY · Y → *FY | ε · F → (S) | i</span> (FIRST/FOLLOW em 1.4)
+<p>Considere a gramática a seguir:</p><pre class="g">G = ({S, T, F, X, Y}, {+, *, (, ), i}, P, S)
+P =
+S -&gt; TX
+X -&gt; +TX | ε
+T -&gt; FY
+Y -&gt; *FY | ε
+F -&gt; (S) | i</pre><p>8.2. Construa a tabela de análise preditiva;</p>
 <table class="c"><tr><th></th><th>+</th><th>*</th><th>(</th><th>)</th><th>i</th><th>$</th></tr>
-<tr><td>S</td><td></td><td></td><td class="a">S→TX</td><td></td><td class="a">S→TX</td><td></td></tr>
-<tr><td>X</td><td class="a">X→+TX</td><td></td><td></td><td class="a">X→ε</td><td></td><td class="a">X→ε</td></tr>
-<tr><td>T</td><td></td><td></td><td class="a">T→FY</td><td></td><td class="a">T→FY</td><td></td></tr>
-<tr><td>Y</td><td class="a">Y→ε</td><td class="a">Y→*FY</td><td></td><td class="a">Y→ε</td><td></td><td class="a">Y→ε</td></tr>
-<tr><td>F</td><td></td><td></td><td class="a">F→(S)</td><td></td><td class="a">F→i</td><td></td></tr></table></div>
+<tr><td>S</td><td></td><td></td><td class="a">S -&gt; TX</td><td></td><td class="a">S -&gt; TX</td><td></td></tr>
+<tr><td>X</td><td class="a">X -&gt; +TX</td><td></td><td></td><td class="a">X -&gt; ε</td><td></td><td class="a">X -&gt; ε</td></tr>
+<tr><td>T</td><td></td><td></td><td class="a">T -&gt; FY</td><td></td><td class="a">T -&gt; FY</td><td></td></tr>
+<tr><td>Y</td><td class="a">Y -&gt; ε</td><td class="a">Y -&gt; *FY</td><td></td><td class="a">Y -&gt; ε</td><td></td><td class="a">Y -&gt; ε</td></tr>
+<tr><td>F</td><td></td><td></td><td class="a">F -&gt; (S)</td><td></td><td class="a">F -&gt; i</td><td></td></tr></table></div>
 
 <!-- ============ 3 ============ -->
 <h2>3. Pilha da análise preditiva <span class="r">— colinha §5</span></h2>
 
 <div class="q"><div class="qh">3.1 <span class="tag ava">★ AVA Q1</span></div>
-<div class="dica"><b>Como acertar:</b> não precisa usar a tabela. Compare cada linha com a de baixo. Se a maiúscula do topo foi trocada, a saída é "topo → o que entrou, lido de trás para frente". Se a maiúscula sumiu, é "topo → ε". Se o terminal saiu da pilha e da entrada, é "-". A última linha ($ e $) é "-", e a sentença é Reconhecida.</div>
-Considerando a tabela preditiva abaixo, preencha as lacunas no reconhecimento da sentença <span class="m">x[y]=zz</span> em um autômato de pilha controlado pela tabela. As células que não forem preenchidas com produções devem ficar com "-".
+<p>Considerando a seguinte tabela preditiva (para análise sintática descendente):</p>
 <table class="c"><tr><th></th><th>[</th><th>]</th><th>x</th><th>y</th><th>z</th><th>=</th><th>$</th></tr>
-<tr><td>S</td><td></td><td></td><td>S→X[Y]=Z</td><td></td><td></td><td></td><td></td></tr>
-<tr><td>X</td><td></td><td></td><td>X→xJ</td><td></td><td></td><td></td><td></td></tr>
-<tr><td>Y</td><td></td><td></td><td></td><td>Y→yK</td><td></td><td></td><td></td></tr>
-<tr><td>Z</td><td></td><td></td><td></td><td></td><td>Z→zL</td><td></td><td></td></tr>
-<tr><td>J</td><td>J→ε</td><td></td><td>J→X</td><td></td><td></td><td></td><td></td></tr>
-<tr><td>K</td><td></td><td>K→ε</td><td></td><td>K→Y</td><td></td><td></td><td></td></tr>
-<tr><td>L</td><td></td><td></td><td></td><td></td><td>L→Z</td><td></td><td>L→ε</td></tr></table>
+<tr><td>S</td><td></td><td></td><td>S -&gt; X[Y]=Z</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>X</td><td></td><td></td><td>X -&gt; xJ</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Y</td><td></td><td></td><td></td><td>Y -&gt; yK</td><td></td><td></td><td></td></tr>
+<tr><td>Z</td><td></td><td></td><td></td><td></td><td>Z -&gt; zL</td><td></td><td></td></tr>
+<tr><td>J</td><td>J -&gt; ε</td><td></td><td>J -&gt; X</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>K</td><td></td><td>K -&gt; ε</td><td></td><td>K -&gt; Y</td><td></td><td></td><td></td></tr>
+<tr><td>L</td><td></td><td></td><td></td><td></td><td>L -&gt; Z</td><td></td><td>L -&gt; ε</td></tr></table>
+<p>Preencha as lacunas no reconhecimento da sentença "x[y]=zz" em um autômato de pilha controlado pela tabela. As células que não forem preenchidas com produções deve ficar com "-".</p><p class="ops">Opções para arrastar: <span class="op1">K -&gt; ε</span> <span class="op1">X -&gt; xJ</span> <span class="op1">S -&gt; X[Y]=Z</span> <span class="op1">Reconhecida</span> <span class="op1">Y -&gt; yK</span> <span class="op1">Não Reconhecida</span> <span class="op1">L -&gt; Z</span> <span class="op1">Z -&gt; zL</span> <span class="op1">Z -&gt; LL</span> <span class="op1">L -&gt; ε</span> <span class="op1">-</span> <span class="op1">J -&gt; ε</span></p>
 <div class="two">
 <table><tr><th>Pilha</th><th>Entrada</th><th>Saída</th></tr>
-<tr><td class="m">$S</td><td class="m">x[y]=zz$</td><td class="a">S → X[Y]=Z</td></tr>
-<tr><td class="m">$Z=]Y[X</td><td class="m">x[y]=zz$</td><td class="a">X → xJ</td></tr>
+<tr><td class="m">$S</td><td class="m">x[y]=zz$</td><td class="a">S -&gt; X[Y]=Z</td></tr>
+<tr><td class="m">$Z=]Y[X</td><td class="m">x[y]=zz$</td><td class="a">X -&gt; xJ</td></tr>
 <tr><td class="m">$Z=]Y[Jx</td><td class="m">x[y]=zz$</td><td class="a">-</td></tr>
-<tr><td class="m">$Z=]Y[J</td><td class="m">[y]=zz$</td><td class="a">J → ε</td></tr>
+<tr><td class="m">$Z=]Y[J</td><td class="m">[y]=zz$</td><td class="a">J -&gt; ε</td></tr>
 <tr><td class="m">$Z=]Y[</td><td class="m">[y]=zz$</td><td class="a">-</td></tr>
-<tr><td class="m">$Z=]Y</td><td class="m">y]=zz$</td><td class="a">Y → yK</td></tr>
+<tr><td class="m">$Z=]Y</td><td class="m">y]=zz$</td><td class="a">Y -&gt; yK</td></tr>
 <tr><td class="m">$Z=]Ky</td><td class="m">y]=zz$</td><td class="a">-</td></tr>
-<tr><td class="m">$Z=]K</td><td class="m">]=zz$</td><td class="a">K → ε</td></tr>
+<tr><td class="m">$Z=]K</td><td class="m">]=zz$</td><td class="a">K -&gt; ε</td></tr>
 <tr><td class="m">$Z=]</td><td class="m">]=zz$</td><td class="a">-</td></tr></table>
 <table><tr><th>Pilha</th><th>Entrada</th><th>Saída</th></tr>
 <tr><td class="m">$Z=</td><td class="m">=zz$</td><td class="a">-</td></tr>
-<tr><td class="m">$Z</td><td class="m">zz$</td><td class="a">Z → zL</td></tr>
+<tr><td class="m">$Z</td><td class="m">zz$</td><td class="a">Z -&gt; zL</td></tr>
 <tr><td class="m">$Lz</td><td class="m">zz$</td><td class="a">-</td></tr>
-<tr><td class="m">$L</td><td class="m">z$</td><td class="a">L → Z</td></tr>
-<tr><td class="m">$Z</td><td class="m">z$</td><td class="a">Z → zL</td></tr>
+<tr><td class="m">$L</td><td class="m">z$</td><td class="a">L -&gt; Z</td></tr>
+<tr><td class="m">$Z</td><td class="m">z$</td><td class="a">Z -&gt; zL</td></tr>
 <tr><td class="m">$Lz</td><td class="m">z$</td><td class="a">-</td></tr>
-<tr><td class="m">$L</td><td class="m">$</td><td class="a">L → ε</td></tr>
+<tr><td class="m">$L</td><td class="m">$</td><td class="a">L -&gt; ε</td></tr>
 <tr><td class="m">$</td><td class="m">$</td><td class="a">-</td></tr>
 <tr><td colspan="2">Sentença</td><td class="a">Reconhecida</td></tr></table>
 </div>
-<p class="small">As opções Z → LL e "Não Reconhecida" sobram.</p></div>
+<p class="small">As opções Z -&gt; LL e "Não Reconhecida" sobram.</p>
+<div class="dica"><b>Como acertar:</b> não precisa usar a tabela. Compare cada linha com a de baixo. Se a maiúscula do topo foi trocada, a saída é "topo -&gt; o que entrou, lido de trás para frente". Se a maiúscula sumiu, é "topo -&gt; ε". Se o terminal saiu da pilha e da entrada, é "-". A última linha ($ e $) é "-", e a sentença é Reconhecida.</div></div>
 
 <div class="q"><div class="qh">3.2 <span class="tag lista">Lista 8.3</span></div>
-Construa a pilha de reconhecimento passo a passo da sentença <span class="m">i * ( i + i )</span>, com a tabela da 2.4.
+<p>8.3. Construa a pilha de reconhecimento passo a passo da sentença: i * ( i + i )</p><p><span class="small">(gramática e tabela da 2.4)</span></p>
 <div class="two">
 <table><tr><th>Pilha</th><th>Entrada</th><th>Saída</th></tr>
-<tr><td class="m">$S</td><td class="m">i*(i+i)$</td><td class="a">S→TX</td></tr>
-<tr><td class="m">$XT</td><td class="m">i*(i+i)$</td><td class="a">T→FY</td></tr>
-<tr><td class="m">$XYF</td><td class="m">i*(i+i)$</td><td class="a">F→i</td></tr>
+<tr><td class="m">$S</td><td class="m">i*(i+i)$</td><td class="a">S -&gt; TX</td></tr>
+<tr><td class="m">$XT</td><td class="m">i*(i+i)$</td><td class="a">T -&gt; FY</td></tr>
+<tr><td class="m">$XYF</td><td class="m">i*(i+i)$</td><td class="a">F -&gt; i</td></tr>
 <tr><td class="m">$XYi</td><td class="m">i*(i+i)$</td><td class="a">-</td></tr>
-<tr><td class="m">$XY</td><td class="m">*(i+i)$</td><td class="a">Y→*FY</td></tr>
+<tr><td class="m">$XY</td><td class="m">*(i+i)$</td><td class="a">Y -&gt; *FY</td></tr>
 <tr><td class="m">$XYF*</td><td class="m">*(i+i)$</td><td class="a">-</td></tr>
-<tr><td class="m">$XYF</td><td class="m">(i+i)$</td><td class="a">F→(S)</td></tr>
+<tr><td class="m">$XYF</td><td class="m">(i+i)$</td><td class="a">F -&gt; (S)</td></tr>
 <tr><td class="m">$XY)S(</td><td class="m">(i+i)$</td><td class="a">-</td></tr>
-<tr><td class="m">$XY)S</td><td class="m">i+i)$</td><td class="a">S→TX</td></tr>
-<tr><td class="m">$XY)XT</td><td class="m">i+i)$</td><td class="a">T→FY</td></tr>
-<tr><td class="m">$XY)XYF</td><td class="m">i+i)$</td><td class="a">F→i</td></tr>
+<tr><td class="m">$XY)S</td><td class="m">i+i)$</td><td class="a">S -&gt; TX</td></tr>
+<tr><td class="m">$XY)XT</td><td class="m">i+i)$</td><td class="a">T -&gt; FY</td></tr>
+<tr><td class="m">$XY)XYF</td><td class="m">i+i)$</td><td class="a">F -&gt; i</td></tr>
 <tr><td class="m">$XY)XYi</td><td class="m">i+i)$</td><td class="a">-</td></tr></table>
 <table><tr><th>Pilha</th><th>Entrada</th><th>Saída</th></tr>
-<tr><td class="m">$XY)XY</td><td class="m">+i)$</td><td class="a">Y→ε</td></tr>
-<tr><td class="m">$XY)X</td><td class="m">+i)$</td><td class="a">X→+TX</td></tr>
+<tr><td class="m">$XY)XY</td><td class="m">+i)$</td><td class="a">Y -&gt; ε</td></tr>
+<tr><td class="m">$XY)X</td><td class="m">+i)$</td><td class="a">X -&gt; +TX</td></tr>
 <tr><td class="m">$XY)XT+</td><td class="m">+i)$</td><td class="a">-</td></tr>
-<tr><td class="m">$XY)XT</td><td class="m">i)$</td><td class="a">T→FY</td></tr>
-<tr><td class="m">$XY)XYF</td><td class="m">i)$</td><td class="a">F→i</td></tr>
+<tr><td class="m">$XY)XT</td><td class="m">i)$</td><td class="a">T -&gt; FY</td></tr>
+<tr><td class="m">$XY)XYF</td><td class="m">i)$</td><td class="a">F -&gt; i</td></tr>
 <tr><td class="m">$XY)XYi</td><td class="m">i)$</td><td class="a">-</td></tr>
-<tr><td class="m">$XY)XY</td><td class="m">)$</td><td class="a">Y→ε</td></tr>
-<tr><td class="m">$XY)X</td><td class="m">)$</td><td class="a">X→ε</td></tr>
+<tr><td class="m">$XY)XY</td><td class="m">)$</td><td class="a">Y -&gt; ε</td></tr>
+<tr><td class="m">$XY)X</td><td class="m">)$</td><td class="a">X -&gt; ε</td></tr>
 <tr><td class="m">$XY)</td><td class="m">)$</td><td class="a">-</td></tr>
-<tr><td class="m">$XY</td><td class="m">$</td><td class="a">Y→ε</td></tr>
-<tr><td class="m">$X</td><td class="m">$</td><td class="a">X→ε</td></tr>
+<tr><td class="m">$XY</td><td class="m">$</td><td class="a">Y -&gt; ε</td></tr>
+<tr><td class="m">$X</td><td class="m">$</td><td class="a">X -&gt; ε</td></tr>
 <tr><td class="m">$</td><td class="m">$</td><td class="a">Reconhecida</td></tr></table>
 </div></div>
 
 <div class="q"><div class="qh">3.3 <span class="tag lista">Lista 8.4</span></div>
-Apresente uma sentença que <b>não</b> pode ser reconhecida pela gramática da 8.1 e construa a pilha até o momento do erro.
+<p>8.4. Apresente uma sentença que não pode ser reconhecida pela gramática dada e construa a pilha de reconhecimento passo a passo da sentença até o momento do erro.</p><p><span class="small">(gramática e tabela da 2.4)</span></p>
 <div class="ans"><b>Resposta (exemplo):</b> <span class="m">i+)</span></div>
 <table><tr><th>Pilha</th><th>Entrada</th><th>Saída</th></tr>
-<tr><td class="m">$S</td><td class="m">i+)$</td><td class="a">S→TX</td></tr>
-<tr><td class="m">$XT</td><td class="m">i+)$</td><td class="a">T→FY</td></tr>
-<tr><td class="m">$XYF</td><td class="m">i+)$</td><td class="a">F→i</td></tr>
+<tr><td class="m">$S</td><td class="m">i+)$</td><td class="a">S -&gt; TX</td></tr>
+<tr><td class="m">$XT</td><td class="m">i+)$</td><td class="a">T -&gt; FY</td></tr>
+<tr><td class="m">$XYF</td><td class="m">i+)$</td><td class="a">F -&gt; i</td></tr>
 <tr><td class="m">$XYi</td><td class="m">i+)$</td><td class="a">-</td></tr>
-<tr><td class="m">$XY</td><td class="m">+)$</td><td class="a">Y→ε</td></tr>
-<tr><td class="m">$X</td><td class="m">+)$</td><td class="a">X→+TX</td></tr>
+<tr><td class="m">$XY</td><td class="m">+)$</td><td class="a">Y -&gt; ε</td></tr>
+<tr><td class="m">$X</td><td class="m">+)$</td><td class="a">X -&gt; +TX</td></tr>
 <tr><td class="m">$XT+</td><td class="m">+)$</td><td class="a">-</td></tr>
-<tr><td class="m">$XT</td><td class="m">)$</td><td class="a">célula [T, )] vazia → Não reconhecida</td></tr></table></div>
+<tr><td class="m">$XT</td><td class="m">)$</td><td class="a">célula [T, )] vazia -&gt; Não reconhecida</td></tr></table></div>
 
 <div class="q"><div class="qh">3.4 <span class="tag slide">Slide Aula08 sl.6–18</span></div>
-Reconheça a sentença <span class="m">a + a + a</span> com a tabela da 2.2.
+<p>Seguindo nosso exemplo anterior, vamos testar o reconhecimento da sentença: a + a + a</p><p><span class="small">(tabela da 2.2)</span></p>
 <div class="two">
 <table><tr><th>Pilha</th><th>Entrada</th><th>Saída</th></tr>
-<tr><td class="m">$E</td><td class="m">a+a+a$</td><td class="a">E→TE'</td></tr>
-<tr><td class="m">$E'T</td><td class="m">a+a+a$</td><td class="a">T→a</td></tr>
+<tr><td class="m">$E</td><td class="m">a+a+a$</td><td class="a">E -&gt; TE'</td></tr>
+<tr><td class="m">$E'T</td><td class="m">a+a+a$</td><td class="a">T -&gt; a</td></tr>
 <tr><td class="m">$E'a</td><td class="m">a+a+a$</td><td class="a">-</td></tr>
-<tr><td class="m">$E'</td><td class="m">+a+a$</td><td class="a">E'→+TE'</td></tr>
+<tr><td class="m">$E'</td><td class="m">+a+a$</td><td class="a">E' -&gt; +TE'</td></tr>
 <tr><td class="m">$E'T+</td><td class="m">+a+a$</td><td class="a">-</td></tr>
-<tr><td class="m">$E'T</td><td class="m">a+a$</td><td class="a">T→a</td></tr>
+<tr><td class="m">$E'T</td><td class="m">a+a$</td><td class="a">T -&gt; a</td></tr>
 <tr><td class="m">$E'a</td><td class="m">a+a$</td><td class="a">-</td></tr></table>
 <table><tr><th>Pilha</th><th>Entrada</th><th>Saída</th></tr>
-<tr><td class="m">$E'</td><td class="m">+a$</td><td class="a">E'→+TE'</td></tr>
+<tr><td class="m">$E'</td><td class="m">+a$</td><td class="a">E' -&gt; +TE'</td></tr>
 <tr><td class="m">$E'T+</td><td class="m">+a$</td><td class="a">-</td></tr>
-<tr><td class="m">$E'T</td><td class="m">a$</td><td class="a">T→a</td></tr>
+<tr><td class="m">$E'T</td><td class="m">a$</td><td class="a">T -&gt; a</td></tr>
 <tr><td class="m">$E'a</td><td class="m">a$</td><td class="a">-</td></tr>
-<tr><td class="m">$E'</td><td class="m">$</td><td class="a">E'→ε</td></tr>
+<tr><td class="m">$E'</td><td class="m">$</td><td class="a">E' -&gt; ε</td></tr>
 <tr><td class="m">$</td><td class="m">$</td><td class="a">Reconhecida</td></tr></table>
 </div></div>
 
@@ -245,42 +291,50 @@ Reconheça a sentença <span class="m">a + a + a</span> com a tabela da 2.2.
 <h2>4. Teoria: descendente e ascendente <span class="r">— colinha §1 e §2</span></h2>
 
 <div class="q"><div class="qh">4.1 <span class="tag ava">★ AVA Q6</span></div>
-<div class="dica"><b>Como acertar:</b> a <b>a</b> e a <b>e</b> são frases do slide com um "não" enfiado. A <b>b</b> e a <b>d</b> descrevem a descendente (lado trocado). Sobra a <b>c</b>.</div>
-Assinale as afirmações corretas em relação à Análise Sintática Ascendente:
+<p>Assinale as afirmações corretas em relação à Análise Sintática Ascendente</p><p class="esc">Escolha uma ou mais:</p>
 <ul class="op">
 <li class="no">a. Nessa abordagem, não ocorre a construção de uma árvore de derivação</li>
 <li class="no">b. De uma maneira simplificada, podemos dizer que esse analisador inicia com o símbolo inicial da gramática e vai fazendo sucessivas substituições até conseguir gerar a sentença que está sendo reconhecida</li>
-<li class="ok">c. Também chamada de shift-reduce devido às sucessivas operações de substituir e reduzir que são realizadas durante o reconhecimento</li>
+<li class="ok">c. Também chamada de shift-reduce devido as sucessivas operações de substituir e reduzir que são realizadas durante o reconhecimento</li>
 <li class="no">d. Também chamada de top-down pois a árvore de derivação é montada de cima para baixo</li>
 <li class="no">e. Os analisadores LR Canônicos são os mais poderosos, mas não podem ser implementados por meio de um autômato com pilha</li>
-</ul></div>
+</ul>
+<div class="dica"><b>Como acertar:</b> a <b>a</b> e a <b>e</b> são frases do slide com um "não" enfiado. A <b>b</b> e a <b>d</b> descrevem a descendente (lado trocado). Sobra a <b>c</b>.</div></div>
 
 <div class="q"><div class="qh">4.2 <span class="tag slide">Slide Aula07 sl.3</span></div>
-Na gramática <span class="m">C → atr · C → if (E) C else C · C → if (E) C · E → exp</span>, ao obter o token <span class="m">if</span>, qual regra de produção escolher?
-<div class="ans"><b>Resposta:</b> só com o <span class="m">if</span> não dá para saber, porque as duas regras começam igual. Se escolher a errada, é preciso <b>voltar</b> (ASD com retrocesso). A solução é <b>fatorar</b> para retardar a decisão: <span class="m">C → if (E) C X · X → else C | ε</span>.</div></div>
+<pre class="g">C -&gt; atr
+C -&gt; if (E) C else C
+C -&gt; if (E) C
+E -&gt; exp</pre><p>Ao obter o token if, qual regra de produção escolher?</p>
+<div class="ans"><b>Resposta:</b> só com o <span class="m">if</span> não dá para saber, porque as duas regras começam igual. Se escolher a errada, é preciso <b>voltar</b> (ASD com retrocesso). A solução é <b>fatorar</b> para retardar a decisão: <span class="m">C -&gt; if (E) C X · X -&gt; else C | ε</span>.</div></div>
 
 <div class="q"><div class="qh">4.3 <span class="tag slide">Slide Aula07 sl.5</span></div>
-A gramática <span class="m">S → aAb | b · A → aA | B · B → bB | ε</span> tem ambiguidade? Tem recursão à esquerda? Já pode ser implementada com ASD recursiva com retrocesso?
+<p>Gramática G1</p><pre class="g">S -&gt; aAb | b
+A -&gt; aA | B
+B -&gt; bB | ε</pre><p>Tem Ambiguidade? Tem Recursão a Esquerda?</p>
 <div class="ans"><b>Resposta:</b> não tem ambiguidade · não tem recursão à esquerda · <b>sim</b>, já pode.</div></div>
 
 <div class="q"><div class="qh">4.4 <span class="tag slide">Slide Aula07 sl.9</span></div>
-Resolva a recursividade à esquerda: <span class="m">E → E+T | E-T | T · T → T*F | T/F | F · F → (E) | id</span>
-<div class="ans"><b>Resposta:</b> <span class="m">E → TE' · E' → +TE' | -TE' | ε · T → FT' · T' → *FT' | /FT' | ε · F → (E) | id</span></div></div>
+<p>Gramática G3: Resolver a Recursividade à esquerda</p><pre class="g">E -&gt; E+T | E-T | T
+T -&gt; T*F | T/F | F
+F -&gt; (E) | id</pre>
+<div class="ans"><b>Resposta:</b> <span class="m">E -&gt; TE' · E' -&gt; +TE' | -TE' | ε · T -&gt; FT' · T' -&gt; *FT' | /FT' | ε · F -&gt; (E) | id</span></div></div>
 
 <div class="q"><div class="qh">4.5 <span class="tag slide">Slide Aula09 sl.4–8</span></div>
-Reconheça <span class="m">abbcde</span> por redução com a gramática <span class="m">S → aABe · A → Abc | b · B → d</span>. Qual é o handle do último passo?
+<p>Considerando a gramática a seguir para o reconhecimento da sentença: abbcde</p><pre class="g">S -&gt; aABe
+A -&gt; Abc | b
+B -&gt; d</pre><p>Repetir o processo até que a cadeia de entrada esteja reduzida ao símbolo inicial S.</p>
 <table><tr><th>Passo</th><th>Entrada</th><th>Regra aplicada</th><th>Saída</th></tr>
-<tr><td>1</td><td class="m">abbcde</td><td class="a">A→b</td><td class="m">aAbcde</td></tr>
-<tr><td>2</td><td class="m">aAbcde</td><td class="a">A→Abc</td><td class="m">aAde</td></tr>
-<tr><td>3</td><td class="m">aAde</td><td class="a">B→d</td><td class="m">aABe</td></tr>
-<tr><td>4</td><td class="m">aABe</td><td class="a">S→aABe</td><td class="m">S (reconhecida)</td></tr></table>
+<tr><td>1</td><td class="m">abbcde</td><td class="a">A -&gt; b</td><td class="m">aAbcde</td></tr>
+<tr><td>2</td><td class="m">aAbcde</td><td class="a">A -&gt; Abc</td><td class="m">aAde</td></tr>
+<tr><td>3</td><td class="m">aAde</td><td class="a">B -&gt; d</td><td class="m">aABe</td></tr>
+<tr><td>4</td><td class="m">aABe</td><td class="a">S -&gt; aABe</td><td class="m">S (reconhecida)</td></tr></table>
 <div class="ans"><b>Handle do passo 4:</b> "aABe". É a derivação mais à direita ao contrário: S ⇒ aABe ⇒ aAde ⇒ aAbcde ⇒ abbcde.</div></div>
 
 <!-- ============ 5 ============ -->
 <h2>5. Itens, CLOSURE, GOTO <span class="r">— colinha §1 e §6</span></h2>
 
 <div class="q"><div class="qh">5.1 <span class="tag ava">★ AVA Q9</span></div>
-<div class="dica"><b>Como acertar:</b> procure a palavra-chave. "exclusivamente para o símbolo inicial" → gramática aumentada · "adicionado aos itens iniciais" → CLOSURE · "deslocando o ponto" → GOTO · "produzidos pela GOTO" → item canônico · "montar a tabela LR" → coleção canônica · "antes do primeiro" → inicial · "depois do último" → completo · "diferentes momentos" → itens de gramática.</div>
 No contexto da análise LR trabalhada na disciplina, associe os termos aos respectivos conceitos. Cada termo deve ser associado a um único conceito.
 <table><tr><th>Conceito</th><th>Termo</th></tr>
 <tr><td>Conjunto de itens canônicos utilizado para montar a tabela LR</td><td class="a">Coleção canônica</td></tr>
@@ -290,115 +344,128 @@ No contexto da análise LR trabalhada na disciplina, associe os termos aos respe
 <tr><td>Recebe por parâmetro um conjunto de itens e um símbolo terminal. Retorna os itens deslocando o ponto para a direita do terminal</td><td class="a">Função GOTO</td></tr>
 <tr><td>Conjunto de itens produzidos pela aplicação da função GOTO</td><td class="a">Item canônico</td></tr>
 <tr><td>É criado(a) ao adicionar uma nova produção exclusivamente para o símbolo inicial</td><td class="a">Gramática aumentada</td></tr>
-<tr><td>Produções da gramática em diferentes momentos, indicado pelo símbolo ponto "."</td><td class="a">Itens de gramática</td></tr></table></div>
+<tr><td>Produções da gramática em diferentes momentos, indicado pelo símbolo ponto "."</td><td class="a">Itens de gramática</td></tr></table>
+<div class="dica"><b>Como acertar:</b> procure a palavra-chave. "exclusivamente para o símbolo inicial" -&gt; gramática aumentada · "adicionado aos itens iniciais" -&gt; CLOSURE · "deslocando o ponto" -&gt; GOTO · "produzidos pela GOTO" -&gt; item canônico · "montar a tabela LR" -&gt; coleção canônica · "antes do primeiro" -&gt; inicial · "depois do último" -&gt; completo · "diferentes momentos" -&gt; itens de gramática.</div></div>
 
 <div class="q"><div class="qh">5.2 <span class="tag ava">★ AVA Q7</span></div>
-<div class="dica"><b>Como acertar:</b> o primeiro item (I0) é sempre CLOSURE(A' → .A), o que derruba a a e a d. No CLOSURE, toda regra do NT que vem depois do ponto tem que aparecer: a <b>b</b> esqueceu A → .aAa.</div>
-Dadas as produções <span class="m">A' → A · A → aAa | B · B → bAb | cc</span>, assinale as afirmações corretas em relação ao processo de determinação da coleção canônica:
+<p>Dadas as seguintes produções de uma gramática, assinale as afirmações corretas em relação ao processo de determinação da coleção canônica.</p><b><pre class="g">A' -&gt; A
+A -&gt; aAa | B
+B -&gt; bAb | cc</pre></b><p class="esc">Escolha uma ou mais:</p>
 <ul class="op">
 <li class="no">a. Essa gramática já está aumentada, portanto não precisaremos da função CLOSURE, somente da função GOTO</li>
-<li class="no">b. O retorno de CLOSURE(A' → .A) é {A' → .A, A → .B, B → .bAb, B → .cc}</li>
-<li class="ok">c. Para determinar o primeiro item canônico precisamos obter CLOSURE(A' → .A)</li>
-<li class="no">d. Para determinar o primeiro item canônico é preciso fazer GOTO({A' → .A}, a)</li>
-<li class="ok">e. O retorno de CLOSURE(A → .B) é {A → .B, B → .bAb, B → .cc}</li>
-</ul></div>
+<li class="no">b. O retorno de CLOSURE(A' -&gt; .A) é {A' -&gt; .A, A -&gt; .B, B -&gt; .bAb, B -&gt; .cc}</li>
+<li class="ok">c. Para determinar o primeiro item canônico precisamos obter CLOSURE(A' -&gt; .A)</li>
+<li class="no">d. Para determinar o primeiro item canônico é preciso fazer GOTO({A' -&gt; .A}, a)</li>
+<li class="ok">e. O retorno de CLOSURE(A -&gt; .B) é {A -&gt; .B, B -&gt; .bAb, B -&gt; .cc}</li>
+</ul>
+<div class="dica"><b>Como acertar:</b> o primeiro item (I0) é sempre CLOSURE(A' -&gt; .A), o que derruba as alternativas a e d. No CLOSURE, toda regra do NT que vem depois do ponto tem que aparecer: a alternativa <b>b</b> esqueceu A -&gt; .aAa.</div></div>
 
 <div class="q"><div class="qh">5.3 <span class="tag slide">Slide Aula09 sl.13</span></div>
-Quais itens a produção <span class="m">A → XYZ</span> gera?
-<div class="ans"><b>Resposta:</b> 4 itens: <span class="m">A → .XYZ</span> (inicial) · <span class="m">A → X.YZ</span> · <span class="m">A → XY.Z</span> · <span class="m">A → XYZ.</span> (completo)</div></div>
+Quais itens a produção <span class="m">A -&gt; XYZ</span> gera?
+<div class="ans"><b>Resposta:</b> 4 itens: <span class="m">A -&gt; .XYZ</span> (inicial) · <span class="m">A -&gt; X.YZ</span> · <span class="m">A -&gt; XY.Z</span> · <span class="m">A -&gt; XYZ.</span> (completo)</div></div>
 
-<p>As questões 5.4 a 5.7 usam a gramática dos slides, já aumentada: <span class="m">E' → E · E → E+T | T · T → T*F | F · F → (E) | id</span></p>
+<p>As questões 5.4 a 5.7 usam a gramática dos slides, já aumentada: <span class="m">E' -&gt; E · E -&gt; E+T | T · T -&gt; T*F | F · F -&gt; (E) | id</span></p>
 
 <div class="q"><div class="qh">5.4 <span class="tag slide">Slide Aula09 sl.15–20</span></div>
-Calcule <span class="m">CLOSURE({E' → .E})</span>.
-<div class="ans"><b>Resposta (I0):</b> <span class="m">{E'→.E, E→.E+T, E→.T, T→.T*F, T→.F, F→.(E), F→.id}</span></div></div>
+Calcule <span class="m">CLOSURE({E' -&gt; .E})</span>.
+<div class="ans"><b>Resposta (I0):</b> <span class="m">{E' -&gt; .E, E -&gt; .E+T, E -&gt; .T, T -&gt; .T*F, T -&gt; .F, F -&gt; .(E), F -&gt; .id}</span></div></div>
 
 <div class="q"><div class="qh">5.5 <span class="tag slide">Slide Aula09 sl.22–24</span></div>
-Se <span class="m">I = {E' → E., E → E.+T}</span>, calcule <span class="m">GOTO(I, +)</span>.
-<div class="ans"><b>Resposta:</b> <span class="m">{E→E+.T, T→.T*F, T→.F, F→.(E), F→.id}</span></div></div>
+Se <span class="m">I = {E' -&gt; E., E -&gt; E.+T}</span>, calcule <span class="m">GOTO(I, +)</span>.
+<div class="ans"><b>Resposta:</b> <span class="m">{E -&gt; E+.T, T -&gt; .T*F, T -&gt; .F, F -&gt; .(E), F -&gt; .id}</span></div></div>
 
 <div class="q"><div class="qh">5.6 <span class="tag slide">Slide Aula09 sl.26–35</span></div>
 Calcule o GOTO do I0 com todos os símbolos.
 <table><tr><th>GOTO</th><th>Resultado</th></tr>
 <tr><td>GOTO(I0, E')</td><td class="a">{ }</td></tr>
-<tr><td>GOTO(I0, E)</td><td class="a">{E'→E., E→E.+T} = I1</td></tr>
-<tr><td>GOTO(I0, T)</td><td class="a">{E→T., T→T.*F} = I2</td></tr>
-<tr><td>GOTO(I0, F)</td><td class="a">{T→F.} = I3</td></tr>
+<tr><td>GOTO(I0, E)</td><td class="a">{E' -&gt; E., E -&gt; E.+T} = I1</td></tr>
+<tr><td>GOTO(I0, T)</td><td class="a">{E -&gt; T., T -&gt; T.*F} = I2</td></tr>
+<tr><td>GOTO(I0, F)</td><td class="a">{T -&gt; F.} = I3</td></tr>
 <tr><td>GOTO(I0, +), GOTO(I0, *), GOTO(I0, ) )</td><td class="a">{ }</td></tr>
-<tr><td>GOTO(I0, ( )</td><td class="a">{F→(.E), E→.E+T, E→.T, T→.T*F, T→.F, F→.(E), F→.id} = I4</td></tr>
-<tr><td>GOTO(I0, id)</td><td class="a">{F→id.} = I5</td></tr></table></div>
+<tr><td>GOTO(I0, ( )</td><td class="a">{F -&gt; (.E), E -&gt; .E+T, E -&gt; .T, T -&gt; .T*F, T -&gt; .F, F -&gt; .(E), F -&gt; .id} = I4</td></tr>
+<tr><td>GOTO(I0, id)</td><td class="a">{F -&gt; id.} = I5</td></tr></table></div>
 
 <div class="q"><div class="qh">5.7 <span class="tag lista">Lista 9.1 a 9.6</span></div>
-9.1 a 9.5: calcule o GOTO do I1, I2, I3, I4 e I5. 9.6: continue até nenhum item novo aparecer. Os símbolos que não aparecem na tabela dão <b>{ }</b>.
+<p>Exercício 9.1 – Calcular a função GOTO do item I1. Se surgirem itens novos, adicionar I6, I7, etc, na coleção canônica. &nbsp; Exercício 9.2 – Calcular a função GOTO do item I2. &nbsp; Exercício 9.3 – Calcular a função GOTO do item I3. &nbsp; Exercício 9.4 – Calcular a função GOTO do item I4. &nbsp; Exercício 9.5 – Calcular a função GOTO do item I5.</p><p>Exercício 9.6 (50% do peso da nota) - O algoritmo para quando todos os itens (inclusive os novos) forem calculados para todos os símbolos e nenhum novo item for adicionado na coleção. Então vamos calcular a função GOTO para os itens que faltam.</p><p><span class="small">Os símbolos que não aparecem na tabela dão { }.</span></p>
 <table><tr><th>Exercício</th><th>Conjunto</th><th>GOTO que não dá vazio</th></tr>
-<tr><td>9.1</td><td class="m">I1 = {E'→E., E→E.+T}</td><td class="a">GOTO(I1, +) = {E→E+.T, T→.T*F, T→.F, F→.(E), F→.id} = <b>I6</b> (novo)</td></tr>
-<tr><td>9.2</td><td class="m">I2 = {E→T., T→T.*F}</td><td class="a">GOTO(I2, *) = {T→T*.F, F→.(E), F→.id} = <b>I7</b> (novo)</td></tr>
-<tr><td>9.3</td><td class="m">I3 = {T→F.}</td><td class="a">todos dão { }</td></tr>
-<tr><td>9.4</td><td class="m">I4 = {F→(.E), E→.E+T, …}</td><td class="a">E → {F→(E.), E→E.+T} = <b>I8</b> (novo) · T → I2 · F → I3 · ( → I4 · id → I5</td></tr>
-<tr><td>9.5</td><td class="m">I5 = {F→id.}</td><td class="a">todos dão { }</td></tr>
-<tr><td rowspan="5">9.6</td><td class="m">I6 = {E→E+.T, T→.T*F, …}</td><td class="a">T → {E→E+T., T→T.*F} = <b>I9</b> (novo) · F → I3 · ( → I4 · id → I5</td></tr>
-<tr><td class="m">I7 = {T→T*.F, F→.(E), F→.id}</td><td class="a">F → {T→T*F.} = <b>I10</b> (novo) · ( → I4 · id → I5</td></tr>
-<tr><td class="m">I8 = {F→(E.), E→E.+T}</td><td class="a">) → {F→(E).} = <b>I11</b> (novo) · + → I6</td></tr>
-<tr><td class="m">I9 = {E→E+T., T→T.*F}</td><td class="a">* → I7</td></tr>
+<tr><td>9.1</td><td class="m">I1 = {E' -&gt; E., E -&gt; E.+T}</td><td class="a">GOTO(I1, +) = {E -&gt; E+.T, T -&gt; .T*F, T -&gt; .F, F -&gt; .(E), F -&gt; .id} = <b>I6</b> (novo)</td></tr>
+<tr><td>9.2</td><td class="m">I2 = {E -&gt; T., T -&gt; T.*F}</td><td class="a">GOTO(I2, *) = {T -&gt; T*.F, F -&gt; .(E), F -&gt; .id} = <b>I7</b> (novo)</td></tr>
+<tr><td>9.3</td><td class="m">I3 = {T -&gt; F.}</td><td class="a">todos dão { }</td></tr>
+<tr><td>9.4</td><td class="m">I4 = {F -&gt; (.E), E -&gt; .E+T, …}</td><td class="a">GOTO(I4, E) = {F -&gt; (E.), E -&gt; E.+T} = <b>I8</b> (novo) · GOTO(I4, T) = I2 · GOTO(I4, F) = I3 · GOTO(I4, ( ) = I4 · GOTO(I4, id) = I5</td></tr>
+<tr><td>9.5</td><td class="m">I5 = {F -&gt; id.}</td><td class="a">todos dão { }</td></tr>
+<tr><td rowspan="5">9.6</td><td class="m">I6 = {E -&gt; E+.T, T -&gt; .T*F, …}</td><td class="a">GOTO(I6, T) = {E -&gt; E+T., T -&gt; T.*F} = <b>I9</b> (novo) · GOTO(I6, F) = I3 · GOTO(I6, ( ) = I4 · GOTO(I6, id) = I5</td></tr>
+<tr><td class="m">I7 = {T -&gt; T*.F, F -&gt; .(E), F -&gt; .id}</td><td class="a">GOTO(I7, F) = {T -&gt; T*F.} = <b>I10</b> (novo) · GOTO(I7, ( ) = I4 · GOTO(I7, id) = I5</td></tr>
+<tr><td class="m">I8 = {F -&gt; (E.), E -&gt; E.+T}</td><td class="a">GOTO(I8, ) ) = {F -&gt; (E).} = <b>I11</b> (novo) · GOTO(I8, +) = I6</td></tr>
+<tr><td class="m">I9 = {E -&gt; E+T., T -&gt; T.*F}</td><td class="a">GOTO(I9, *) = I7</td></tr>
 <tr><td class="m">I10, I11</td><td class="a">todos dão { }. Acabou: C = {I0, …, I11}</td></tr></table></div>
 
 <!-- ============ 6 ============ -->
 <h2>6. Tabela LR <span class="r">— colinha §7</span></h2>
 
 <div class="q"><div class="qh">6.1 <span class="tag ava">★ AVA Q3</span></div>
-<div class="dica"><b>Como acertar:</b> confira 4 coisas. O ponto está no fim? (a d não está.) S' → S. dá OK em $ (não é e1). O rN usa o número da regra e fica na linha do I: a regra (7) no I1 dá r7 na linha 1 (a e inverteu).</div>
-Considerando a gramática aumentada <span class="m">S' → S · (1) S → TX · (2) T → FY · (3) X → +TX · (4) X → ε · (5) F → (S) · (6) F → i · (7) Y → *FY · (8) Y → ε</span> e os FOLLOW: FOLLOW(S) = {$, )} · FOLLOW(T) = {+, $, )} · FOLLOW(X) = {$, )} · FOLLOW(F) = {*, +, $, )} · FOLLOW(Y) = {+, $, )}, assinale as afirmações corretas sobre o preenchimento das ações de redução da tabela LR:
+<p>Considerando a seguinte gramática aumentada com as produções numeradas G = ({S', S, T, X, F, Y}, {+, *, (, i, )}, P, S')</p><pre class="g">P : { S' -&gt; S
+(1) S -&gt; TX
+(2) T -&gt; FY
+(3) X -&gt; +TX
+(4) X -&gt; ε
+(5) F -&gt; (S)
+(6) F -&gt; i
+(7) Y -&gt; *FY
+(8) Y -&gt; ε}</pre><p>Dados os seguintes valores do FOLLOW:</p><pre class="g">FOLLOW(S) = {$, )}
+FOLLOW(T) = {+, $, )}
+FOLLOW(X) = {$, )}
+FOLLOW(F) = {*, +, $, )}
+FOLLOW(Y) = {+, $, )}</pre><p>Assinale as afirmações corretas em relação a preenchimento das ações de redução da tabela LR.</p><p class="esc">Escolha uma ou mais:</p>
 <ul class="op">
-<li class="ok">a. Se o item canônico I1 = {Y → *FY.} então é preciso preencher r7 nas células da linha 1 com as colunas +, $ e )</li>
-<li class="ok">b. Se o item canônico I2 = {S' → S., X → +.TX} então é preciso preencher OK na célula da linha 2 com a coluna $</li>
-<li class="no">c. Se o item canônico I2 = {S' → S., X → +.TX} então é preciso preencher e1 na célula da linha 2 com a coluna $</li>
-<li class="no">d. Se o item canônico I3 = {F → (.S)} então é preciso preencher r5 nas células da linha 3 com as colunas *, +, $ e )</li>
-<li class="no">e. Se o item canônico I1 = {Y → *FY.} então é preciso preencher r1 nas células da linha 7 com as colunas +, $ e )</li>
-</ul></div>
+<li class="ok">a. Se o item canônico I1 = {Y -&gt; *FY.} então é preciso preencher r7 nas células da linha 1 com as colunas +, $ e )</li>
+<li class="ok">b. Se o item canônico I2 = {S' -&gt; S., X -&gt; +.TX} então é preciso preencher OK na célula da linha 2 com a coluna $</li>
+<li class="no">c. Se o item canônico I2 = {S' -&gt; S., X -&gt; +.TX} então é preciso preencher e1 na célula da linha 2 com a coluna $</li>
+<li class="no">d. Se o item canônico I3 = {F -&gt; (.S)} então é preciso preencher r5 nas células da linha 3 com as colunas *, +, $ e )</li>
+<li class="no">e. Se o item canônico I1 = {Y -&gt; *FY.} então é preciso preencher r1 nas células da linha 7 com as colunas +, $ e )</li>
+</ul>
+<div class="dica"><b>Como acertar:</b> confira 4 coisas. O ponto está no fim? (Na alternativa d não está.) S' -&gt; S. dá OK em $ (não é e1). O rN usa o número da regra e fica na linha do I: a regra (7) no I1 dá r7 na linha 1 (a alternativa e inverteu).</div></div>
 
 <div class="q"><div class="qh">6.2 <span class="tag ava">★ AVA Q8</span></div>
-<div class="dica"><b>Como acertar:</b> eN → IN · número embaixo de A ou B → IN · rN ou vazio → "-".</div>
-Dada a tabela LR a seguir, faça o processo inverso de preenchimento e descubra quais foram os resultados das aplicações das funções GOTO.
-<div class="two">
-<table class="c"><tr><th>Est.</th><th>a</th><th>b</th><th>c</th><th>$</th><th>A</th><th>B</th></tr>
+<p>Dada a tabela LR a seguir, faça o processo inverso de preenchimento e descubra quais foram os resultados das aplicações das funções GOTO.</p>
+<table class="c"><tr><th rowspan="2">Estados</th><th colspan="4">Ações</th><th colspan="2">Transições</th></tr>
+<tr><th>a</th><th>b</th><th>c</th><th>$</th><th>A</th><th>B</th></tr>
 <tr><td>0</td><td></td><td>e1</td><td></td><td></td><td></td><td></td></tr>
 <tr><td>1</td><td></td><td>r1</td><td>e2</td><td></td><td>1</td><td>2</td></tr>
 <tr><td>2</td><td></td><td>r2</td><td></td><td>e3</td><td></td><td></td></tr></table>
-<table class="c"><tr><th>GOTO</th><th>a</th><th>b</th><th>c</th><th>$</th><th>A</th><th>B</th></tr>
-<tr><td>I0</td><td class="a">-</td><td class="a">I1</td><td class="a">-</td><td class="a">-</td><td class="a">-</td><td class="a">-</td></tr>
-<tr><td>I1</td><td class="a">-</td><td class="a">-</td><td class="a">I2</td><td class="a">-</td><td class="a">I1</td><td class="a">I2</td></tr>
-<tr><td>I2</td><td class="a">-</td><td class="a">-</td><td class="a">-</td><td class="a">I3</td><td class="a">-</td><td class="a">-</td></tr></table>
-</div>
-<p class="small">Leia assim: GOTO(I1, c) = I2. Onde a tabela tem r1 ou r2, a resposta é "-", porque redução não vem de GOTO.</p></div>
+<div class="two"><div class="gl"><div>GOTO( I0, a ) produziu <span class="rb">-</span></div><div>GOTO( I0, b ) produziu <span class="rb">I1</span></div><div>GOTO( I0, c ) produziu <span class="rb">-</span></div><div>GOTO( I0, $ ) produziu <span class="rb">-</span></div><div>GOTO( I0, A ) produziu <span class="rb">-</span></div><div>GOTO( I0, B ) produziu <span class="rb">-</span></div></div>
+<div class="gl"><div>GOTO( I1, a ) produziu <span class="rb">-</span></div><div>GOTO( I1, b ) produziu <span class="rb">-</span></div><div>GOTO( I1, c ) produziu <span class="rb">I2</span></div><div>GOTO( I1, $ ) produziu <span class="rb">-</span></div><div>GOTO( I1, A ) produziu <span class="rb">I1</span></div><div>GOTO( I1, B ) produziu <span class="rb">I2</span></div></div>
+<div class="gl"><div>GOTO( I2, a ) produziu <span class="rb">-</span></div><div>GOTO( I2, b ) produziu <span class="rb">-</span></div><div>GOTO( I2, c ) produziu <span class="rb">-</span></div><div>GOTO( I2, $ ) produziu <span class="rb">I3</span></div><div>GOTO( I2, A ) produziu <span class="rb">-</span></div><div>GOTO( I2, B ) produziu <span class="rb">-</span></div></div></div><p class="ops">Opções para arrastar: <span class="op1">I1</span> <span class="op1">I3</span> <span class="op1">-</span> <span class="op1">I2</span></p>
+<p class="small">Leia assim: GOTO(I1, c) = I2. Onde a tabela tem r1 ou r2, a resposta é "-", porque redução não vem de GOTO.</p>
+<div class="dica"><b>Como acertar:</b> eN vira IN · número embaixo de A ou B vira IN · rN ou vazio vira "-".</div></div>
 
-<p>As questões 6.3 e 6.4 usam a gramática dos slides, com as regras numeradas: (OK) E'→E · (r1) E→E+T · (r2) E→T · (r3) T→T*F · (r4) T→F · (r5) F→(E) · (r6) F→id. FOLLOW(E) = {+, ), $} · FOLLOW(T) = FOLLOW(F) = {+, *, ), $}.</p>
+<p>As questões 6.3 e 6.4 usam a gramática dos slides, com as regras numeradas: (OK) E' -&gt; E · (r1) E -&gt; E+T · (r2) E -&gt; T · (r3) T -&gt; T*F · (r4) T -&gt; F · (r5) F -&gt; (E) · (r6) F -&gt; id. FOLLOW(E) = {+, ), $} · FOLLOW(T) = FOLLOW(F) = {+, *, ), $}.</p>
 
 <div class="q"><div class="qh">6.3 <span class="tag lista">Lista 10.1</span></div>
-Liste todos os itens canônicos (qual GOTO gerou qual item) e preencha as ações de empilha e as transições.
+<p>Exercício 10.1. Listar todos os itens canônicos (qual goto gerou qual item). Depois preencher a tabela de ações empilha e transições e conferir com o resultado esperado.</p>
 <div class="ans"><b>GOTOs:</b> (I0,E)=I1 · (I0,T)=I2 · (I0,F)=I3 · (I0,( )=I4 · (I0,id)=I5 · (I1,+)=I6 · (I2,*)=I7 · (I4,E)=I8 · (I4,T)=I2 · (I4,F)=I3 · (I4,( )=I4 · (I4,id)=I5 · (I6,T)=I9 · (I6,F)=I3 · (I6,( )=I4 · (I6,id)=I5 · (I7,F)=I10 · (I7,( )=I4 · (I7,id)=I5 · (I8,) )=I11 · (I8,+)=I6 · (I9,*)=I7</div>
 <p>A tabela completa, com as reduções da 10.2 junto, está na 6.4: as células <b>e</b> e os números das transições são a resposta da 10.1.</p></div>
 
 <div class="q"><div class="qh">6.4 <span class="tag lista">Lista 10.2</span></div>
-Preencha a tabela com as ações de redução. Resposta: tabela completa (10.1 + 10.2).
+<p>Exercício 10.2. Preencher a tabela com as ações de redução e conferir com o resultado esperado.</p><p><span class="small">Tabela completa (10.1 + 10.2):</span></p>
 <table class="c"><tr><th>Est.</th><th>id</th><th>+</th><th>*</th><th>(</th><th>)</th><th>$</th><th>E</th><th>T</th><th>F</th><th>Reduções vêm de</th></tr>
 <tr><td>0</td><td>e5</td><td></td><td></td><td>e4</td><td></td><td></td><td>1</td><td>2</td><td>3</td><td></td></tr>
-<tr><td>1</td><td></td><td>e6</td><td></td><td></td><td></td><td class="a">OK</td><td></td><td></td><td></td><td>E'→E.</td></tr>
-<tr><td>2</td><td></td><td class="a">r2</td><td>e7</td><td></td><td class="a">r2</td><td class="a">r2</td><td></td><td></td><td></td><td>E→T. (FOLLOW(E))</td></tr>
-<tr><td>3</td><td></td><td class="a">r4</td><td class="a">r4</td><td></td><td class="a">r4</td><td class="a">r4</td><td></td><td></td><td></td><td>T→F. (FOLLOW(T))</td></tr>
+<tr><td>1</td><td></td><td>e6</td><td></td><td></td><td></td><td class="a">OK</td><td></td><td></td><td></td><td>E' -&gt; E.</td></tr>
+<tr><td>2</td><td></td><td class="a">r2</td><td>e7</td><td></td><td class="a">r2</td><td class="a">r2</td><td></td><td></td><td></td><td>E -&gt; T. (FOLLOW(E))</td></tr>
+<tr><td>3</td><td></td><td class="a">r4</td><td class="a">r4</td><td></td><td class="a">r4</td><td class="a">r4</td><td></td><td></td><td></td><td>T -&gt; F. (FOLLOW(T))</td></tr>
 <tr><td>4</td><td>e5</td><td></td><td></td><td>e4</td><td></td><td></td><td>8</td><td>2</td><td>3</td><td></td></tr>
-<tr><td>5</td><td></td><td class="a">r6</td><td class="a">r6</td><td></td><td class="a">r6</td><td class="a">r6</td><td></td><td></td><td></td><td>F→id. (FOLLOW(F))</td></tr>
+<tr><td>5</td><td></td><td class="a">r6</td><td class="a">r6</td><td></td><td class="a">r6</td><td class="a">r6</td><td></td><td></td><td></td><td>F -&gt; id. (FOLLOW(F))</td></tr>
 <tr><td>6</td><td>e5</td><td></td><td></td><td>e4</td><td></td><td></td><td></td><td>9</td><td>3</td><td></td></tr>
 <tr><td>7</td><td>e5</td><td></td><td></td><td>e4</td><td></td><td></td><td></td><td></td><td>10</td><td></td></tr>
 <tr><td>8</td><td></td><td>e6</td><td></td><td></td><td>e11</td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><td>9</td><td></td><td class="a">r1</td><td>e7</td><td></td><td class="a">r1</td><td class="a">r1</td><td></td><td></td><td></td><td>E→E+T. (FOLLOW(E))</td></tr>
-<tr><td>10</td><td></td><td class="a">r3</td><td class="a">r3</td><td></td><td class="a">r3</td><td class="a">r3</td><td></td><td></td><td></td><td>T→T*F. (FOLLOW(T))</td></tr>
-<tr><td>11</td><td></td><td class="a">r5</td><td class="a">r5</td><td></td><td class="a">r5</td><td class="a">r5</td><td></td><td></td><td></td><td>F→(E). (FOLLOW(F))</td></tr></table></div>
+<tr><td>9</td><td></td><td class="a">r1</td><td>e7</td><td></td><td class="a">r1</td><td class="a">r1</td><td></td><td></td><td></td><td>E -&gt; E+T. (FOLLOW(E))</td></tr>
+<tr><td>10</td><td></td><td class="a">r3</td><td class="a">r3</td><td></td><td class="a">r3</td><td class="a">r3</td><td></td><td></td><td></td><td>T -&gt; T*F. (FOLLOW(T))</td></tr>
+<tr><td>11</td><td></td><td class="a">r5</td><td class="a">r5</td><td></td><td class="a">r5</td><td class="a">r5</td><td></td><td></td><td></td><td>F -&gt; (E). (FOLLOW(F))</td></tr></table></div>
 
 <!-- ============ 7 ============ -->
 <h2>7. Pilha da análise LR <span class="r">— colinha §8</span></h2>
 
 <div class="q"><div class="qh">7.1 <span class="tag slide">Slide Aula10 sl.13–26</span></div>
-Reconheça a entrada <span class="m">id*id+id</span> com a tabela da 6.4.
+<p>Reconhecer a entrada: id*id+id</p><p><span class="small">(tabela da 6.4)</span></p>
 <table><tr><th>Pilha</th><th>Símbolos</th><th>Entrada</th><th>Ação</th></tr>
 <tr><td class="m">0</td><td></td><td class="m">id*id+id$</td><td class="a">e5</td></tr>
 <tr><td class="m">0 5</td><td class="m">id</td><td class="m">*id+id$</td><td class="a">r6</td></tr>
@@ -416,7 +483,7 @@ Reconheça a entrada <span class="m">id*id+id</span> com a tabela da 6.4.
 <tr><td class="m">0 1</td><td class="m">E</td><td class="m">$</td><td class="a">OK (reconhecida)</td></tr></table></div>
 
 <div class="q"><div class="qh">7.2 <span class="tag lista">Lista 10.3</span></div>
-Reconheça a entrada <span class="m">id*(id</span> com a tabela da 6.4.
+<p>Exercício 10.3. Reconhecer a entrada: id*(id</p><p><span class="small">(tabela da 6.4)</span></p>
 <table><tr><th>Pilha</th><th>Símbolos</th><th>Entrada</th><th>Ação</th></tr>
 <tr><td class="m">0</td><td></td><td class="m">id*(id$</td><td class="a">e5</td></tr>
 <tr><td class="m">0 5</td><td class="m">id</td><td class="m">*(id$</td><td class="a">r6</td></tr>
@@ -427,35 +494,35 @@ Reconheça a entrada <span class="m">id*(id</span> com a tabela da 6.4.
 <tr><td class="m">0 2 7 4 5</td><td class="m">T*(id</td><td class="m">$</td><td class="a">r6</td></tr>
 <tr><td class="m">0 2 7 4 3</td><td class="m">T*(F</td><td class="m">$</td><td class="a">r4</td></tr>
 <tr><td class="m">0 2 7 4 2</td><td class="m">T*(T</td><td class="m">$</td><td class="a">r2</td></tr>
-<tr><td class="m">0 2 7 4 8</td><td class="m">T*(E</td><td class="m">$</td><td class="a">célula [8, $] vazia → erro, não reconhecida (faltou o ")")</td></tr></table></div>
+<tr><td class="m">0 2 7 4 8</td><td class="m">T*(E</td><td class="m">$</td><td class="a">célula [8, $] vazia -&gt; erro, não reconhecida (faltou o ")")</td></tr></table></div>
 
 <!-- ============ 8 ============ -->
 <h2>8. Lex / Flex <span class="r">— colinha §9</span></h2>
 
 <div class="q"><div class="qh">8.1 <span class="tag ava">★ AVA Q5</span></div>
-<div class="dica"><b>Como acertar:</b> %{ %} guarda código C copiado (constantes), e as ações ficam entre os %% (a b é falsa). {numero} pede uma definição chamada numero (a c é falsa). O Lex gera um programa em C, não lê o texto (a a é falsa).</div>
-Assinale as afirmações verdadeiras em relação ao gerador de analisador léxico LEX ou FLEX:
+<p>Assinale as afirmações verdadeiras em relação ao gerador de analisador léxico LEX ou FLEX</p><p class="esc">Escolha uma ou mais:</p>
 <ul class="op">
 <li class="no">a. O programa Gnu Lex recebe como entrada um arquivo .lex e um arquivo .txt, a seguir ele lê cada linha do arquivo texto e extrai os tokens de acordo com a interpretação do arquivo lex</li>
 <li class="no">b. No arquivo fonte lex, a região iniciada por %{ e finalizada por %} serve para descrever a ação a ser tomada quando o padrão for reconhecido</li>
 <li class="no">c. A seguinte regra de tradução é válida desde que exista uma definição regular para a expressão NUM: <span class="m">{numero} {return (NUM);}</span></li>
 <li class="ok">d. No arquivo fonte lex, a região iniciada por %{ e finalizada por %} possibilita declarar constantes que serão copiadas sem modificações ao código C</li>
 <li class="ok">e. No arquivo fonte lex é possível especificar definições regulares reutilizando outras definições especificadas anteriormente, como por exemplo <span class="m">n_real {digito}.{digito}+</span></li>
-</ul></div>
+</ul>
+<div class="dica"><b>Como acertar:</b> %{ %} guarda código C copiado (constantes), e as ações ficam entre os %%, por isso a alternativa b é falsa. {numero} pede uma definição chamada numero, por isso a c é falsa. O Lex gera um programa em C e não lê o texto, por isso a alternativa a é falsa.</div></div>
 
 <!-- ============ 9 ============ -->
 <h2>9. Análise semântica <span class="r">— colinha §1 e §10</span></h2>
 
 <div class="q"><div class="qh">9.1 <span class="tag ava">★ AVA Q4</span></div>
-<div class="dica"><b>Como acertar:</b> slide 17 da Aula11: "as ações semânticas … serão responsáveis por inserir os identificadores na Tabela de Símbolos".</div>
-Dentre as afirmativas abaixo, de qual delas é a responsabilidade por acrescentar identificadores na Tabela de Símbolos:
+<p>Dentre as afirmativas abaixo, de qual delas é a responsabilidade por acrescentar identificadores na Tabela de Símbolos:</p><p class="esc">Escolha uma opção:</p>
 <ul class="op">
 <li class="no">a. Da função CLOSURE</li>
 <li class="no">b. Da árvore de parse anotada</li>
 <li class="no">c. Da função GOTO</li>
 <li class="no">d. Das verificações estáticas e dinâmicas</li>
 <li class="ok">e. Das ações semânticas</li>
-</ul></div>
+</ul>
+<div class="dica"><b>Como acertar:</b> slide 17 da Aula11: "as ações semânticas … serão responsáveis por inserir os identificadores na Tabela de Símbolos".</div></div>
 
 <div class="q"><div class="qh">9.2 <span class="tag slide">Slide Aula11 sl.3</span></div>
 Considerando <span class="m">C = A + B;</span>, quais os possíveis problemas semânticos?

@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <title>Simulado Prova 2 LFC</title>
 <style>
-@page { size: A4; margin: 9mm 10mm; }
+@page { size: A4; margin: 7mm 9mm; }
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; background: #fff; color: #111; }
-body { font-family: "Segoe UI", Arial, sans-serif; font-size: 8.6pt; line-height: 1.3;
+body { font-family: "Segoe UI", Arial, sans-serif; font-size: 8.3pt; line-height: 1.25;
   -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 h1 { font-size: 13pt; margin: 0 0 1mm; color: #12385e; }
 h2 { font-size: 10.5pt; background: #12385e; color: #fff; padding: 1mm 2mm; margin: 4mm 0 1.5mm; break-after: avoid; }
@@ -41,91 +41,134 @@ table.vf { width: 100%; }
 table.vf td:last-child { width: 10mm; text-align: center; font-weight: 700; }
 td.v { color: #0f4d12; background: #e3f3e3; }
 td.f { color: #8a1515; background: #fde8e8; }
+pre.g { font-family: "Segoe UI", Arial, sans-serif; font-size: 8.3pt; line-height: 1.15; margin: 0.6mm 0; white-space: pre-wrap; }
+.esc { margin: 0.8mm 0 0.4mm; color: #333; }
+.ops { margin: 0.8mm 0; }
+.op1 { border: 0.5pt solid #777; padding: 0 1.2mm; margin: 0 0.4mm; white-space: nowrap; }
+.gl div { margin: 1.1mm 0; }
+.rb { border: 0.5pt solid #2e7d32; background: #dff0df; color: #0f4d12; font-weight: 700; padding: 0 1.2mm; }
+table.c td { white-space: nowrap; }
 </style>
 </head>
 <body>
 
 <h1>Simulado — Prova 2 · Linguagens Formais e Compiladores</h1>
-<p>Questões novas no estilo do professor: mesmos formatos das questões do AVA, com a gramática, os símbolos ou a alternativa trocados. A resposta certa está em <b style="color:#0f4d12">verde com ✔</b>. A linha <b>"Como acertar"</b> mostra o atalho, e a etiqueta <span class="tag peg">pegadinha</span> indica onde o professor costuma enganar. Blocos iguais aos do PDF "Questões Prova 2".</p>
+<p>Questões novas <b>criadas para treino</b>: o enunciado segue o modelo do professor (AVA e listas), e a gramática, os símbolos ou as alternativas mudam. As S4.6 e S9.6 são questões reais dele, da Prova 1. A resposta certa está em <b style="color:#0f4d12">verde com ✔</b>. A linha <b>"Como acertar"</b> mostra o atalho, e a etiqueta <span class="tag peg">pegadinha</span> indica onde o professor costuma enganar. Blocos iguais aos do PDF "Questões Prova 2".</p>
 
 <!-- ========== 1 ========== -->
 <h2>1. FIRST e FOLLOW <span class="r">— colinha §3</span></h2>
 
-<div class="q"><div class="qh">S1.1 <span class="tag">escolha uma opção</span> <span class="tag peg">pegadinha: FIRST com 2 símbolos e $ no lugar errado</span></div>
-Dada a gramática <span class="m">P → p ( Q ) R · Q → q | q Q · R → r | p | p R</span>, assinale a opção que apresenta corretamente os conjuntos FIRST e FOLLOW:
+<div class="q"><div class="qh">S1.1 <span class="tag peg">pegadinha: $ a mais no FOLLOW e FIRST incompleto</span></div>
+<p>Dada a Gramática a seguir, assinale a opção que apresenta corretamente os conjuntos FIRST e FOLLOW:</p><pre class="g">G = (N, T, P, D)
+N = {D, E, F}
+T = {p, q, r, (, )}
+P = {
+    D -&gt; p ( E ) F
+    E -&gt; q | q E
+    F -&gt; r | p | p F
+}</pre><p class="esc">Escolha uma opção:</p>
 <ul class="op">
-<li class="no">a. FIRST(P) = {p, (} · FIRST(Q) = {q} · FIRST(R) = {r, p} — FOLLOW(P) = {$} · FOLLOW(Q) = {)} · FOLLOW(R) = {$}</li>
-<li class="no">b. FIRST(P) = {p} · FIRST(Q) = {q} · FIRST(R) = {r, p} — FOLLOW(P) = {$} · FOLLOW(Q) = {), $} · FOLLOW(R) = {$}</li>
-<li class="ok">c. FIRST(P) = {p} · FIRST(Q) = {q} · FIRST(R) = {r, p} — FOLLOW(P) = {$} · FOLLOW(Q) = {)} · FOLLOW(R) = {$}</li>
-<li class="no">d. FIRST(P) = {p} · FIRST(Q) = {q} · FIRST(R) = {r} — FOLLOW(P) = {$} · FOLLOW(Q) = {)} · FOLLOW(R) = {$}</li>
-<li class="no">e. FIRST(P) = {$} · FIRST(Q) = {)} · FIRST(R) = {$} — FOLLOW(P) = {p} · FOLLOW(Q) = {q} · FOLLOW(R) = {r, p}</li>
+<li class="no">a. FIRST(D) = {p, (} · FIRST(E) = {q} · FIRST(F) = {r, p}<br>&emsp;&emsp;FOLLOW(D) = {$} · FOLLOW(E) = {)} · FOLLOW(F) = {$}</li>
+<li class="no">b. FIRST(D) = {p} · FIRST(E) = {q} · FIRST(F) = {r, p}<br>&emsp;&emsp;FOLLOW(D) = {$} · FOLLOW(E) = {), $} · FOLLOW(F) = {$}</li>
+<li class="ok">c. FIRST(D) = {p} · FIRST(E) = {q} · FIRST(F) = {r, p}<br>&emsp;&emsp;FOLLOW(D) = {$} · FOLLOW(E) = {)} · FOLLOW(F) = {$}</li>
+<li class="no">d. FIRST(D) = {p} · FIRST(E) = {q} · FIRST(F) = {r}<br>&emsp;&emsp;FOLLOW(D) = {$} · FOLLOW(E) = {)} · FOLLOW(F) = {$}</li>
+<li class="no">e. FIRST(D) = {$} · FIRST(E) = {)} · FIRST(F) = {$}<br>&emsp;&emsp;FOLLOW(D) = {p} · FOLLOW(E) = {q} · FOLLOW(F) = {r, p}</li>
 </ul>
-<div class="dica"><b>Como acertar:</b> o P só começa com p (o parêntese vem depois), logo a "a" sai. Q só aparece antes do ")", então FOLLOW(Q) = {)}, e a "b" sai. R tem três regras: r, p e pR, então FIRST(R) = {r, p}, e a "d" sai. A "e" tem $ no FIRST, sai.</div></div>
+<div class="dica"><b>Como acertar:</b> a "e" tem $ no FIRST: sai. D só começa com p, então a "a" sai. F tem regras que começam com r e com p, então a "d" sai. E só aparece antes do ")", então FOLLOW(E) = {)} e a "b" sai.</div></div>
 
-<div class="q"><div class="qh">S1.2 <span class="tag">escolha uma opção</span> <span class="tag peg">pegadinha: ε no FOLLOW e FOLLOW que some</span></div>
-Dada a gramática <span class="m">S → a B D · B → b | ε · D → d</span>, assinale a opção correta:
+<div class="q"><div class="qh">S1.2 <span class="tag peg">pegadinha: ε no FOLLOW e $ a mais</span></div>
+<p>Dada a Gramática a seguir, assinale a opção que apresenta corretamente os conjuntos FIRST e FOLLOW:</p><pre class="g">G = (N, T, P, S)
+N = {S, B, D}
+T = {a, b, d}
+P = {
+    S -&gt; a B D
+    B -&gt; b | ε
+    D -&gt; d
+}</pre><p class="esc">Escolha uma opção:</p>
 <ul class="op">
-<li class="no">a. FIRST(B) = {b} · FOLLOW(B) = {d}</li>
-<li class="ok">b. FIRST(B) = {b, ε} · FOLLOW(B) = {d}</li>
-<li class="no">c. FIRST(B) = {b, ε} · FOLLOW(B) = {d, $}</li>
-<li class="no">d. FIRST(B) = {b, ε} · FOLLOW(B) = {d, ε}</li>
-<li class="no">e. FIRST(B) = {b, d} · FOLLOW(B) = {$}</li>
+<li class="no">a. FIRST(S) = {a} · FIRST(B) = {b} · FIRST(D) = {d}<br>&emsp;&emsp;FOLLOW(S) = {$} · FOLLOW(B) = {d} · FOLLOW(D) = {$}</li>
+<li class="ok">b. FIRST(S) = {a} · FIRST(B) = {b, ε} · FIRST(D) = {d}<br>&emsp;&emsp;FOLLOW(S) = {$} · FOLLOW(B) = {d} · FOLLOW(D) = {$}</li>
+<li class="no">c. FIRST(S) = {a} · FIRST(B) = {b, ε} · FIRST(D) = {d}<br>&emsp;&emsp;FOLLOW(S) = {$} · FOLLOW(B) = {d, $} · FOLLOW(D) = {$}</li>
+<li class="no">d. FIRST(S) = {a} · FIRST(B) = {b, ε} · FIRST(D) = {d}<br>&emsp;&emsp;FOLLOW(S) = {$} · FOLLOW(B) = {d, ε} · FOLLOW(D) = {$}</li>
+<li class="no">e. FIRST(S) = {a, b} · FIRST(B) = {b, ε} · FIRST(D) = {d}<br>&emsp;&emsp;FOLLOW(S) = {$} · FOLLOW(B) = {d} · FOLLOW(D) = {d}</li>
 </ul>
-<div class="dica"><b>Como acertar:</b> B → ε obriga ε no FIRST (a "a" e a "e" saem). O FOLLOW nunca tem ε (a "d" sai). Depois de B vem D, e D não pode sumir, então não se copia o FOLLOW(S): a "c" sai.</div></div>
+<div class="dica"><b>Como acertar:</b> B -&gt; ε obriga ε no FIRST(B): a "a" sai. FOLLOW nunca tem ε: a "d" sai. S só começa com a: a "e" sai. Depois de B vem D, que não some, então não se copia o FOLLOW(S): a "c" sai.</div></div>
 
-<div class="q"><div class="qh">S1.3 <span class="tag">escolha uma opção</span> <span class="tag peg">pegadinha: o parêntese fecha no FOLLOW</span></div>
-Dada a gramática <span class="m">E → T G · G → - T G | ε · T → ( E ) | num</span>, assinale a opção correta:
+<div class="q"><div class="qh">S1.3 <span class="tag peg">pegadinha: o parêntese que entra no FOLLOW</span></div>
+<p>Dada a Gramática a seguir, assinale a opção que apresenta corretamente os conjuntos FIRST e FOLLOW:</p><pre class="g">G = (N, T, P, E)
+N = {E, G, T}
+T = {-, (, ), num}
+P = {
+    E -&gt; T G
+    G -&gt; - T G | ε
+    T -&gt; ( E ) | num
+}</pre><p class="esc">Escolha uma opção:</p>
 <ul class="op">
-<li class="no">a. FIRST(G) = {-} · FOLLOW(T) = {-, $, )}</li>
-<li class="no">b. FOLLOW(T) = {-} · FOLLOW(G) = {$, )}</li>
-<li class="no">c. FOLLOW(E) = {$} · FOLLOW(G) = {$}</li>
-<li class="ok">d. FIRST(T) = {(, num} · FOLLOW(E) = {$, )} · FOLLOW(T) = {-, $, )}</li>
-<li class="no">e. FIRST(E) = {E, num} · FOLLOW(G) = {-, $, )}</li>
+<li class="no">a. FIRST(E) = {(, num} · FIRST(G) = {-} · FIRST(T) = {(, num}<br>&emsp;&emsp;FOLLOW(E) = {$, )} · FOLLOW(G) = {$, )} · FOLLOW(T) = {-, $, )}</li>
+<li class="no">b. FIRST(E) = {(, num} · FIRST(G) = {-, ε} · FIRST(T) = {(, num}<br>&emsp;&emsp;FOLLOW(E) = {$, )} · FOLLOW(G) = {$, )} · FOLLOW(T) = {-}</li>
+<li class="no">c. FIRST(E) = {(, num} · FIRST(G) = {-, ε} · FIRST(T) = {(, num}<br>&emsp;&emsp;FOLLOW(E) = {$} · FOLLOW(G) = {$} · FOLLOW(T) = {-, $}</li>
+<li class="ok">d. FIRST(E) = {(, num} · FIRST(G) = {-, ε} · FIRST(T) = {(, num}<br>&emsp;&emsp;FOLLOW(E) = {$, )} · FOLLOW(G) = {$, )} · FOLLOW(T) = {-, $, )}</li>
+<li class="no">e. FIRST(E) = {(, num} · FIRST(G) = {-, ε} · FIRST(T) = {(, num}<br>&emsp;&emsp;FOLLOW(E) = {$, )} · FOLLOW(G) = {-, $, )} · FOLLOW(T) = {-, $, )}</li>
 </ul>
-<div class="dica"><b>Como acertar:</b> o FOLLOW(E) tem ")" porque E aparece em ( E ). Como G pode sumir, o FOLLOW(T) = FIRST(G) sem ε + FOLLOW(E). A "e" põe uma maiúscula no FIRST, o que nunca acontece.</div></div>
+<div class="dica"><b>Como acertar:</b> G -&gt; ε obriga ε no FIRST(G): a "a" sai. E aparece em ( E ), então o ")" entra no FOLLOW(E): a "c" sai. G é sempre o último, então FOLLOW(G) = FOLLOW(E), sem "-": a "e" sai. Como G some, T também copia o FOLLOW(E): a "b" sai.</div></div>
 
 <div class="q"><div class="qh">S1.4 <span class="tag">determine</span></div>
-Determine FIRST e FOLLOW: <span class="m">S → A b | c · A → a A | ε</span>
+<p>Determine os conjuntos FIRST e FOLLOW da gramática a seguir:</p><pre class="g">G4: { S -&gt; A b | c
+        A -&gt; a A | ε}</pre>
 <div class="ans"><b>Resposta:</b> FIRST(S) = {a, b, c} (o A some, então entra o b) · FIRST(A) = {a, ε}<br>
 FOLLOW(S) = {$} · FOLLOW(A) = {b}</div></div>
 
 <div class="q"><div class="qh">S1.5 <span class="tag">determine</span> (a mesma estrutura do slide, com operadores trocados)</div>
-Determine FIRST e FOLLOW: <span class="m">X → Y W · W → or Y W | ε · Y → Z K · K → and Z K | ε · Z → not Z | true</span>
+<p>Determine os conjuntos FIRST e FOLLOW da gramática a seguir:</p><pre class="g">G5: { X -&gt; Y W
+        W -&gt; or Y W | ε
+        Y -&gt; Z K
+        K -&gt; and Z K | ε
+        Z -&gt; not Z | true}</pre>
 <div class="ans"><b>Resposta:</b> FIRST(X) = FIRST(Y) = FIRST(Z) = {not, true} · FIRST(W) = {or, ε} · FIRST(K) = {and, ε}<br>
 FOLLOW(X) = {$} · FOLLOW(W) = {$} · FOLLOW(Y) = {or, $} · FOLLOW(K) = {or, $} · FOLLOW(Z) = {and, or, $}</div></div>
 
 <!-- ========== 2 ========== -->
 <h2>2. Tabela preditiva <span class="r">— colinha §4</span></h2>
 
-<div class="q"><div class="qh">S2.1 <span class="tag">arraste as produções</span> <span class="tag peg">pegadinha: onde vai o A → ε</span></div>
-Dada a gramática <span class="m">S → 0 A 1 · A → B 2 | ε · B → 3 | 4 S</span>, determine FIRST e FOLLOW e preencha a tabela preditiva. Use "-" nas células que não devem ser preenchidas.
-<div class="ans"><b>FIRST/FOLLOW:</b> FIRST(S) = {0} · FIRST(A) = {3, 4, ε} · FIRST(B) = {3, 4} — FOLLOW(S) = {$, 2} (S é o último em B → 4S, então copia o FOLLOW(B) = {2}) · FOLLOW(A) = {1} · FOLLOW(B) = {2}</div>
+<div class="q"><div class="qh">S2.1 <span class="tag">arraste as produções</span> <span class="tag peg">pegadinha: onde vai o A -&gt; ε</span></div>
+<p>Dada a seguinte gramática: G = ({S, A, B}, {0, 1, 2, 3, 4}, P, S)</p><pre class="g">P = {
+S -&gt; 0A1
+A -&gt; B2 | ε
+B -&gt; 3 | 4S}</pre><p>Determine os conjuntos FIRST e FOLLOW e em seguida arraste as produções correspondentes a cada uma das células da tabela preditiva a seguir.</p><p>Obs.: Se você julgar que uma célula não deve ser preenchida arraste a opção "-".</p><p class="ops">Opções para arrastar: <span class="op1">S -&gt; 0A1</span> <span class="op1">A -&gt; B2</span> <span class="op1">A -&gt; ε</span> <span class="op1">B -&gt; 3</span> <span class="op1">B -&gt; 4S</span> <span class="op1">-</span></p>
+<div class="ans"><b>FIRST/FOLLOW:</b> FIRST(S) = {0} · FIRST(A) = {3, 4, ε} · FIRST(B) = {3, 4} — FOLLOW(S) = {$, 2} (S é o último em B -&gt; 4S, então copia o FOLLOW(B) = {2}) · FOLLOW(A) = {1} · FOLLOW(B) = {2}</div>
 <table class="c"><tr><th></th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>$</th></tr>
-<tr><td>S</td><td class="a">S→0A1</td><td class="a">-</td><td class="a">-</td><td class="a">-</td><td class="a">-</td><td class="a">-</td></tr>
-<tr><td>A</td><td class="a">-</td><td class="a">A→ε</td><td class="a">-</td><td class="a">A→B2</td><td class="a">A→B2</td><td class="a">-</td></tr>
-<tr><td>B</td><td class="a">-</td><td class="a">-</td><td class="a">-</td><td class="a">B→3</td><td class="a">B→4S</td><td class="a">-</td></tr></table>
-<div class="dica"><b>Como acertar:</b> a regra A → B2 começa com B (maiúscula), então vai nas colunas do FIRST(B) = {3, 4}. A regra A → ε vai nas colunas do FOLLOW(A) = {1}.</div></div>
+<tr><td>S</td><td class="a">S -&gt; 0A1</td><td class="a">-</td><td class="a">-</td><td class="a">-</td><td class="a">-</td><td class="a">-</td></tr>
+<tr><td>A</td><td class="a">-</td><td class="a">A -&gt; ε</td><td class="a">-</td><td class="a">A -&gt; B2</td><td class="a">A -&gt; B2</td><td class="a">-</td></tr>
+<tr><td>B</td><td class="a">-</td><td class="a">-</td><td class="a">-</td><td class="a">B -&gt; 3</td><td class="a">B -&gt; 4S</td><td class="a">-</td></tr></table>
+<div class="dica"><b>Como acertar:</b> a regra A -&gt; B2 começa com B (maiúscula), então vai nas colunas do FIRST(B) = {3, 4}. A regra A -&gt; ε vai nas colunas do FOLLOW(A) = {1}.</div></div>
 
 <div class="q"><div class="qh">S2.2 <span class="tag">arraste as produções</span> <span class="tag peg">pegadinha: regra que começa com maiúscula e some</span></div>
-Dada a gramática <span class="m">R → W K | Z · Z → * W Z | ε · W → x · K → y</span>, preencha a tabela preditiva.
+<p>Dada a seguinte gramática: G = ({R, Z, W, K}, {*, x, y}, P, R)</p><pre class="g">P = {
+R -&gt; WK | Z
+Z -&gt; *WZ | ε
+W -&gt; x
+K -&gt; y}</pre><p>Determine os conjuntos FIRST e FOLLOW e em seguida arraste as produções correspondentes a cada uma das células da tabela preditiva a seguir.</p><p>Obs.: Se você julgar que uma célula não deve ser preenchida arraste a opção "-".</p><p class="ops">Opções para arrastar: <span class="op1">R -&gt; WK</span> <span class="op1">R -&gt; Z</span> <span class="op1">Z -&gt; *WZ</span> <span class="op1">Z -&gt; ε</span> <span class="op1">W -&gt; x</span> <span class="op1">K -&gt; y</span> <span class="op1">-</span></p>
 <div class="ans"><b>FIRST/FOLLOW:</b> FIRST(R) = {x, *, ε} · FIRST(Z) = {*, ε} · FIRST(W) = {x} · FIRST(K) = {y} — FOLLOW(R) = FOLLOW(Z) = FOLLOW(K) = {$} · FOLLOW(W) = {y, *, $}</div>
 <table class="c"><tr><th></th><th>*</th><th>x</th><th>y</th><th>$</th></tr>
-<tr><td>R</td><td class="a">R→Z</td><td class="a">R→WK</td><td class="a">-</td><td class="a">R→Z</td></tr>
-<tr><td>Z</td><td class="a">Z→*WZ</td><td class="a">-</td><td class="a">-</td><td class="a">Z→ε</td></tr>
-<tr><td>W</td><td class="a">-</td><td class="a">W→x</td><td class="a">-</td><td class="a">-</td></tr>
-<tr><td>K</td><td class="a">-</td><td class="a">-</td><td class="a">K→y</td><td class="a">-</td></tr></table>
-<div class="dica"><b>Como acertar:</b> R → Z tem que ir no * (FIRST(Z)) e no $ (porque Z some e o FOLLOW(R) = {$}). O W → x e o K → y vão só onde começam.</div></div>
+<tr><td>R</td><td class="a">R -&gt; Z</td><td class="a">R -&gt; WK</td><td class="a">-</td><td class="a">R -&gt; Z</td></tr>
+<tr><td>Z</td><td class="a">Z -&gt; *WZ</td><td class="a">-</td><td class="a">-</td><td class="a">Z -&gt; ε</td></tr>
+<tr><td>W</td><td class="a">-</td><td class="a">W -&gt; x</td><td class="a">-</td><td class="a">-</td></tr>
+<tr><td>K</td><td class="a">-</td><td class="a">-</td><td class="a">K -&gt; y</td><td class="a">-</td></tr></table>
+<div class="dica"><b>Como acertar:</b> R -&gt; Z tem que ir no * (FIRST(Z)) e no $ (porque Z some e o FOLLOW(R) = {$}). O W -&gt; x e o K -&gt; y vão só onde começam.</div></div>
 
 <!-- ========== 3 ========== -->
 <h2>3. Pilha da análise preditiva <span class="r">— colinha §5</span></h2>
 
 <div class="q"><div class="qh">S3.1 <span class="tag">complete a Saída</span> (a tabela é a da S2.1)</div>
-Preencha a coluna Saída para reconhecer <span class="m">0 3 2 1</span>.
+<p>Considerando a seguinte tabela preditiva (para análise sintática descendente):</p><table class="c"><tr><th></th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>$</th></tr>
+<tr><td>S</td><td>S -&gt; 0A1</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>A</td><td></td><td>A -&gt; ε</td><td></td><td>A -&gt; B2</td><td>A -&gt; B2</td><td></td></tr>
+<tr><td>B</td><td></td><td></td><td></td><td>B -&gt; 3</td><td>B -&gt; 4S</td><td></td></tr></table><p>Preencha as lacunas no reconhecimento da sentença "0321" em um autômato de pilha controlado pela tabela. As células que não forem preenchidas com produções deve ficar com "-".</p><p class="ops">Opções para arrastar: <span class="op1">S -&gt; 0A1</span> <span class="op1">A -&gt; B2</span> <span class="op1">A -&gt; ε</span> <span class="op1">B -&gt; 3</span> <span class="op1">B -&gt; 4S</span> <span class="op1">-</span> <span class="op1">Reconhecida</span> <span class="op1">Não Reconhecida</span></p>
 <table><tr><th>Pilha</th><th>Entrada</th><th>Saída</th></tr>
-<tr><td class="m">$S</td><td class="m">0321$</td><td class="a">S → 0A1</td></tr>
+<tr><td class="m">$S</td><td class="m">0321$</td><td class="a">S -&gt; 0A1</td></tr>
 <tr><td class="m">$1A0</td><td class="m">0321$</td><td class="a">-</td></tr>
-<tr><td class="m">$1A</td><td class="m">321$</td><td class="a">A → B2</td></tr>
-<tr><td class="m">$12B</td><td class="m">321$</td><td class="a">B → 3</td></tr>
+<tr><td class="m">$1A</td><td class="m">321$</td><td class="a">A -&gt; B2</td></tr>
+<tr><td class="m">$12B</td><td class="m">321$</td><td class="a">B -&gt; 3</td></tr>
 <tr><td class="m">$123</td><td class="m">321$</td><td class="a">-</td></tr>
 <tr><td class="m">$12</td><td class="m">21$</td><td class="a">-</td></tr>
 <tr><td class="m">$1</td><td class="m">1$</td><td class="a">-</td></tr>
@@ -134,28 +177,28 @@ Preencha a coluna Saída para reconhecer <span class="m">0 3 2 1</span>.
 <div class="dica"><b>Como acertar:</b> compare cada linha com a de baixo. $S virou $1A0: "1A0" de trás para frente é 0A1. $1A virou $12B: o 1 já estava embaixo, então o A foi trocado por "2B", que de trás para frente é B2.</div></div>
 
 <div class="q"><div class="qh">S3.2 <span class="tag">complete a Saída</span> <span class="tag peg">pegadinha: a regra ε só apaga o topo</span></div>
-Com a tabela da S2.1, preencha a Saída para <span class="m">0 1</span>.
+<p>Considerando a mesma tabela preditiva da S3.1:</p><p>Preencha as lacunas no reconhecimento da sentença "01" em um autômato de pilha controlado pela tabela. As células que não forem preenchidas com produções deve ficar com "-".</p><p class="ops">Opções para arrastar: <span class="op1">S -&gt; 0A1</span> <span class="op1">A -&gt; B2</span> <span class="op1">A -&gt; ε</span> <span class="op1">B -&gt; 3</span> <span class="op1">B -&gt; 4S</span> <span class="op1">-</span> <span class="op1">Reconhecida</span> <span class="op1">Não Reconhecida</span></p>
 <table><tr><th>Pilha</th><th>Entrada</th><th>Saída</th></tr>
-<tr><td class="m">$S</td><td class="m">01$</td><td class="a">S → 0A1</td></tr>
+<tr><td class="m">$S</td><td class="m">01$</td><td class="a">S -&gt; 0A1</td></tr>
 <tr><td class="m">$1A0</td><td class="m">01$</td><td class="a">-</td></tr>
-<tr><td class="m">$1A</td><td class="m">1$</td><td class="a">A → ε</td></tr>
+<tr><td class="m">$1A</td><td class="m">1$</td><td class="a">A -&gt; ε</td></tr>
 <tr><td class="m">$1</td><td class="m">1$</td><td class="a">-</td></tr>
 <tr><td class="m">$</td><td class="m">$</td><td class="a">-</td></tr>
 <tr><td colspan="2">Sentença</td><td class="a">Reconhecida</td></tr></table></div>
 
 <div class="q"><div class="qh">S3.3 <span class="tag">reconheça ou não?</span> <span class="tag peg">pegadinha: célula vazia</span></div>
-Com a tabela da S2.1, a sentença <span class="m">0 2 1</span> é reconhecida?
+<p>Considerando a mesma tabela preditiva da S3.1:</p><p>Preencha as lacunas no reconhecimento da sentença "021" em um autômato de pilha controlado pela tabela. As células que não forem preenchidas com produções deve ficar com "-".</p><p class="ops">Opções para arrastar: <span class="op1">S -&gt; 0A1</span> <span class="op1">A -&gt; B2</span> <span class="op1">A -&gt; ε</span> <span class="op1">B -&gt; 3</span> <span class="op1">B -&gt; 4S</span> <span class="op1">-</span> <span class="op1">Reconhecida</span> <span class="op1">Não Reconhecida</span></p>
 <table><tr><th>Pilha</th><th>Entrada</th><th>Saída</th></tr>
-<tr><td class="m">$S</td><td class="m">021$</td><td>S → 0A1</td></tr>
+<tr><td class="m">$S</td><td class="m">021$</td><td>S -&gt; 0A1</td></tr>
 <tr><td class="m">$1A0</td><td class="m">021$</td><td>-</td></tr>
-<tr><td class="m">$1A</td><td class="m">21$</td><td class="a">célula [A, 2] vazia → erro</td></tr>
+<tr><td class="m">$1A</td><td class="m">21$</td><td class="a">- (a célula [A, 2] está vazia)</td></tr>
 <tr><td colspan="2">Sentença</td><td class="a">Não Reconhecida</td></tr></table></div>
 
 <!-- ========== 4 ========== -->
 <h2>4. Teoria (assinale e associe) <span class="r">— colinha §1 e §2</span></h2>
 
 <div class="q"><div class="qh">S4.1 <span class="tag">assinale as corretas</span> (descendente: ainda não caiu no AVA)</div>
-Assinale as afirmações corretas em relação à Análise Sintática Descendente:
+<p>Assinale as afirmações corretas em relação à Análise Sintática Descendente</p><p class="esc">Escolha uma ou mais:</p>
 <ul class="op">
 <li class="ok">a. Também chamada de abordagem top-down, pois a árvore é montada da raiz em direção às folhas</li>
 <li class="no">b. A implementação recursiva com retrocesso pode ser usada com gramáticas ambíguas</li>
@@ -166,7 +209,7 @@ Assinale as afirmações corretas em relação à Análise Sintática Descendent
 <div class="dica"><b>Como acertar:</b> a "d" é da ascendente (lado trocado). A "b" e a "e" põem um "não"/contrário do slide: com retrocesso exige sem ambiguidade, e a preditiva exige também fatorada.</div></div>
 
 <div class="q"><div class="qh">S4.2 <span class="tag">assinale as corretas</span></div>
-Assinale as afirmações corretas em relação à Análise Sintática Ascendente:
+<p>Assinale as afirmações corretas em relação à Análise Sintática Ascendente</p><p class="esc">Escolha uma ou mais:</p>
 <ul class="op">
 <li class="ok">a. Constrói a árvore de derivação a partir das folhas em direção à raiz</li>
 <li class="ok">b. Utiliza o método de redução, que é o inverso da derivação</li>
@@ -176,7 +219,7 @@ Assinale as afirmações corretas em relação à Análise Sintática Ascendente
 </ul></div>
 
 <div class="q"><div class="qh">S4.3 <span class="tag">assinale as corretas</span> <span class="tag peg">pegadinha: quem é o mais poderoso</span></div>
-Sobre os tipos de analisadores LR:
+<p>Assinale as afirmações corretas em relação aos Analisadores sintáticos LR</p><p class="esc">Escolha uma ou mais:</p>
 <ul class="op">
 <li class="ok">a. O SLR é de fácil implementação, porém aplicável a uma classe restrita de gramáticas</li>
 <li class="no">b. O LALR é o mais poderoso de todos</li>
@@ -186,7 +229,7 @@ Sobre os tipos de analisadores LR:
 </ul></div>
 
 <div class="q"><div class="qh">S4.4 <span class="tag">associe</span></div>
-Associe os termos:
+<p>No contexto da análise sintática trabalhada na disciplina, associe os termos aos respectivos conceitos. Cada termo deve ser associado a um único conceito.</p>
 <table><tr><th>Conceito</th><th>Termo</th></tr>
 <tr><td>Abordagem em que a árvore é construída da raiz em direção às folhas</td><td class="a">Análise descendente</td></tr>
 <tr><td>Também chamada de shift-reduce</td><td class="a">Análise ascendente</td></tr>
@@ -198,7 +241,7 @@ Associe os termos:
 <tr><td>Intermediário, eficiente, usado pelo YACC</td><td class="a">LALR</td></tr></table></div>
 
 <div class="q"><div class="qh">S4.5 <span class="tag">assinale as corretas</span></div>
-Sobre a tabela preditiva e o autômato de pilha da análise preditiva:
+<p>Assinale as afirmações corretas em relação ao reconhecimento de sentenças com a tabela de análise preditiva e um autômato com pilha</p><p class="esc">Escolha uma ou mais:</p>
 <ul class="op">
 <li class="no">a. A pilha armazena apenas não terminais</li>
 <li class="ok">b. A fila de entrada contém apenas terminais, seguidos de $</li>
@@ -207,21 +250,32 @@ Sobre a tabela preditiva e o autômato de pilha da análise preditiva:
 <li class="ok">e. Nas células, as linhas são não terminais e as colunas são terminais, com $ no lugar de ε</li>
 </ul></div>
 
+<div class="q"><div class="qh">S4.6 <span class="tag">questão real do AVA, da Prova 1</span> <span class="tag peg">pegadinha: o mesmo termo se repete</span></div>
+<p>As gramáticas livres de contexto possuem situações que causam dificuldades à Análise Sintática. Relacione os problemas das gramáticas com as respectivas descrições:</p>
+<table><tr><th>Descrição</th><th>Opção</th></tr>
+<tr><td>Se este problema não for resolvido, a análise sintática descendente ficará em loop infinito de recursão</td><td class="a">Recursão à esquerda</td></tr>
+<tr><td>Ocorre quando existem duas ou mais produções do mesmo Não Terminal, iniciando com um mesmo símbolo Terminal à esquerda</td><td class="a">Não determinismo</td></tr>
+<tr><td>Ocorre quando uma mesma sentença pode ser gerada por duas ou mais árvores de derivação diferentes</td><td class="a">Ambiguidade</td></tr>
+<tr><td>Para resolver este problema a gramática precisa estar fatorada a esquerda</td><td class="a">Não determinismo</td></tr>
+<tr><td>Ocorre quando uma produção tem no seu lado direito o primeiro símbolo igual ao Não Terminal gerador</td><td class="a">Recursão à esquerda</td></tr></table></div>
+
 <!-- ========== 5 ========== -->
 <h2>5. Itens, CLOSURE, GOTO, coleção <span class="r">— colinha §1 e §6</span></h2>
 
 <div class="q"><div class="qh">S5.1 <span class="tag">assinale as corretas</span> <span class="tag peg">pegadinha: faltou uma regra no CLOSURE</span></div>
-Dadas as produções <span class="m">S' → S · S → x S y | z</span>, assinale as corretas:
+<p>Dadas as seguintes produções de uma gramática, assinale as afirmações corretas em relação ao processo de determinação da coleção canônica.</p><b><pre class="g">S' -&gt; S
+S -&gt; xSy | z</pre></b><p class="esc">Escolha uma ou mais:</p>
 <ul class="op">
-<li class="no">a. O primeiro item canônico é GOTO({S' → .S}, S)</li>
-<li class="ok">b. CLOSURE(S' → .S) = {S' → .S, S → .xSy, S → .z}</li>
-<li class="no">c. CLOSURE(S' → .S) = {S' → .S, S → .xSy}</li>
-<li class="ok">d. GOTO(I0, x) = {S → x.Sy, S → .xSy, S → .z}</li>
-<li class="ok">e. GOTO(I0, S) = {S' → S.}</li>
+<li class="no">a. O primeiro item canônico é GOTO({S' -&gt; .S}, S)</li>
+<li class="ok">b. CLOSURE(S' -&gt; .S) = {S' -&gt; .S, S -&gt; .xSy, S -&gt; .z}</li>
+<li class="no">c. CLOSURE(S' -&gt; .S) = {S' -&gt; .S, S -&gt; .xSy}</li>
+<li class="ok">d. GOTO(I0, x) = {S -&gt; x.Sy, S -&gt; .xSy, S -&gt; .z}</li>
+<li class="ok">e. GOTO(I0, S) = {S' -&gt; S.}</li>
 </ul>
-<div class="dica"><b>Como acertar:</b> I0 é sempre CLOSURE (a "a" sai). Se o ponto vem antes do S, todas as regras de S entram (a "c" esqueceu S → .z). Na "d", o ponto passou do x e ficou antes do S, então o CLOSURE traz as duas regras de S.</div></div>
+<div class="dica"><b>Como acertar:</b> I0 é sempre CLOSURE (a "a" sai). Se o ponto vem antes do S, todas as regras de S entram (a "c" esqueceu S -&gt; .z). Na "d", o ponto passou do x e ficou antes do S, então o CLOSURE traz as duas regras de S.</div></div>
 
-<div class="q"><div class="qh">S5.2 <span class="tag">associe os termos</span> (a mesma questão do AVA, em outra ordem)</div>
+<div class="q"><div class="qh">S5.2 <span class="tag">associe os termos</span> (parecida com a do AVA, com outras frases e mais um termo)</div>
+<p>No contexto da análise LR trabalhada na disciplina, associe os termos aos respectivos conceitos. Cada termo deve ser associado a um único conceito.</p>
 <table><tr><th>Conceito</th><th>Termo</th></tr>
 <tr><td>Produções da gramática em diferentes momentos, indicadas pelo ponto</td><td class="a">Itens de gramática</td></tr>
 <tr><td>Retorna o mesmo conjunto adicionado aos itens iniciais dos não terminais</td><td class="a">Função CLOSURE</td></tr>
@@ -234,39 +288,43 @@ Dadas as produções <span class="m">S' → S · S → x S y | z</span>, assinal
 <tr><td>Pedaço do lado direito substituído pelo não terminal na redução</td><td class="a">Handle</td></tr></table></div>
 
 <div class="q"><div class="qh">S5.3 <span class="tag">determine</span></div>
-a) Quantos itens a produção <span class="m">S → a B c</span> gera? E a produção <span class="m">S → ε</span>?
-<div class="ans"><b>Resposta:</b> S → aBc gera 4 itens: <span class="m">.aBc, a.Bc, aB.c, aBc.</span> · S → ε gera 1: <span class="m">S → .</span> (já completo).</div>
-b) Com <span class="m">E' → E · E → E - T | T · T → ( E ) | n</span>, calcule <span class="m">CLOSURE({E' → .E})</span>, <span class="m">GOTO(I0, T)</span> e <span class="m">GOTO({E' → E., E → E.-T}, -)</span>.
-<div class="ans"><b>CLOSURE:</b> <span class="m">{E'→.E, E→.E-T, E→.T, T→.(E), T→.n}</span> · <b>GOTO(I0, T):</b> <span class="m">{E→T.}</span> · <b>GOTO({E'→E., E→E.-T}, -):</b> <span class="m">{E→E-.T, T→.(E), T→.n}</span></div>
-<div class="dica"><b>Como acertar:</b> na última, o ponto passou do "-" e ficou antes de T: o CLOSURE traz as regras de T. Em I0, E' → E. (ponto no fim) não ajuda no GOTO com T.</div></div>
+a) Quantos itens de gramática a produção <span class="m">S -&gt; a B c</span> gera? E a produção <span class="m">S -&gt; ε</span>?
+<div class="ans"><b>Resposta:</b> S -&gt; aBc gera 4 itens: <span class="m">.aBc, a.Bc, aB.c, aBc.</span> · S -&gt; ε gera 1: <span class="m">S -&gt; .</span> (já completo).</div>
+b) Com <span class="m">E' -&gt; E · E -&gt; E - T | T · T -&gt; ( E ) | n</span>, calcule <span class="m">CLOSURE({E' -&gt; .E})</span>, <span class="m">GOTO(I0, T)</span> e <span class="m">GOTO({E' -&gt; E., E -&gt; E.-T}, -)</span>.
+<div class="ans"><b>CLOSURE:</b> <span class="m">{E' -&gt; .E, E -&gt; .E-T, E -&gt; .T, T -&gt; .(E), T -&gt; .n}</span> · <b>GOTO(I0, T):</b> <span class="m">{E -&gt; T.}</span> · <b>GOTO({E' -&gt; E., E -&gt; E.-T}, -):</b> <span class="m">{E -&gt; E-.T, T -&gt; .(E), T -&gt; .n}</span></div>
+<div class="dica"><b>Como acertar:</b> na última, o ponto passou do "-" e ficou antes de T: o CLOSURE traz as regras de T. Em I0, E' -&gt; E. (ponto no fim) não ajuda no GOTO com T.</div></div>
 
 <div class="q"><div class="qh">S5.4 <span class="tag">monte a coleção canônica</span></div>
-Monte a coleção canônica de <span class="m">S' → S · (1) S → a S b · (2) S → c</span>.
+<p>Determine a coleção canônica da gramática aumentada a seguir:</p><pre class="g">S' -&gt; S
+(1) S -&gt; aSb
+(2) S -&gt; c</pre>
 <table><tr><th>Conjunto</th><th>De onde vem</th><th>Itens</th></tr>
-<tr><td>I0</td><td>CLOSURE({S'→.S})</td><td class="a m">S'→.S, S→.aSb, S→.c</td></tr>
-<tr><td>I1</td><td>GOTO(I0, S)</td><td class="a m">S'→S.</td></tr>
-<tr><td>I2</td><td>GOTO(I0, a)</td><td class="a m">S→a.Sb, S→.aSb, S→.c</td></tr>
-<tr><td>I3</td><td>GOTO(I0, c)</td><td class="a m">S→c.</td></tr>
-<tr><td>I4</td><td>GOTO(I2, S)</td><td class="a m">S→aS.b</td></tr>
-<tr><td>I5</td><td>GOTO(I4, b)</td><td class="a m">S→aSb.</td></tr></table>
+<tr><td>I0</td><td>CLOSURE({S' -&gt; .S})</td><td class="a m">S' -&gt; .S, S -&gt; .aSb, S -&gt; .c</td></tr>
+<tr><td>I1</td><td>GOTO(I0, S)</td><td class="a m">S' -&gt; S.</td></tr>
+<tr><td>I2</td><td>GOTO(I0, a)</td><td class="a m">S -&gt; a.Sb, S -&gt; .aSb, S -&gt; .c</td></tr>
+<tr><td>I3</td><td>GOTO(I0, c)</td><td class="a m">S -&gt; c.</td></tr>
+<tr><td>I4</td><td>GOTO(I2, S)</td><td class="a m">S -&gt; aS.b</td></tr>
+<tr><td>I5</td><td>GOTO(I4, b)</td><td class="a m">S -&gt; aSb.</td></tr></table>
 <p class="small">GOTO(I2, a) = I2 e GOTO(I2, c) = I3 repetem conjuntos que já existem, então não criam outros. Os demais GOTOs dão { }.</p></div>
 
 <!-- ========== 6 ========== -->
 <h2>6. Tabela LR <span class="r">— colinha §7</span></h2>
 
-<div class="q"><div class="qh">S6.1 <span class="tag">assinale as corretas</span> <span class="tag peg">pegadinha: regra/linha trocadas e item incompleto</span></div>
-Com a coleção da S5.4, (1) S → aSb e (2) S → c, e <span class="m">FOLLOW(S) = {$, b}</span>, assinale as corretas sobre as ações de redução:
+<div class="q"><div class="qh">S6.1 <span class="tag peg">pegadinha: regra/linha trocadas e item incompleto</span></div>
+<p>Considerando a seguinte gramática aumentada com as produções numeradas G = ({S', S}, {a, b, c}, P, S')</p><pre class="g">P : { S' -&gt; S
+(1) S -&gt; aSb
+(2) S -&gt; c}</pre><p>Dados os seguintes valores do FOLLOW:</p><pre class="g">FOLLOW(S) = {$, b}</pre><p>Assinale as afirmações corretas em relação a preenchimento das ações de redução da tabela LR.</p><p class="esc">Escolha uma ou mais:</p>
 <ul class="op">
-<li class="ok">a. I3 = {S → c.}: preencher r2 na linha 3, colunas b e $</li>
-<li class="ok">b. I5 = {S → aSb.}: preencher r1 na linha 5, colunas b e $</li>
-<li class="ok">c. I1 = {S' → S.}: preencher OK na linha 1, coluna $</li>
-<li class="no">d. I4 = {S → aS.b}: preencher r1 na linha 4, colunas b e $</li>
-<li class="no">e. I3 = {S → c.}: preencher r3 na linha 2, coluna b</li>
+<li class="ok">a. Se o item canônico I3 = {S -&gt; c.} então é preciso preencher r2 nas células da linha 3 com as colunas $ e b</li>
+<li class="ok">b. Se o item canônico I5 = {S -&gt; aSb.} então é preciso preencher r1 nas células da linha 5 com as colunas $ e b</li>
+<li class="ok">c. Se o item canônico I1 = {S' -&gt; S.} então é preciso preencher OK na célula da linha 1 com a coluna $</li>
+<li class="no">d. Se o item canônico I4 = {S -&gt; aS.b} então é preciso preencher r1 nas células da linha 4 com as colunas $ e b</li>
+<li class="no">e. Se o item canônico I3 = {S -&gt; c.} então é preciso preencher r3 nas células da linha 2 com as colunas $ e b</li>
 </ul>
-<div class="dica"><b>Como acertar:</b> a "d" tem o ponto no meio: não reduz (ali vai e5 na coluna b). A "e" trocou: é r<b>2</b> (regra 2) na linha <b>3</b> (I3).</div></div>
+<div class="dica"><b>Como acertar:</b> a "d" tem o ponto no meio: não reduz. A "e" trocou regra e linha: é r<b>2</b> (regra 2) na linha <b>3</b> (I3).</div></div>
 
 <div class="q"><div class="qh">S6.2 <span class="tag">preencha a tabela</span></div>
-Monte a tabela LR da S5.4.
+<p>Preencher a tabela LR (ações empilha, transições e ações de redução) da gramática da S6.1, com a coleção canônica da S5.4.</p>
 <table class="c"><tr><th>Est.</th><th>a</th><th>b</th><th>c</th><th>$</th><th>S</th></tr>
 <tr><td>0</td><td class="a">e2</td><td></td><td class="a">e3</td><td></td><td class="a">1</td></tr>
 <tr><td>1</td><td></td><td></td><td></td><td class="a">OK</td><td></td></tr>
@@ -274,22 +332,21 @@ Monte a tabela LR da S5.4.
 <tr><td>3</td><td></td><td class="a">r2</td><td></td><td class="a">r2</td><td></td></tr>
 <tr><td>4</td><td></td><td class="a">e5</td><td></td><td></td><td></td></tr>
 <tr><td>5</td><td></td><td class="a">r1</td><td></td><td class="a">r1</td><td></td></tr></table>
-<div class="dica"><b>Como acertar:</b> GOTO com terminal → "e" + número do conjunto; GOTO com S → só o número; item completo → r na linha do conjunto, nas colunas do FOLLOW(S) = {b, $}.</div></div>
+<div class="dica"><b>Como acertar:</b> GOTO com terminal -&gt; "e" + número do conjunto; GOTO com S -&gt; só o número; item completo -&gt; r na linha do conjunto, nas colunas do FOLLOW(S) = {b, $}.</div></div>
 
 <div class="q"><div class="qh">S6.3 <span class="tag">processo inverso</span></div>
-Com a tabela da S6.2, descubra os resultados das funções GOTO:
-<table class="c"><tr><th>GOTO</th><th>a</th><th>b</th><th>c</th><th>$</th><th>S</th></tr>
-<tr><td>I0</td><td class="a">I2</td><td class="a">-</td><td class="a">I3</td><td class="a">-</td><td class="a">I1</td></tr>
-<tr><td>I2</td><td class="a">I2</td><td class="a">-</td><td class="a">I3</td><td class="a">-</td><td class="a">I4</td></tr>
-<tr><td>I3</td><td class="a">-</td><td class="a">-</td><td class="a">-</td><td class="a">-</td><td class="a">-</td></tr>
-<tr><td>I4</td><td class="a">-</td><td class="a">I5</td><td class="a">-</td><td class="a">-</td><td class="a">-</td></tr></table>
+<p>Dada a tabela LR da S6.2, faça o processo inverso de preenchimento e descubra quais foram os resultados das aplicações das funções GOTO.</p>
+<div class="two"><div class="gl"><div>GOTO( I0, a ) produziu <span class="rb">I2</span></div><div>GOTO( I0, b ) produziu <span class="rb">-</span></div><div>GOTO( I0, c ) produziu <span class="rb">I3</span></div><div>GOTO( I0, $ ) produziu <span class="rb">-</span></div><div>GOTO( I0, S ) produziu <span class="rb">I1</span></div></div>
+<div class="gl"><div>GOTO( I2, a ) produziu <span class="rb">I2</span></div><div>GOTO( I2, b ) produziu <span class="rb">-</span></div><div>GOTO( I2, c ) produziu <span class="rb">I3</span></div><div>GOTO( I2, $ ) produziu <span class="rb">-</span></div><div>GOTO( I2, S ) produziu <span class="rb">I4</span></div></div>
+<div class="gl"><div>GOTO( I3, a ) produziu <span class="rb">-</span></div><div>GOTO( I3, b ) produziu <span class="rb">-</span></div><div>GOTO( I3, c ) produziu <span class="rb">-</span></div><div>GOTO( I3, $ ) produziu <span class="rb">-</span></div><div>GOTO( I3, S ) produziu <span class="rb">-</span></div></div>
+<div class="gl"><div>GOTO( I4, a ) produziu <span class="rb">-</span></div><div>GOTO( I4, b ) produziu <span class="rb">I5</span></div><div>GOTO( I4, c ) produziu <span class="rb">-</span></div><div>GOTO( I4, $ ) produziu <span class="rb">-</span></div><div>GOTO( I4, S ) produziu <span class="rb">-</span></div></div></div><p class="ops">Opções para arrastar: <span class="op1">I1</span> <span class="op1">I2</span> <span class="op1">I3</span> <span class="op1">I4</span> <span class="op1">I5</span> <span class="op1">-</span></p>
 <p class="small">I3 tem r2 nas colunas b e $, mas redução não vem de GOTO, por isso tudo "-".</p></div>
 
 <!-- ========== 7 ========== -->
 <h2>7. Pilha da análise LR <span class="r">— colinha §8</span></h2>
 
 <div class="q"><div class="qh">S7.1 <span class="tag">complete a Ação</span></div>
-Com a tabela da S6.2, complete o reconhecimento de <span class="m">a c b</span>.
+<p>Reconhecer a entrada: acb</p><p><span class="small">(tabela da S6.2)</span></p>
 <table><tr><th>Pilha</th><th>Símbolos</th><th>Entrada</th><th>Ação</th></tr>
 <tr><td class="m">0</td><td></td><td class="m">acb$</td><td class="a">e2</td></tr>
 <tr><td class="m">0 2</td><td class="m">a</td><td class="m">cb$</td><td class="a">e3</td></tr>
@@ -297,20 +354,20 @@ Com a tabela da S6.2, complete o reconhecimento de <span class="m">a c b</span>.
 <tr><td class="m">0 2 4</td><td class="m">aS</td><td class="m">b$</td><td class="a">e5</td></tr>
 <tr><td class="m">0 2 4 5</td><td class="m">aSb</td><td class="m">$</td><td class="a">r1</td></tr>
 <tr><td class="m">0 1</td><td class="m">S</td><td class="m">$</td><td class="a">OK</td></tr></table>
-<div class="dica"><b>Como acertar:</b> comparando as linhas: o pedaço "c" virou "S" → r2 (regra S → c, tira 1 número). "aSb" virou "S" → r1 (tira 3 números e sobra o 0; Transição[0, S] = 1). Sobrou S e $ → OK.</div></div>
+<div class="dica"><b>Como acertar:</b> comparando as linhas: o pedaço "c" virou "S" -&gt; r2 (regra S -&gt; c, tira 1 número). "aSb" virou "S" -&gt; r1 (tira 3 números e sobra o 0; Transição[0, S] = 1). Sobrou S e $: OK.</div></div>
 
 <div class="q"><div class="qh">S7.2 <span class="tag">reconhece?</span> <span class="tag peg">pegadinha: célula vazia no meio</span></div>
-Com a tabela da S6.2, a sentença <span class="m">a b</span> é reconhecida?
+<p>Reconhecer a entrada: ab</p><p><span class="small">(tabela da S6.2)</span></p>
 <table><tr><th>Pilha</th><th>Símbolos</th><th>Entrada</th><th>Ação</th></tr>
 <tr><td class="m">0</td><td></td><td class="m">ab$</td><td>e2</td></tr>
-<tr><td class="m">0 2</td><td class="m">a</td><td class="m">b$</td><td class="a">célula [2, b] vazia → erro</td></tr></table>
+<tr><td class="m">0 2</td><td class="m">a</td><td class="m">b$</td><td class="a">célula [2, b] vazia -&gt; erro</td></tr></table>
 <div class="ans"><b>Resposta:</b> não reconhecida. A linha 2 só tem e2, e3 e o número 4 (b está vazia).</div></div>
 
 <!-- ========== 8 ========== -->
 <h2>8. Lex e Yacc <span class="r">— colinha §9 (sem slide: teoria padrão da ferramenta)</span></h2>
 
 <div class="q"><div class="qh">S8.1 <span class="tag">assinale as corretas</span> <span class="tag peg">pegadinha: yytext x yyleng</span></div>
-Sobre o arquivo de especificação do Lex/Flex:
+<p>Assinale as afirmações verdadeiras em relação ao gerador de analisador léxico LEX ou FLEX</p><p class="esc">Escolha uma ou mais:</p>
 <ul class="op">
 <li class="ok">a. A seção de regras é formada por pares padrão e ação</li>
 <li class="ok">b. O símbolo %% separa as seções do arquivo</li>
@@ -321,7 +378,7 @@ Sobre o arquivo de especificação do Lex/Flex:
 <div class="dica"><b>Como acertar:</b> yytext é o <b>texto</b> do lexema; o tamanho é yyleng. Lex é léxico, quem faz o sintático é o Yacc.</div></div>
 
 <div class="q"><div class="qh">S8.2 <span class="tag">assinale as corretas</span></div>
-Sobre o Yacc/Bison:
+<p>Assinale as afirmações verdadeiras em relação ao gerador de analisador sintático YACC ou BISON</p><p class="esc">Escolha uma ou mais:</p>
 <ul class="op">
 <li class="ok">a. Gera um analisador sintático ascendente do tipo LALR</li>
 <li class="no">b. Recebe expressões regulares como entrada</li>
@@ -334,6 +391,7 @@ Sobre o Yacc/Bison:
 <h2>9. Análise semântica <span class="r">— colinha §1 e §10</span></h2>
 
 <div class="q"><div class="qh">S9.1 <span class="tag">associe os termos</span> <span class="tag peg">pegadinha: estática ↔ dinâmica</span></div>
+<p>De acordo com o que estudamos na disciplina de Linguagens Formais e Compiladores. Relacione os conceitos e termos a seguir às respectivas descrições.</p>
 <table><tr><th>Conceito</th><th>Termo</th></tr>
 <tr><td>Feita no código-fonte, durante a compilação</td><td class="a">Verificação estática</td></tr>
 <tr><td>Feita em tempo de execução, é mais flexível</td><td class="a">Verificação dinâmica</td></tr>
@@ -346,6 +404,7 @@ Sobre o Yacc/Bison:
 <tr><td>Responsáveis por inserir identificadores na tabela de símbolos</td><td class="a">Ações semânticas</td></tr></table></div>
 
 <div class="q"><div class="qh">S9.2 <span class="tag">assinale as corretas</span></div>
+<p>Assinale as afirmações corretas em relação à Análise Semântica</p><p class="esc">Escolha uma ou mais:</p>
 <ul class="op">
 <li class="ok">a. A análise semântica verifica se estruturas corretas sintaticamente têm significado admissível</li>
 <li class="no">b. A verificação dinâmica é feita durante a compilação</li>
@@ -355,11 +414,13 @@ Sobre o Yacc/Bison:
 </ul></div>
 
 <div class="q"><div class="qh">S9.3 <span class="tag">básico (B) ou construído (C)?</span></div>
+<p>Associe os tipos às respectivas descrições: Básico (não possui estrutura interna) ou Construído (possui estrutura interna)</p>
 <table class="c"><tr><th>Tipo</th><th>inteiro</th><th>string</th><th>enumeração</th><th>intervalo</th><th>booleano</th><th>ponteiro</th><th>vetor</th><th>registro</th><th>matriz</th></tr>
 <tr><td>Resposta</td><td class="a">B</td><td class="a">B</td><td class="a">B</td><td class="a">B</td><td class="a">B</td><td class="a">C</td><td class="a">C</td><td class="a">C</td><td class="a">C</td></tr></table>
 <div class="dica"><b>Como acertar:</b> string e enumeração são <b>básicos</b> para o professor. "Construído" tem estrutura interna: ponteiro, registro, vetor, matriz.</div></div>
 
 <div class="q"><div class="qh">S9.4 <span class="tag">assinale as corretas</span> (tabela de símbolos)</div>
+<p>Assinale as afirmações corretas em relação à Tabela de Símbolos</p><p class="esc">Escolha uma ou mais:</p>
 <ul class="op">
 <li class="ok">a. A tabela de símbolos funciona como um índice ou dicionário</li>
 <li class="ok">b. Os atributos associados a cada identificador dependem da categoria dele</li>
@@ -369,7 +430,7 @@ Sobre o Yacc/Bison:
 </ul></div>
 
 <div class="q"><div class="qh">S9.5 <span class="tag">escolha uma opção</span></div>
-De qual estrutura a análise semântica retira as informações sobre os identificadores?
+<p>Dentre as opções abaixo, de qual delas a Análise Semântica utiliza informações sobre os identificadores:</p><p class="esc">Escolha uma opção:</p>
 <ul class="op">
 <li class="no">a. Da tabela preditiva</li>
 <li class="no">b. Da coleção canônica</li>
@@ -378,8 +439,19 @@ De qual estrutura a análise semântica retira as informações sobre os identif
 <li class="no">e. Da fila de entrada</li>
 </ul></div>
 
+<div class="q"><div class="qh">S9.6 <span class="tag">questão real do AVA, da Prova 1</span> <span class="tag peg">pegadinha: sobram opções na lista</span></div>
+<p>Relacione as descrições às respectivas fases do processo de compilação</p>
+<table><tr><th>Descrição</th><th>Opção</th></tr>
+<tr><td>Produz o código objeto final decidindo quais registradores utilizar, alocação de memória, endereços, etc.</td><td class="a">Gerador de Código</td></tr>
+<tr><td>Melhora o código intermediário de modo que o programa objeto seja menor e/ou mais rápido</td><td class="a">Otimizador de Código</td></tr>
+<tr><td>Verifica se as estruturas sintáticas, embora corretas sintaticamente, tem significado admissível na linguagem.</td><td class="a">Analisador Semântico</td></tr>
+<tr><td>Cria uma sequência de instruções simples a partir da árvore de parse anotada</td><td class="a">Gerador de Código Intermediário</td></tr>
+<tr><td>Também chamada de parser, recebe como entrada uma sequência de tokens e os agrupa em uma árvore</td><td class="a">Analisador Sintático</td></tr>
+<tr><td>Também chamado de scanner pois realiza uma varredura do código fonte caractere por caractere agrupando-os em símbolos (ou tokens)</td><td class="a">Analisador Léxico</td></tr></table>
+<p class="small">Na lista também apareciam Árvore de parse, Lexemas e Análise Top-down, que não são usadas.</p></div>
+
 <!-- ========== 10 ========== -->
-<h2>10. Teste rápido: verdadeiro ou falso <span class="r">— para treinar o olho nos detalhes trocados</span></h2>
+<h2>10. Teste rápido: verdadeiro ou falso <span class="r">— só treino: nas questões dele que eu vi, esse formato não apareceu</span></h2>
 <table class="vf">
 <tr><td>A análise descendente também é chamada de top-down</td><td class="v">V</td></tr>
 <tr><td>A análise ascendente também é chamada de LL(1)</td><td class="f">F (shift-reduce / LR)</td></tr>
