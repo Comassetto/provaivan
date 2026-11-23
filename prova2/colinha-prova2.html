@@ -4,304 +4,255 @@
 <meta charset="utf-8">
 <title>Colinha Prova 2 LFC</title>
 <style>
-@page { size: A4; margin: 5mm; }
+@page { size: A4; margin: 4.5mm; }
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; background: #fff; color: #111; }
-body { font-family: "Segoe UI", Arial, sans-serif; font-size: 8pt; line-height: 1.25;
+body { font-family: "Segoe UI", Arial, sans-serif; font-size: 7.3pt; line-height: 1.2;
   -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 .cols { column-count: 2; column-gap: 4mm; column-rule: 0.3pt solid #999; }
 h1 { font-size: 11pt; margin: 0; color: #12385e; }
-.sub { margin: 0.3mm 0 1mm; }
-h2 { font-size: 9.4pt; background: #12385e; color: #fff; padding: 0.5mm 1.2mm; margin: 1.6mm 0 0.7mm;
+.sub { margin: 0.4mm 0 1mm; }
+h2 { font-size: 9.2pt; background: #12385e; color: #fff; padding: 0.5mm 1.2mm; margin: 1.6mm 0 0.7mm;
   break-after: avoid; break-inside: avoid; }
-h2 .q { font-weight: 400; font-size: 7.6pt; color: #dfe7ef; }
-h3 { font-size: 8.3pt; color: #12385e; margin: 1mm 0 0.4mm; break-after: avoid; }
+h3 { font-size: 8.2pt; color: #12385e; margin: 1.1mm 0 0.4mm; break-after: avoid; }
 p { margin: 0.4mm 0; }
 ol, ul { margin: 0.3mm 0; padding-left: 4mm; }
 li { margin: 0.2mm 0; }
 table { border-collapse: collapse; width: 100%; margin: 0.6mm 0; break-inside: avoid; }
 td, th { border: 0.3pt solid #8a8a8a; padding: 0.2mm 0.7mm; vertical-align: top; }
 th { background: #e4ebf3; text-align: left; }
-table.c td, table.c th { text-align: center; }
-table.c td:first-child, table.c th:first-child { text-align: left; }
-.m { font-family: Consolas, "Courier New", monospace; font-size: 7.7pt; }
-pre { font-family: Consolas, "Courier New", monospace; font-size: 7.4pt; margin: 0.4mm 0; white-space: pre-wrap; line-height: 1.2; }
-.box { border: 0.6pt solid #555; padding: 0.6mm 1.2mm; margin: 0.8mm 0; break-inside: avoid; }
-.lbl { display: inline-block; font-weight: 700; font-size: 7.2pt; text-transform: uppercase; letter-spacing: 0.2pt; margin-right: 1mm; }
-.rec { border-color: #1565c0; background: #eef4fb; }  .rec .lbl { color: #0d47a1; }
-.passo { border-color: #2e7d32; background: #f0f7f0; } .passo .lbl { color: #1b5e20; }
-.peg { border-color: #c62828; background: #fcefef; }  .peg .lbl { color: #b71c1c; }
-.ver { border-color: #6a1b9a; background: #f5eefa; }  .ver .lbl { color: #4a148c; }
-.ex { border: 0.6pt solid #12385e; padding: 0.6mm 1.2mm; margin: 0.8mm 0; break-inside: avoid; }
+td.m, .m { font-family: Consolas, "Courier New", monospace; font-size: 7.2pt; }
 td.m { white-space: nowrap; }
+pre { font-family: Consolas, "Courier New", monospace; font-size: 7pt; margin: 0.4mm 0; white-space: pre-wrap; line-height: 1.2; }
+.box { border: 0.6pt solid #555; padding: 0.6mm 1.2mm; margin: 0.8mm 0; break-inside: avoid; }
+.lbl { display: inline-block; font-weight: 700; font-size: 7pt; text-transform: uppercase; letter-spacing: 0.2pt; margin-right: 1mm; }
+.tru { border-color: #2e7d32; background: #f0f7f0; } .tru .lbl { color: #1b5e20; }
+.peg { border-color: #c62828; background: #fcefef; } .peg .lbl { color: #b71c1c; }
+.dif { border-color: #6a1b9a; background: #f5eefa; } .dif .lbl { color: #4a148c; }
+.ex { border: 0.6pt solid #12385e; padding: 0.6mm 1.2mm; margin: 0.8mm 0; break-inside: avoid; }
 .ex .lbl { color: #12385e; }
+.k { background: #fff1b8; font-weight: 700; }
+td.t { font-weight: 700; white-space: nowrap; }
 .ok { color: #1b5e20; font-weight: 700; }
 .no { color: #b71c1c; font-weight: 700; }
-.dim { color: #555; }
-.hl { background: #fff1b8; }
-table.vf td:last-child { width: 5mm; text-align: center; font-weight: 700; }
 </style>
 </head>
 <body>
 <div class="cols">
 
-<h1>Colinha — Prova 2 · Linguagens Formais e Compiladores</h1>
-<p class="sub"><b>Como usar:</b> 1) Descubra o tipo da questão na tabela abaixo. 2) Vá até a receita. 3) Siga os passos imitando o exemplo. As questões das listas e do AVA estão resolvidas no outro PDF, <b>"Questões Prova 2"</b>, que usa a mesma numeração de receitas.</p>
-
+<h1>Colinha Prova 2 — como acertar cada tipo de questão</h1>
+<p class="sub">O professor monta as questões com <b>frases copiadas dos slides</b>, e as alternativas erradas são essas frases com <b>uma coisa trocada</b>. Esta colinha segue o jeito que ele pergunta: ache o formato da questão abaixo e vá direto para a seção. O outro PDF, <b>"Questões Prova 2"</b>, tem todas as questões já vistas, com a resposta marcada.</p>
 <table>
-<tr><th>A questão mostra…</th><th>Receita</th></tr>
-<tr><td>uma gramática e pede <b>FIRST</b> e/ou <b>FOLLOW</b></td><td><b>R1, R2</b></td></tr>
-<tr><td>uma tabela com <b>letras maiúsculas nas linhas</b> e símbolos + <b>$</b> nas colunas para preencher com regras</td><td><b>R3</b></td></tr>
-<tr><td>colunas <b>Pilha | Entrada | Saída</b>, pilha começando com <span class="m">$S</span></td><td><b>R4</b></td></tr>
-<tr><td>afirmações sobre "descendente", "ascendente", top-down, bottom-up, LR, SLR, LALR</td><td><b>R5</b></td></tr>
-<tr><td>regras com um <b>ponto</b> no meio (<span class="m">E → E.+T</span>), CLOSURE, GOTO, I0, I1…</td><td><b>R6</b></td></tr>
-<tr><td>tabela com <b>Estados | Ações | Transições</b> (e5, r2, OK)</td><td><b>R7</b></td></tr>
-<tr><td>pilha com <b>números</b> (<span class="m">0 2 7</span>) + Símbolos + Entrada + Ação</td><td><b>R8</b></td></tr>
-<tr><td>Lex, Flex, Yacc, Bison, <span class="m">%{ %}</span>, <span class="m">%%</span></td><td><b>R9</b></td></tr>
-<tr><td>tipos, tabela de símbolos, verificação estática/dinâmica</td><td><b>R10</b></td></tr>
+<tr><th>A questão diz / mostra…</th><th>Vá para</th></tr>
+<tr><td>"<b>Associe os termos</b> aos respectivos conceitos" (listas para escolher)</td><td><b>§1</b></td></tr>
+<tr><td>"<b>Assinale as afirmações corretas</b>" sobre teoria (escolha uma ou mais)</td><td><b>§2</b></td></tr>
+<tr><td>gramática + "assinale a opção com os conjuntos <b>FIRST e FOLLOW</b>"</td><td><b>§3</b></td></tr>
+<tr><td>gramática + "<b>arraste as produções</b> para a tabela preditiva"</td><td><b>§4</b></td></tr>
+<tr><td>tabela + colunas <b>Pilha | Entrada | Saída</b> (pilha começa com $S)</td><td><b>§5</b></td></tr>
+<tr><td>regras com <b>ponto</b> (E → E.+T), CLOSURE, GOTO, "item canônico"</td><td><b>§6</b></td></tr>
+<tr><td>tabela LR (e1, r2, OK), "<b>ações de redução</b>", "<b>processo inverso</b>"</td><td><b>§7</b></td></tr>
+<tr><td>pilha de <b>números</b> (0 2 7) + Símbolos + Ação</td><td><b>§8</b></td></tr>
+<tr><td>LEX / FLEX, <span class="m">%{ %}</span>, <span class="m">%%</span></td><td><b>§9</b></td></tr>
+<tr><td>tabela de símbolos, tipos, "de quem é a responsabilidade"</td><td><b>§10</b></td></tr>
+</table>
+<p><b>Mini-dicionário:</b> <b>MAIÚSCULA</b> (S, E, T') = não terminal (NT) · minúscula ou símbolo (a, +, id, $) = <b>terminal</b> · <b>ε</b> = vazio · <b>$</b> = fim da frase · <b>produção</b> = regra <span class="m">A → aB</span> (A é o lado esquerdo, aB é o lado direito) · <span class="m">|</span> separa regras.</p>
+
+<h2>§1 "Associe os termos" — dicionário de diferenças</h2>
+<p>Cada definição abaixo é a frase do slide. Na prova, procure na frase da questão a <span class="k">palavra-chave</span> e escolha o termo.</p>
+<h3>Análise LR (Aula09 e Aula10) — é a questão da imagem 8</h3>
+<table>
+<tr><th>Termo</th><th>Palavra-chave na frase</th></tr>
+<tr><td class="t">Gramática aumentada</td><td>"nova produção <span class="k">exclusivamente para o símbolo inicial</span>" (S' → S)</td></tr>
+<tr><td class="t">Itens de gramática</td><td>"produções <span class="k">em diferentes momentos</span>, indicado pelo <span class="k">ponto</span>"</td></tr>
+<tr><td class="t">Item inicial</td><td>ponto <span class="k">antes do primeiro</span> símbolo (A → .XYZ)</td></tr>
+<tr><td class="t">Item completo</td><td>ponto <span class="k">depois do último</span> símbolo (A → XYZ.)</td></tr>
+<tr><td class="t">Função CLOSURE</td><td>"retorna esse <span class="k">mesmo conjunto adicionado</span> aos <span class="k">itens iniciais</span> dos não terminais"</td></tr>
+<tr><td class="t">Função GOTO</td><td>"recebe um conjunto de itens <span class="k">e um símbolo</span>", "<span class="k">deslocando o ponto</span> para a direita"</td></tr>
+<tr><td class="t">Item canônico</td><td>"conjunto de itens <span class="k">produzido pela GOTO</span>" (I1, I2…)</td></tr>
+<tr><td class="t">Coleção canônica</td><td>"conjunto de itens canônicos usado para <span class="k">montar a tabela LR</span>" (C = {I0…In})</td></tr>
+<tr><td class="t">Handle</td><td>o pedaço (lado direito) que é <span class="k">substituído pelo não terminal</span></td></tr>
+<tr><td class="t">Redução</td><td>o <span class="k">inverso da derivação</span></td></tr>
+<tr><td class="t">eN · rN · OK · N</td><td><b>e</b>mpilha o estado N · <b>r</b>eduz pela regra N · aceita · transição</td></tr>
+</table>
+<div class="box dif"><span class="lbl">Como não confundir</span>
+<ul><li><b>Item</b> = 1 regra com ponto → <b>item canônico</b> = 1 <b>conjunto</b> de itens (vira uma linha da tabela) → <b>coleção canônica</b> = <b>todos</b> os conjuntos juntos.</li>
+<li><b>CLOSURE</b> <b>acrescenta</b> regras e o ponto <b>fica parado</b>. <b>GOTO</b> <b>anda com o ponto</b> por cima de um símbolo.</li>
+<li><b>Inicial</b> = ponto no começo. <b>Completo</b> = ponto no fim.</li></ul></div>
+<h3>Tipos de análise (Aula07 e Aula09)</h3>
+<table>
+<tr><td class="t">Descendente (ASD)</td><td><span class="k">top-down</span>, da <span class="k">raiz para as folhas</span>, derivação <span class="k">mais à esquerda</span></td></tr>
+<tr><td class="t">ASD com retrocesso</td><td>se escolher a regra errada, <span class="k">volta</span>. Exige: sem ambiguidade + sem recursão à esquerda</td></tr>
+<tr><td class="t">ASD preditiva recursiva</td><td><span class="k">uma função por não terminal</span>, <span class="k">não volta</span>. Exige também <span class="k">fatorada</span> (LL(1))</td></tr>
+<tr><td class="t">ASD preditiva tabular</td><td><span class="k">tabela + autômato de pilha</span>, usa FIRST e FOLLOW</td></tr>
+<tr><td class="t">Ascendente (ASA)</td><td><span class="k">bottom-up</span>, <span class="k">shift-reduce</span>, das <span class="k">folhas para a raiz</span>, faz <span class="k">redução</span>, derivação mais à direita invertida</td></tr>
+<tr><td class="t">SLR</td><td><span class="k">fácil</span> de implementar, classe <span class="k">restrita</span> de gramáticas</td></tr>
+<tr><td class="t">LR canônico</td><td>o <span class="k">mais poderoso</span></td></tr>
+<tr><td class="t">LALR</td><td><span class="k">intermediário</span>, eficiente, <span class="k">usado pelo YACC</span></td></tr>
+<tr><td class="t">FIRST</td><td>os <span class="k">primeiros</span> terminais de cada não terminal</td></tr>
+<tr><td class="t">FOLLOW</td><td>os terminais que vêm <span class="k">depois</span> de cada não terminal</td></tr>
+<tr><td class="t">Tabela preditiva</td><td>linhas = não terminais, colunas = terminais e $. Serve para <span class="k">controlar o autômato de pilha</span></td></tr>
+</table>
+<h3>Semântica (Aula11)</h3>
+<table>
+<tr><td class="t">Análise semântica</td><td>verifica se o que está <span class="k">correto sintaticamente</span> tem <span class="k">significado admissível</span></td></tr>
+<tr><td class="t">Ações semânticas</td><td>código dentro do analisador sintático. <span class="k">Inserem os identificadores na tabela de símbolos</span></td></tr>
+<tr><td class="t">Árvore de parse anotada</td><td>a <span class="k">saída</span> da análise semântica</td></tr>
+<tr><td class="t">Tabela de símbolos</td><td><span class="k">índice/dicionário</span> dos identificadores com seus <span class="k">atributos</span></td></tr>
+<tr><td class="t">Verificação estática</td><td>no <span class="k">código-fonte</span>, na <span class="k">compilação</span>. Compilador maior, menos flexível</td></tr>
+<tr><td class="t">Verificação dinâmica</td><td>em <span class="k">tempo de execução</span>. Mais cara, pode ser tarde, <span class="k">mais flexível</span></td></tr>
+<tr><td class="t">… de tipos</td><td>operandos compatíveis? (<span class="m">a % b</span> com float, <span class="m">3 * "penny"</span>)</td></tr>
+<tr><td class="t">… de fluxo de controle</td><td><span class="k">break</span> fora de while/for/switch</td></tr>
+<tr><td class="t">… de unicidade</td><td>definido <span class="k">exatamente uma vez</span>: id repetido no mesmo nível, case ou enum repetido</td></tr>
+<tr><td class="t">… de nomes</td><td><span class="k">palavra reservada</span> como identificador · nome no início e no fim (Ada)</td></tr>
+<tr><td class="t">Tipo básico</td><td><span class="k">sem estrutura interna</span>: inteiro, real, booleano, caractere, <b>string, intervalo, enumeração</b></td></tr>
+<tr><td class="t">Tipo construído</td><td><span class="k">com estrutura interna</span>: ponteiro, estrutura, registro, vetor, matriz</td></tr>
+<tr><td class="t">Descritor de tipos</td><td>estrutura que <span class="k">guarda as informações de um tipo</span></td></tr>
+</table>
+<h3>Geradores (aula do trabalho)</h3>
+<table>
+<tr><td class="t">Lex / Flex</td><td>gera analisador <span class="k">léxico</span> a partir de <span class="k">expressões regulares</span></td></tr>
+<tr><td class="t">Yacc / Bison</td><td>gera analisador <span class="k">sintático</span> (LALR) a partir da <span class="k">gramática</span></td></tr>
 </table>
 
-<h2>Dicionário: as palavras das questões</h2>
+<h2>§2 "Assinale as corretas" — como pegar a falsa</h2>
+<div class="box peg"><span class="lbl">Como o professor fabrica a alternativa errada</span>
 <table>
-<tr><td><b>Gramática</b></td><td>conjunto de regras que dizem como montar as frases de uma linguagem.</td></tr>
-<tr><td><b>Produção (regra)</b></td><td><span class="m">A → aB</span> quer dizer que "A pode ser trocado por aB". O <span class="m">|</span> separa opções: <span class="m">A → a | b</span> são duas regras.</td></tr>
-<tr><td><b>Não terminal (NT)</b></td><td>letra <b>MAIÚSCULA</b> (S, E, T, E'). Ela ainda vai ser trocada por outra coisa.</td></tr>
-<tr><td><b>Terminal</b></td><td>tudo que não é maiúscula: <span class="m">a, +, (, id, if, 0</span>. É o que aparece de verdade na frase.</td></tr>
-<tr><td><b>Lado esquerdo / direito</b></td><td>em <span class="m">E → TE'</span>, o lado esquerdo (o "dono" da regra) é E e o lado direito é TE'.</td></tr>
-<tr><td><b>Símbolo inicial</b></td><td>o NT de onde tudo começa. Normalmente é o 1º da lista ou o último item de <span class="m">G = (…, S)</span>.</td></tr>
-<tr><td><b>ε (épsilon)</b></td><td>"vazio, nada". <span class="m">A → ε</span> quer dizer que A pode sumir.</td></tr>
-<tr><td><b>$</b></td><td>marca o <b>fim da frase</b>.</td></tr>
-<tr><td><b>Sentença</b></td><td>a frase que vai ser testada, por exemplo <span class="m">a+a+a</span>.</td></tr>
-<tr><td><b>Análise sintática</b></td><td>verificar se a frase segue a gramática. É o trabalho do <b>parser</b>.</td></tr>
+<tr><th>Truque</th><th>Exemplos que já caíram</th></tr>
+<tr><td><b>Troca o lado:</b> top-down ↔ bottom-up · raiz ↔ folhas · esquerda ↔ direita · "começa no símbolo inicial" ↔ "começa na sentença"</td><td>Q6 b, Q6 d</td></tr>
+<tr><td><b>Põe um "não"</b> numa frase do slide: "não ocorre", "não podem", "não precisaremos"</td><td>Q6 a, Q6 e, Q7 a</td></tr>
+<tr><td><b>Troca quem faz:</b> CLOSURE ↔ GOTO · léxico ↔ sintático ↔ semântico · Lex ↔ Yacc · ação ↔ %{ %}</td><td>Q7 d, Q5 b, Q4</td></tr>
+<tr><td><b>Troca os números:</b> linha (estado) ↔ número da regra</td><td>Q3 e</td></tr>
+<tr><td><b>Esquece um elemento</b> de um conjunto</td><td>Q7 b</td></tr>
+<tr><td>Usa um item com o <b>ponto no meio</b> como se estivesse pronto</td><td>Q3 d</td></tr>
 </table>
-
-<h2>R1 · FIRST <span class="q">(Aula07 parte 1, slides 10–11)</span></h2>
-<div class="box rec"><span class="lbl">Ideia</span> FIRST(X) responde: <b>com quais terminais o X pode começar?</b></div>
-<div class="box passo"><span class="lbl">Passo a passo</span>
-<ol>
-<li>Separe as regras do NT (cada <span class="m">|</span> é uma regra).</li>
-<li>Em cada regra, olhe <b>só o 1º símbolo do lado direito</b>:
-<ul><li>é <b>terminal</b> (minúscula ou símbolo) → coloque ele no FIRST;</li>
-<li>é <b>ε</b> → coloque ε no FIRST;</li>
-<li>é <b>MAIÚSCULA</b> → copie o FIRST dessa maiúscula, <b>sem o ε</b>. Se ela tinha ε (pode sumir), olhe também o próximo símbolo da regra.</li></ul></li>
-<li>Dica: comece pelos NTs cujas regras começam com terminal. Eles são os mais fáceis.</li>
-</ol></div>
-<div class="ex"><span class="lbl">Exemplo (ex. 7.1)</span> <span class="m">E → TE' · E' → +TE' | ε · T → a</span>
-<table><tr><th>NT</th><th>O que eu olho</th><th>FIRST</th></tr>
-<tr><td>T</td><td><span class="m">T → a</span> começa com o terminal a</td><td>{a}</td></tr>
-<tr><td>E'</td><td><span class="m">E' → +TE'</span> começa com + · <span class="m">E' → ε</span> dá ε</td><td>{+, ε}</td></tr>
-<tr><td>E</td><td><span class="m">E → TE'</span> começa com T (maiúscula), então copio o FIRST(T)</td><td>{a}</td></tr></table></div>
-
-<h2>R2 · FOLLOW <span class="q">(Aula07 parte 1, slides 12–17)</span></h2>
-<div class="box rec"><span class="lbl">Ideia</span> FOLLOW(X) responde: <b>qual terminal pode aparecer logo depois do X?</b> Para descobrir, procure o X <b>dentro do lado direito</b> das regras, não nas regras dele.</div>
-<div class="box passo"><span class="lbl">Passo a passo</span>
-<ol>
-<li>O <b>símbolo inicial</b> sempre ganha <b>$</b>.</li>
-<li>Para o NT X, procure em <b>todas</b> as regras os lugares onde X aparece <b>à direita da seta</b>.</li>
-<li>Em cada lugar, veja o que vem <b>logo depois</b> do X:
-<ul><li>um <b>terminal</b> → coloque ele;</li>
-<li>uma <b>MAIÚSCULA</b> → coloque o FIRST dela, <b>sem ε</b>. Se ela tinha ε, faça também o próximo item;</li>
-<li><b>nada</b> (X é o último da regra) → copie o FOLLOW do <b>dono da regra</b> (o lado esquerdo). Se o dono é o próprio X, ignore.</li></ul></li>
-<li><b>Nunca</b> coloque ε no FOLLOW, e não repita elementos.</li>
-</ol></div>
-<div class="ex"><span class="lbl">Exemplo (ex. 7.1, continuação)</span> FIRST(E') = {+, ε}
-<table><tr><th>NT</th><th>Onde aparece à direita → o que vem depois</th><th>FOLLOW</th></tr>
-<tr><td>E</td><td>é o inicial, então ganha $. Não aparece à direita</td><td>{$}</td></tr>
-<tr><td>E'</td><td>em <span class="m">E → TE'</span> é o último, então copio FOLLOW(E) = {$}. Em <span class="m">E' → +TE'</span> o dono é ele mesmo: ignoro</td><td>{$}</td></tr>
-<tr><td>T</td><td>em <span class="m">E → TE'</span> vem E': FIRST(E') sem ε = {+}. Como E' pode sumir, copio também FOLLOW(E) = {$}. Em <span class="m">E' → +TE'</span> dá o mesmo</td><td>{+, $}</td></tr></table></div>
-<div class="box peg"><span class="lbl">Para eliminar alternativas</span>
-<ul><li>Se a alternativa tem <b>$ dentro de um FIRST</b>, está errada.</li>
-<li>Se tem <b>ε dentro de um FOLLOW</b>, está errada.</li>
-<li>Se o FOLLOW do <b>símbolo inicial</b> está sem <b>$</b>, está errada.</li>
-<li>Um NT que <b>nunca fica no fim</b> de uma regra e não é o inicial normalmente <b>não</b> tem $. Exemplo da Q10: <span class="m">A → i[B]=C</span> dá FOLLOW(B) = {]}, não {], $}.</li></ul></div>
-
-<h2>R3 · Tabela preditiva <span class="q">(Aula07 parte 2, slides 19–25)</span></h2>
-<div class="box rec"><span class="lbl">Ideia</span> A tabela diz: "se estou no NT <b>A</b> e o próximo símbolo da frase é <b>t</b>, uso a regra que está na célula [A, t]". Ela é montada com FIRST e FOLLOW.</div>
-<div class="box passo"><span class="lbl">Passo a passo</span>
-<ol>
-<li>Calcule o FIRST e o FOLLOW (R1, R2).</li>
-<li>Desenhe a tabela: <b>uma linha por MAIÚSCULA</b> e <b>uma coluna por terminal</b>, mais a coluna <b>$</b>. Não existe coluna ε.</li>
-<li>Pegue <b>cada regra separada</b> e decida a coluna:
-<ul><li>regra <b>normal</b> <span class="m">A → algo</span>: olhe o 1º símbolo do "algo". Terminal → coluna dele. MAIÚSCULA → colunas do FIRST dela (sem ε).</li>
-<li>regra <span class="m">A → ε</span> → colunas do <b>FOLLOW(A)</b>.</li></ul></li>
-<li>O que sobrar fica vazio, ou <b>"-"</b> no AVA.</li>
-</ol></div>
-<div class="ex"><span class="lbl">Exemplo (ex. 7.1)</span> FOLLOW(E') = {$}
-<table class="c"><tr><th></th><th>+</th><th>a</th><th>$</th><th>Por quê</th></tr>
-<tr><td>E</td><td></td><td>E→TE'</td><td></td><td>TE' começa com T, e FIRST(T) = {a}</td></tr>
-<tr><td>E'</td><td>E'→+TE'</td><td></td><td>E'→ε</td><td>+TE' começa com +. A regra ε vai no FOLLOW(E') = {$}</td></tr>
-<tr><td>T</td><td></td><td>T→a</td><td></td><td>começa com a</td></tr></table></div>
-<div class="box peg"><span class="lbl">Cuidado</span> Se uma célula ficar com <b>duas regras</b>, a gramática <b>não é LL(1)</b>: ou é ambígua, ou tem recursão à esquerda, ou não está fatorada.</div>
-
-<h2>R4 · Pilha da análise preditiva <span class="q">(Aula08)</span></h2>
-<div class="box rec"><span class="lbl">Ideia</span> Uma pilha guarda o que falta montar e a entrada guarda a frase. A cada linha você olha o <b>topo da pilha</b>, que é o <b>último símbolo da direita</b>, e o <b>1º símbolo da entrada</b>.</div>
-<div class="box passo"><span class="lbl">Passo a passo</span>
-<ol>
-<li>Comece com Pilha = <span class="m">$S</span> (S = símbolo inicial) e Entrada = frase + <span class="m">$</span>.</li>
-<li><b>Topo é MAIÚSCULA:</b> procure na tabela a célula [topo, 1º da entrada]. A <b>Saída</b> é essa regra. Na próxima linha, troque o topo pelo lado direito <b>escrito de trás para frente</b>. A entrada não muda.<br>
-Ex.: topo E com a regra <span class="m">E → TE'</span> → escreva <span class="m">E'T</span> (o T fica na ponta direita, que é o topo). Se a regra é ε, só apague o topo.</li>
-<li><b>Topo é terminal igual ao 1º da entrada:</b> apague dos dois lados. A Saída é <b>"-"</b>.</li>
-<li><b>Sobrou <span class="m">$</span> na pilha e <span class="m">$</span> na entrada</b> → <b>Reconhecida</b>.</li>
-<li>Célula vazia, ou terminal diferente da entrada → <b>Não reconhecida</b>.</li>
-</ol></div>
-<div class="ex"><span class="lbl">Exemplo dos slides (Aula08)</span> sentença <span class="m">a+a+a</span>, tabela da R3
-<table><tr><th>Pilha</th><th>Entrada</th><th>Saída</th><th>O que aconteceu</th></tr>
-<tr><td class="m">$E</td><td class="m">a+a+a$</td><td>E→TE'</td><td>[E, a] = E→TE'. Troca E por E'T</td></tr>
-<tr><td class="m">$E'T</td><td class="m">a+a+a$</td><td>T→a</td><td>[T, a] = T→a. Troca T por a</td></tr>
-<tr><td class="m">$E'a</td><td class="m">a+a+a$</td><td>-</td><td>a = a: apaga dos dois</td></tr>
-<tr><td class="m">$E'</td><td class="m">+a+a$</td><td>E'→+TE'</td><td>[E', +]. Troca E' por E'T+</td></tr>
-<tr><td class="m">$E'T+</td><td class="m">+a+a$</td><td>-</td><td>+ = +</td></tr>
-<tr><td class="m">$E'T</td><td class="m">a+a$</td><td>T→a</td><td></td></tr>
-<tr><td class="m">$E'a</td><td class="m">a+a$</td><td>-</td><td></td></tr>
-<tr><td class="m">$E'</td><td class="m">+a$</td><td>E'→+TE'</td><td></td></tr>
-<tr><td class="m">$E'T+</td><td class="m">+a$</td><td>-</td><td></td></tr>
-<tr><td class="m">$E'T</td><td class="m">a$</td><td>T→a</td><td></td></tr>
-<tr><td class="m">$E'a</td><td class="m">a$</td><td>-</td><td></td></tr>
-<tr><td class="m">$E'</td><td class="m">$</td><td>E'→ε</td><td>[E', $] = E'→ε. Só apaga o E'</td></tr>
-<tr><td class="m">$</td><td class="m">$</td><td>-</td><td><b>Reconhecida</b></td></tr></table></div>
-
-<h2>R5 · Teoria: descendente × ascendente <span class="q">(Aula07 p1 e Aula09)</span></h2>
-<div class="box rec"><span class="lbl">Ideia</span> Há dois jeitos de testar a frase. A <b>descendente</b> (top-down) começa no símbolo inicial e vai <b>trocando para baixo</b> até chegar na frase. A <b>ascendente</b> (bottom-up) começa na frase e vai <b>juntando pedaços</b> até chegar no símbolo inicial.</div>
-<table>
-<tr><th></th><th>Descendente (ASD)</th><th>Ascendente (ASA)</th></tr>
-<tr><td>Outros nomes</td><td>top-down · preditiva = LL(1)</td><td>bottom-up · <b>shift-reduce</b> · LR</td></tr>
-<tr><td>Árvore</td><td>da <b>raiz</b> para as <b>folhas</b></td><td>das <b>folhas</b> para a <b>raiz</b></td></tr>
-<tr><td>Derivação</td><td>mais à <b>esquerda</b></td><td>mais à <b>direita</b>, ao contrário</td></tr>
-<tr><td>Tipos</td><td>1 com retrocesso · 2 preditiva recursiva · 3 preditiva tabular</td><td>SLR · LR canônico · LALR</td></tr>
-<tr><td>Usa</td><td>FIRST, FOLLOW, tabela, pilha com <span class="m">$S</span></td><td>itens, CLOSURE, GOTO, tabela LR, pilha de números</td></tr>
-</table>
-<div class="box ver"><span class="lbl">Frases verdadeiras (para V/F)</span>
+Regra prática: frase que parece <b>copiada inteira do slide</b> → verdadeira. Frase com <b>"não"</b> ou com <b>um lado trocado</b> → falsa.</div>
+<div class="box tru"><span class="lbl">Frases certas dos slides</span>
 <ul>
-<li>ASD <b>com retrocesso</b>: precisa de gramática sem ambiguidade e sem recursão à esquerda. Se escolher a regra errada, <b>volta</b> e tenta outra.</li>
-<li>ASD <b>preditiva</b>: precisa também ser <b>fatorada à esquerda</b> (gramática LL(1)) e <b>não volta</b>. A <b>tabular</b> usa tabela + autômato de pilha.</li>
-<li>Fatorar <b>retarda a decisão</b> e tira o não determinismo (ex.: duas regras começando com <span class="m">if</span>).</li>
-<li>ASA: também chamada de <b>bottom-up ou shift-reduce</b>. Usa <b>redução</b>, que troca um pedaço da frase (o <b>handle</b>) pelo NT do lado esquerdo.</li>
-<li>LR: <b>L</b> = lê da esquerda para a direita · <b>R</b> = derivação mais à direita.</li>
-<li>Vantagens do LR: reconhece <b>quase todas as GLC</b>, tem <b>bom desempenho</b> e acha erros <b>o mais cedo possível</b>. Desvantagem: é <b>difícil fazer à mão</b>, por isso se usa gerador (YACC/Bison).</li>
-<li><b>SLR</b> é fácil, mas serve para poucas gramáticas · <b>LR canônico</b> é o <b>mais poderoso</b> · <b>LALR</b> é o meio-termo, eficiente, e é o <b>usado pelo YACC</b>.</li>
-<li>Todos os LR funcionam com <b>autômato de pilha + tabela</b>.</li>
+<li>A ASD é <b>top-down</b>: monta a árvore da <b>raiz para as folhas</b> e busca a derivação <b>mais à esquerda</b>.</li>
+<li>A <b>com retrocesso</b> exige gramática sem ambiguidade e sem recursão à esquerda. A <b>preditiva</b> exige também <b>fatorada</b> e gera linguagens <b>LL(1)</b>.</li>
+<li><b>Fatorar</b> a gramática serve para <b>retardar a decisão</b> e remover o não determinismo.</li>
+<li>FIRST e FOLLOW servem para <b>preencher a tabela</b>, e a tabela serve para <b>controlar o autômato de pilha</b>.</li>
+<li>A pilha começa com <b>$ e o símbolo inicial</b>, a fila com a <b>sentença seguida de $</b>. A pilha tem terminais e não terminais, a fila só terminais.</li>
+<li>A ASA é <b>bottom-up ou shift-reduce</b>: monta a árvore das <b>folhas para a raiz</b>, parte da <b>entrada</b> e chega no símbolo inicial usando <b>redução</b>.</li>
+<li>LR: <b>L</b> = lê da esquerda para a direita, <b>R</b> = derivação mais à direita.</li>
+<li>Vantagens do LR: reconhece <b>praticamente todas as GLC</b>, tem <b>bom desempenho</b> e descobre erros <b>o mais cedo possível</b>. Desvantagem: <b>difícil de construir à mão</b>, por isso se usa gerador (YACC/Bison).</li>
+<li><b>SLR</b> é fácil e restrito · <b>LR canônico</b> é o mais poderoso · <b>LALR</b> é intermediário e é o do <b>YACC</b>. Todos funcionam com <b>autômato de pilha + tabela</b>.</li>
+<li>A semântica usa a <b>tabela de símbolos</b> e devolve a <b>árvore de parse anotada</b>. Nomes e tipos ficam fora da GLC pela <b>eficiência e simplicidade do autômato com pilha</b>.</li>
 </ul></div>
-<div class="box peg"><span class="lbl">Frases falsas que caem</span> "a ascendente começa no símbolo inicial" (isso é a descendente) · "LR canônico não usa autômato de pilha" · "SLR é o mais poderoso" · "top-down monta de baixo para cima". Atenção: o slide 3 da Aula09 diz que "na prática a árvore nunca é efetivamente construída", mas a definição (slide 2) diz que a ASA constrói a árvore das folhas para a raiz.</div>
 
-<h2>R6 · Itens, CLOSURE, GOTO <span class="q">(Aula09)</span></h2>
-<div class="box rec"><span class="lbl">Ideia</span> O <b>ponto</b> numa regra marca <b>até onde já li</b>. <span class="m">E → E.+T</span> quer dizer que já li o E e o próximo esperado é +. Cada regra com ponto se chama <b>item</b>.</div>
-<table>
-<tr><td><b>Gramática aumentada</b></td><td>antes de tudo, crie uma regra nova para o inicial: <span class="m">S' → S</span>.</td></tr>
-<tr><td><b>Item inicial</b></td><td>ponto no <b>começo</b>: <span class="m">A → .XYZ</span></td></tr>
-<tr><td><b>Item completo</b></td><td>ponto no <b>fim</b>: <span class="m">A → XYZ.</span> (a regra <span class="m">A → XYZ</span> gera 4 itens)</td></tr>
-<tr><td><b>Item canônico</b></td><td>um <b>conjunto</b> de itens: I0, I1, I2… Cada um vira uma linha da tabela LR.</td></tr>
-<tr><td><b>Coleção canônica</b></td><td>todos os conjuntos juntos: C = {I0, I1, …}</td></tr>
-</table>
-<div class="box passo"><span class="lbl">CLOSURE: passo a passo</span>
-<ol><li>Copie os itens que você recebeu.</li>
-<li>Olhe o símbolo <b>logo depois do ponto</b>. Se for <b>MAIÚSCULA</b>, acrescente <b>todas as regras dela com o ponto no começo</b>.</li>
-<li>Repita o passo 2 com os itens novos. Terminal depois do ponto, ou ponto no fim, não acrescenta nada. Não repita itens.</li></ol></div>
-<div class="box passo"><span class="lbl">GOTO(I, X): passo a passo</span>
-<ol><li>No conjunto I, pegue <b>só os itens que têm o ponto logo antes do X</b>.</li>
-<li><b>Pule o ponto</b> por cima do X: <span class="m">E → .E+T</span> vira <span class="m">E → E.+T</span>.</li>
-<li>Faça o <b>CLOSURE</b> do resultado. Se nenhum item tinha o ponto antes do X, o resultado é <b>{ }</b> (vazio).</li></ol></div>
-<div class="box passo"><span class="lbl">Coleção canônica: passo a passo</span>
-<ol><li><b>I0 = CLOSURE({S' → .S})</b>.</li>
-<li>Para cada conjunto I, faça o GOTO com <b>todos</b> os símbolos: as maiúsculas <b>e</b> os terminais.</li>
-<li>Resultado novo e não vazio → dê o próximo nome (I1, I2…). Resultado igual a um que já existe → use o mesmo nome.</li>
-<li>Pare quando não aparecer nenhum conjunto novo.</li></ol></div>
-<div class="ex"><span class="lbl">Exemplo dos slides</span> <span class="m">E' → E · E → E+T | T · T → T*F | F · F → (E) | id</span><br>
-<b>CLOSURE({E' → .E}):</b> começa com <span class="m">E'→.E</span>. Depois do ponto vem E, então entram <span class="m">E→.E+T</span> e <span class="m">E→.T</span>. Depois do ponto vem T, então entram <span class="m">T→.T*F</span> e <span class="m">T→.F</span>. Depois do ponto vem F, então entram <span class="m">F→.(E)</span> e <span class="m">F→.id</span>. Depois do ponto agora só há terminais, e acabou. Esse conjunto é o <b>I0</b>.<br>
-<b>GOTO(I0, E):</b> os itens com ponto antes de E são <span class="m">E'→.E</span> e <span class="m">E→.E+T</span>. Pulando o ponto: <span class="m">{E'→E., E→E.+T}</span>. Depois do ponto não há maiúscula, então o CLOSURE não acrescenta nada. Esse é o <b>I1</b>.<br>
-<b>GOTO(I0, +) = { }</b>, porque nenhum item do I0 tem o ponto antes do +.</div>
-
-<h2>R7 · Tabela LR <span class="q">(Aula10)</span></h2>
-<div class="box rec"><span class="lbl">Ideia</span> Cada linha é um estado (I0 → linha 0, I1 → linha 1…). As colunas de <b>Ações</b> são os terminais e o $, e as de <b>Transições</b> são as maiúsculas. Na célula vai:<br>
-<b>eN</b> = empilha o estado N (vem do GOTO com terminal) · <b>N</b> sozinho = transição (vem do GOTO com maiúscula) · <b>rN</b> = reduz pela <b>regra número N</b> · <b>OK</b> = aceita.</div>
-<div class="box passo"><span class="lbl">Passo a passo</span>
+<h2>§3 FIRST e FOLLOW (múltipla escolha)</h2>
+<p><b>FIRST(X)</b> = com quais terminais o X <b>começa</b>. <b>FOLLOW(X)</b> = quais terminais vêm <b>logo depois</b> do X.</p>
+<div class="box tru"><span class="lbl">Como acertar sem calcular tudo: elimine</span>
 <ol>
-<li><b>Numere as regras</b> 1, 2, 3…, <b>sem</b> contar a <span class="m">S' → S</span>.</li>
-<li>Calcule o <b>FOLLOW</b> de cada maiúscula (R2).</li>
-<li>Para cada <b>GOTO(Ii, X) = Ij</b>: se X é <b>terminal</b>, escreva <b>ej</b> na linha i, coluna X. Se X é <b>maiúscula</b>, escreva só <b>j</b> na linha i, coluna X.</li>
-<li>Para cada <b>item completo</b> (ponto no fim) <span class="m">A → … .</span> que está no Ii: escreva <b>rN</b> (N = número da regra) na <b>linha i</b>, em <b>todas as colunas do FOLLOW(A)</b>.</li>
-<li>Onde estiver <span class="m">S' → S.</span>, escreva <b>OK</b> na coluna <b>$</b>.</li>
+<li>Tem <b>$ dentro de um FIRST</b>? Ou <b>ε dentro de um FOLLOW</b>? → <span class="no">elimine</span>.</li>
+<li><b>FIRST:</b> leia o <b>1º símbolo de cada regra</b> do NT. Se é terminal, ele <b>tem que estar</b> no FIRST, e só ele. Se é maiúscula, copie o FIRST dela.</li>
+<li><b>FOLLOW do símbolo inicial</b> (o primeiro NT) <b>tem que ter $</b>.</li>
+<li><b>FOLLOW(X):</b> ache o X <b>depois da seta</b> em todas as regras e veja o que vem <b>logo em seguida</b>. Terminal → entra. Maiúscula → entra o FIRST dela (sem ε). <b>Nada</b> (X é o último) → entra o FOLLOW de quem está <b>antes da seta</b>. Se for a regra do próprio X, não muda nada.</li>
+<li>O <b>$</b> só aparece no FOLLOW de quem é o inicial ou de quem fica no <b>fim</b> de uma regra do inicial (ou herda dele).</li>
 </ol></div>
-<div class="ex"><span class="lbl">Exemplo pequeno</span> <span class="m">S' → S</span> · (1) <span class="m">S → CC</span> · (2) <span class="m">C → cC</span> · (3) <span class="m">C → d</span>. FOLLOW(S) = {$} · FOLLOW(C) = {c, d, $}<br>
-I0 = <span class="m">{S'→.S, S→.CC, C→.cC, C→.d}</span> · I1 = GOTO(I0,S) = <span class="m">{S'→S.}</span> · I2 = GOTO(I0,C) = <span class="m">{S→C.C, C→.cC, C→.d}</span> · I3 = GOTO(I0,c) = <span class="m">{C→c.C, C→.cC, C→.d}</span> · I4 = GOTO(I0,d) = <span class="m">{C→d.}</span> · I5 = GOTO(I2,C) = <span class="m">{S→CC.}</span> · I6 = GOTO(I3,C) = <span class="m">{C→cC.}</span>. GOTO(I2,c) e GOTO(I3,c) dão I3, e GOTO(I2,d) e GOTO(I3,d) dão I4.
-<table class="c"><tr><th>Est.</th><th>c</th><th>d</th><th>$</th><th>S</th><th>C</th><th>De onde veio</th></tr>
-<tr><td>0</td><td>e3</td><td>e4</td><td></td><td>1</td><td>2</td><td>GOTOs do I0</td></tr>
-<tr><td>1</td><td></td><td></td><td>OK</td><td></td><td></td><td>S'→S.</td></tr>
-<tr><td>2</td><td>e3</td><td>e4</td><td></td><td></td><td>5</td><td>GOTOs do I2</td></tr>
-<tr><td>3</td><td>e3</td><td>e4</td><td></td><td></td><td>6</td><td>GOTOs do I3</td></tr>
-<tr><td>4</td><td>r3</td><td>r3</td><td>r3</td><td></td><td></td><td>C→d. é a regra 3, FOLLOW(C)</td></tr>
-<tr><td>5</td><td></td><td></td><td>r1</td><td></td><td></td><td>S→CC. é a regra 1, FOLLOW(S)</td></tr>
-<tr><td>6</td><td>r2</td><td>r2</td><td>r2</td><td></td><td></td><td>C→cC. é a regra 2, FOLLOW(C)</td></tr></table></div>
-<div class="box peg"><span class="lbl">Cuidado</span> No <b>rN</b>, o N é o <b>número da regra</b>, e a <b>linha</b> é o número do estado: não troque os dois. Só reduz o item com o ponto <b>no fim</b>: <span class="m">F → (.S)</span> não reduz. Uma regra <span class="m">X → ε</span> vira o item <span class="m">X → .</span>, que já está completo e reduz. Para ler a tabela ao contrário (questão de GOTO): <b>eN</b> ou número → GOTO deu <b>IN</b>; <b>rN</b> ou vazio → <b>"-"</b>.</div>
+<div class="ex"><span class="lbl">Exemplo: Q10 do AVA</span> <span class="m">A → i[B]=C · B → n | nB · C → n | i | iC</span><br>
+Filtro 1: a <b>e</b> tem FIRST(A) = {$} → fora. Filtro 2: A começa com i, então FIRST(A) = {i}, e a <b>d</b> ({i, [}) sai. C tem regras começando com n e com i, então FIRST(C) = {n, i}, e a <b>b</b> ({n}) sai. Sobram a e c, que só diferem no FOLLOW(B). Filtro 4: B aparece em <span class="m">i[B]=C</span> antes do <b>]</b>, então ganha ]. Em <span class="m">B → nB</span> ele é o último, mas é a regra dele mesmo. B não é inicial e não fica no fim de A. Então FOLLOW(B) = {]} → <span class="ok">a</span>.</div>
+<div class="ex"><span class="lbl">Se precisar calcular (lista 7.1)</span> <span class="m">E → TE' · E' → +TE' | ε · T → a</span><br>
+FIRST: T = {a} · E' = {+, ε} · E começa com T → {a}.<br>
+FOLLOW: E é o inicial → {$}. E' é o último em E → TE' → copia FOLLOW(E) = {$}. T vem antes do E' → FIRST(E') sem ε = {+}. Como E' pode virar ε, o T pode ficar no fim → também FOLLOW(E) = {$}. FOLLOW(T) = {+, $}.</div>
 
-<h2>R8 · Pilha da análise LR <span class="q">(Aula10)</span></h2>
-<div class="box passo"><span class="lbl">Passo a passo</span> Comece com Pilha = <span class="m">0</span>, Símbolos vazio e Entrada = frase + $. Olhe a célula [<b>último número da pilha</b>, <b>1º da entrada</b>]:
+<h2>§4 "Arraste as produções" — tabela preditiva</h2>
+<div class="box tru"><span class="lbl">Como acertar, linha por linha</span>
 <ol>
-<li><b>eN</b> → coloque N no fim da pilha e passe o 1º símbolo da entrada para os Símbolos.</li>
-<li><b>rN</b> → pegue a regra N, <span class="m">A → β</span>. <b>Conte os símbolos de β</b> e apague essa quantidade de números do fim da pilha. Nos Símbolos, troque β por A. Olhe o número que ficou no fim da pilha (s) e coloque <b>Transição[s, A]</b>. A entrada <b>não</b> muda.</li>
-<li><b>OK</b> → <b>Reconhecida</b>. Célula vazia → <b>Não reconhecida</b>.</li>
-</ol></div>
-<div class="ex"><span class="lbl">Exemplo</span> <span class="m">cdd</span> com a tabela da R7
-<table><tr><th>Pilha</th><th>Símb.</th><th>Entrada</th><th>Ação</th><th>O que fiz</th></tr>
-<tr><td class="m">0</td><td></td><td class="m">cdd$</td><td>e3</td><td>[0, c] = e3</td></tr>
-<tr><td class="m">0 3</td><td class="m">c</td><td class="m">dd$</td><td>e4</td><td>[3, d] = e4</td></tr>
-<tr><td class="m">0 3 4</td><td class="m">cd</td><td class="m">d$</td><td>r3</td><td>C→d tem 1 símbolo: apago o 4. Sobra 3, e [3, C] = 6</td></tr>
-<tr><td class="m">0 3 6</td><td class="m">cC</td><td class="m">d$</td><td>r2</td><td>C→cC tem 2 símbolos: apago 6 e 3. Sobra 0, e [0, C] = 2</td></tr>
-<tr><td class="m">0 2</td><td class="m">C</td><td class="m">d$</td><td>e4</td><td></td></tr>
-<tr><td class="m">0 2 4</td><td class="m">Cd</td><td class="m">$</td><td>r3</td><td>apago o 4. Sobra 2, e [2, C] = 5</td></tr>
-<tr><td class="m">0 2 5</td><td class="m">CC</td><td class="m">$</td><td>r1</td><td>S→CC tem 2: apago 5 e 2. Sobra 0, e [0, S] = 1</td></tr>
-<tr><td class="m">0 1</td><td class="m">S</td><td class="m">$</td><td><b>OK</b></td><td><b>Reconhecida</b></td></tr></table></div>
+<li>Pegue a linha de um NT e liste <b>as regras dele</b>.</li>
+<li>Regra que começa com um <b>terminal t</b> → vai na <b>coluna t</b>.</li>
+<li>Regra que começa com <b>MAIÚSCULA</b> → vai nas colunas do FIRST dessa maiúscula.</li>
+<li>Regra <b>X → ε</b> → vai nas colunas do <b>FOLLOW(X)</b>.</li>
+<li>Toda célula da linha que sobrou → <b>"-"</b>.</li>
+</ol>
+Confira: toda regra que não é ε aparece pelo menos uma vez. Se uma célula ficar com duas regras, você errou (ou a gramática não é LL(1)).</div>
+<div class="ex"><span class="lbl">Exemplo: Q2 do AVA, linha V</span> <span class="m">V → 45N7 | ε</span>. <span class="m">45N7</span> começa com 4 → coluna 4. <span class="m">V → ε</span> → FOLLOW(V) = {2, 6, 7, $} → colunas 2, 6, 7 e $. As colunas 0, 1, 3 e 5 ficam com "-". Linha A: <span class="m">A → N6N</span> começa com N, e N → 4I | 34 começa com 4 ou 3 → colunas 3 e 4.</div>
 
-<h2>R9 · Lex/Flex e Yacc/Bison <span class="q">(aula do trabalho, sem slide)</span></h2>
+<h2>§5 Pilha | Entrada | Saída — completar a Saída</h2>
+<div class="box tru"><span class="lbl">Truque principal</span> A questão <b>já dá a Pilha e a Entrada</b> de todas as linhas. Para achar a Saída de uma linha, <b>compare com a linha de baixo</b>. O topo da pilha é o <b>último símbolo da direita</b>.
 <table>
-<tr><th></th><th>Lex / Flex</th><th>Yacc / Bison</th></tr>
-<tr><td>Gera</td><td>analisador <b>léxico</b> (acha os tokens)</td><td>analisador <b>sintático</b> (parser) <b>ascendente LALR</b></td></tr>
-<tr><td>Recebe</td><td>arquivo <span class="m">.l</span> com <b>expressões regulares</b></td><td>arquivo <span class="m">.y</span> com a <b>gramática</b> (GLC)</td></tr>
-<tr><td>Produz</td><td>código C <span class="m">lex.yy.c</span> (função <span class="m">yylex()</span>)</td><td>código C <span class="m">y.tab.c</span> (função <span class="m">yyparse()</span>)</td></tr>
-</table>
-<p>O Lex <b>não lê o texto</b>: ele <b>gera um programa em C</b>. Depois de compilado, é esse programa que lê o texto e devolve os tokens.</p>
-<pre>%{  …código C copiado sem mudança (#include, constantes)…  %}
-digito  [0-9]           ← definição regular (nome + expressão)
-numero  {digito}+        ← reutiliza outra definição com {nome}
-%%
-{numero}  { return (NUM); }   ← regra: padrão + ação
-%%
-…código C do usuário (main etc.)…</pre>
-<p><span class="m">yytext</span> = o lexema que casou. Quando duas regras casam, vence o <b>maior lexema</b>; se empatar, vence a <b>regra que vem primeiro</b>.</p>
+<tr><th>Da linha para a de baixo…</th><th>Saída</th></tr>
+<tr><td>o topo (maiúscula) foi trocado por outros símbolos e a entrada não mudou</td><td><b>topo → os símbolos novos lidos de trás para frente</b></td></tr>
+<tr><td>o topo (maiúscula) <b>sumiu</b> e não entrou nada; a entrada não mudou</td><td><b>topo → ε</b></td></tr>
+<tr><td>o topo era terminal e a entrada perdeu esse mesmo símbolo</td><td><b>-</b></td></tr>
+<tr><td>a pilha é <b>$</b> e a entrada é <b>$</b></td><td><b>-</b> e Sentença = <b>Reconhecida</b></td></tr>
+</table></div>
+<div class="ex"><span class="lbl">Exemplo: Q1 do AVA</span>
+<table>
+<tr><th>Linha → linha de baixo</th><th>O que mudou</th><th>Saída</th></tr>
+<tr><td class="m">$S → $Z=]Y[X</td><td>S virou "Z=]Y[X"; de trás para frente: X[Y]=Z</td><td>S → X[Y]=Z</td></tr>
+<tr><td class="m">$Z=]Y[X → $Z=]Y[Jx</td><td>X virou "Jx" → xJ</td><td>X → xJ</td></tr>
+<tr><td class="m">$Z=]Y[Jx → $Z=]Y[J</td><td>o x saiu da pilha e da entrada</td><td>-</td></tr>
+<tr><td class="m">$Z=]Y[J → $Z=]Y[</td><td>J sumiu, a entrada não mudou</td><td>J → ε</td></tr>
+<tr><td class="m">$ e $</td><td>fim</td><td>- · Reconhecida</td></tr>
+</table></div>
+<p><b>Se tiver que montar do zero:</b> comece com <span class="m">$S</span> e a frase + $. Topo maiúscula → use a regra da célula [topo, 1º da entrada] e escreva o lado direito <b>ao contrário</b> no lugar do topo. Topo terminal igual ao da entrada → apague dos dois. Célula vazia ou terminal diferente → <b>Não reconhecida</b>.</p>
 
-<h2>R10 · Análise semântica <span class="q">(Aula11)</span></h2>
-<div class="box rec"><span class="lbl">Ideia</span> O parser só confere a forma. <span class="m">x = 3 * "penny";</span> está bem escrito, mas não faz sentido. A semântica verifica se o que está <b>correto sintaticamente tem significado admissível</b>.</div>
-<div class="box ver"><span class="lbl">Frases verdadeiras</span>
+<h2>§6 CLOSURE, GOTO e coleção canônica</h2>
+<p>O <b>ponto</b> marca até onde a regra já foi lida. <span class="m">E → E.+T</span> = já li o E, falta +T.</p>
+<div class="box tru"><span class="lbl">Como conferir cada alternativa</span>
+<ol>
+<li>O <b>primeiro item canônico (I0)</b> é <b>sempre CLOSURE({S' → .S})</b>, nunca um GOTO.</li>
+<li><b>CLOSURE:</b> se o ponto está antes de uma <b>MAIÚSCULA</b>, <b>todas</b> as regras dela têm que aparecer com o ponto no início. Repita para as maiúsculas novas. <b>Conte</b>: se faltar uma regra, a alternativa está errada.</li>
+<li>Ponto antes de terminal, ou ponto no fim → não acrescenta nada.</li>
+<li><b>GOTO(I, X):</b> pegue só os itens com o ponto <b>logo antes do X</b>, passe o ponto para depois do X e faça o CLOSURE. Se nenhum item tem o ponto antes do X → <b>{ }</b>.</li>
+<li>Mesmo com a gramática já aumentada, o CLOSURE continua sendo usado.</li>
+</ol></div>
+<div class="ex"><span class="lbl">Exemplo: Q7 do AVA</span> <span class="m">A' → A · A → aAa | B · B → bAb | cc</span>. CLOSURE(A' → .A): o ponto está antes de A → entram <b>A → .aAa</b> e <b>A → .B</b>. Agora o ponto está antes de B → entram B → .bAb e B → .cc. A <b>b</b> esqueceu o A → .aAa → falsa. A <b>e</b>, CLOSURE(A → .B) = {A → .B, B → .bAb, B → .cc}, está completa → <span class="ok">certa</span>.</div>
+
+<h2>§7 Tabela LR</h2>
+<h3>"Ações de redução" (tipo Q3): confira 4 coisas</h3>
+<div class="box tru"><ol>
+<li>O item tem o <b>ponto no fim</b>? Se não, <b>não há redução</b> → falsa.</li>
+<li>É <span class="m">S' → S.</span>? Então é <b>OK na coluna $</b> (nem e, nem r).</li>
+<li>Em <b>rN</b>, o N é o <b>número da regra</b> (o que está entre parênteses) e a <b>linha</b> é o número do I (I1 → linha 1).</li>
+<li>As <b>colunas</b> são o <b>FOLLOW do lado esquerdo</b> da regra (Y → *FY. → FOLLOW(Y)).</li>
+</ol></div>
+<h3>"Processo inverso: qual GOTO produziu" (tipo Q8)</h3>
+<div class="box tru">Olhe a célula [linha i, coluna X]: <b>eN</b> → GOTO(Ii, X) = <b>IN</b> · <b>número N</b> embaixo de uma maiúscula → <b>IN</b> · <b>rN</b> ou vazio → <b>"-"</b>, porque redução não vem de GOTO.</div>
+<h3>Preencher do zero (listas 10.1 e 10.2)</h3>
+<div class="box tru"><ol>
+<li>Numere as regras 1, 2, 3… sem contar a S' → S. Calcule os FOLLOW.</li>
+<li>GOTO(Ii, <b>terminal</b> t) = Ij → <b>ej</b> na linha i, coluna t.</li>
+<li>GOTO(Ii, <b>maiúscula</b> X) = Ij → só <b>j</b> na linha i, coluna X.</li>
+<li>Item completo <span class="m">A → … .</span> no Ii → <b>rN</b> na linha i, colunas do FOLLOW(A). S' → S. → <b>OK</b> em $.</li>
+</ol></div>
+<div class="box dif"><span class="lbl">Diferença</span> <b>eN</b>: N é um <b>estado</b> (linha da tabela) · <b>rN</b>: N é o <b>número da regra</b> · número sozinho: está na parte de <b>Transições</b> (colunas das maiúsculas).</div>
+
+<h2>§8 Pilha da análise LR</h2>
+<div class="box tru"><span class="lbl">Se a questão já dá Pilha e Símbolos: compare com a linha de baixo</span>
+<table>
+<tr><th>Da linha para a de baixo…</th><th>Ação</th></tr>
+<tr><td>entrou um número N no fim da pilha e o 1º da entrada passou para os Símbolos</td><td><b>eN</b></td></tr>
+<tr><td>nos Símbolos um pedaço virou <b>uma maiúscula</b> (ex.: "T*F" virou "T")</td><td><b>rN</b>, onde N = número da regra "maiúscula → pedaço"</td></tr>
+<tr><td>sobrou o símbolo inicial e a entrada é $</td><td><b>OK</b> (reconhecida)</td></tr>
+</table></div>
+<p><b>Se tiver que montar:</b> comece com a pilha <span class="m">0</span>. Olhe [<b>último número da pilha</b>, <b>1º da entrada</b>]. Com <b>eN</b>, ponha N na pilha e passe o símbolo da entrada para os Símbolos. Com <b>rN</b> (regra <span class="m">A → β</span>), <b>tire da pilha tantos números quantos símbolos tem β</b>, troque β por A nos Símbolos e ponha Transição[número que sobrou, A]. Célula vazia → <b>não reconhecida</b>.</p>
+<div class="ex"><span class="lbl">Exemplo (slides)</span> <span class="m">0 5 | id | *id+id$ | r6</span>: a regra 6 é F → id, que tem 1 símbolo. Tiro o 5 e sobra 0. Transição[0, F] = 3 → próxima linha <span class="m">0 3 | F</span>.</div>
+
+<h2>§9 LEX / FLEX</h2>
+<pre>%{
+ #define NUM 1     ← código C copiado SEM modificação
+%}                    (constantes, #include)
+digito  [0-9]      ← definição regular: nome + expressão
+numero  {digito}+  ← pode reutilizar outra com {nome}
+%%
+{numero}  {return (NUM);}  ← regras: padrão + ação
+%%
+código C do usuário (main…)</pre>
+<div class="box peg"><span class="lbl">O que já caiu (Q5)</span>
+<ul><li>"%{ %} <b>declara constantes</b> copiadas sem modificação" → <span class="ok">V</span>. "%{ %} descreve a <b>ação</b>" → <span class="no">F</span> (a ação fica entre os %%).</li>
+<li>"definições <b>reutilizando outras</b> (n_real {digito}.{digito}+)" → <span class="ok">V</span>.</li>
+<li>"{numero} {return (NUM);} vale se existir definição para <b>NUM</b>" → <span class="no">F</span>: precisa da definição <b>numero</b>; NUM é a constante.</li>
+<li>"O Lex recebe .lex e .txt e <b>lê o texto</b>" → <span class="no">F</span>: o Lex <b>gera um programa em C</b>, e é esse programa que lê o texto.</li></ul></div>
+
+<h2>§10 Semântica e tabela de símbolos</h2>
 <ul>
-<li>Nomes e tipos ficam fora da GLC por causa da <b>eficiência e simplicidade do autômato com pilha</b>.</li>
-<li>Usa a <b>tabela de símbolos</b>. A <b>saída</b> é a <b>árvore de parse anotada</b>. Um componente importante é a <b>checagem de tipos</b>.</li>
-<li>É feita por <b>ações semânticas</b> (definições dirigidas pela sintaxe) dentro do analisador sintático.</li>
-<li>Quem <b>insere os identificadores na tabela de símbolos</b> são as <b>ações semânticas</b>, e não mais o léxico.</li>
-</ul></div>
-<table>
-<tr><th>Estática</th><th>Dinâmica</th></tr>
-<tr><td>no <b>código-fonte</b>, ao <b>compilar</b></td><td>em <b>tempo de execução</b></td></tr>
-<tr><td>compilador maior, menos flexível, menos expressiva</td><td>mais cara, pode ser tarde demais, <b>mais flexível</b></td></tr>
-</table>
-<table>
-<tr><th>Verificação</th><th>Exemplo</th></tr>
-<tr><td><b>de tipos</b></td><td><span class="m">a % b</span> com b float · <span class="m">float hal = "monolito"</span> · <span class="m">3 * "penny"</span></td></tr>
-<tr><td><b>de fluxo de controle</b></td><td><span class="m">break</span> fora de while/for/switch</td></tr>
-<tr><td><b>de unicidade</b></td><td>mesma variável declarada 2× <b>no mesmo nível</b> · case repetido · enum repetido</td></tr>
-<tr><td><b>de nomes</b></td><td>palavra reservada usada como nome · nome que tem que aparecer no início e no fim (Ada)</td></tr>
-</table>
-<p><b>Tipos básicos</b> (sem estrutura): inteiro, real, booleano, caractere, <b>string, intervalo, enumeração</b>. <b>Construídos:</b> ponteiro, estrutura, registro, vetor, matriz.</p>
-<p><b>Tabela de símbolos</b> (atributos): variável → categoria, tipo, endereço · parâmetro → esses + <b>passagem por valor ou referência</b> · procedimento → categoria, rótulo, nível, nº de parâmetros, tipo e passagem de cada um. Colunas: ID, CAT, NÍVEL, TIPO, VAL, DESL.</p>
-
-<h2>Não confunda</h2>
-<table>
-<tr><td><b>FIRST</b>: com o que <b>começa</b> (olho as regras <b>do</b> NT)</td><td><b>FOLLOW</b>: o que vem <b>depois</b> (olho onde o NT <b>aparece</b>)</td></tr>
-<tr><td><b>Item</b>: uma regra com ponto</td><td><b>Item canônico</b>: um conjunto (I0, I1…) · <b>Coleção</b>: todos os conjuntos</td></tr>
-<tr><td><b>CLOSURE</b>: só <b>acrescenta</b> regras, o ponto não anda</td><td><b>GOTO</b>: <b>pula o ponto</b> e depois faz CLOSURE</td></tr>
-<tr><td><b>eN</b>: N é um <b>estado</b></td><td><b>rN</b>: N é o <b>número da regra</b></td></tr>
-<tr><td>Pilha preditiva: letras, começa com <span class="m">$S</span></td><td>Pilha LR: números, começa com <span class="m">0</span></td></tr>
-<tr><td>Preditiva: a regra ε vai no FOLLOW</td><td>LR: o <b>rN</b> vai no FOLLOW</td></tr>
-<tr><td><b>Lex</b>: léxico, expressões regulares</td><td><b>Yacc</b>: sintático, gramática, LALR</td></tr>
-</table>
+<li>"De quem é a responsabilidade por <b>acrescentar identificadores na tabela de símbolos</b>?" → <b>das ações semânticas</b> (Q4). CLOSURE e GOTO são da tabela LR, não têm nada a ver.</li>
+<li>Em <span class="m">C = A + B;</span> é preciso conferir se A, B e C foram declarados, se A e B podem ser somados e se o resultado cabe em C.</li>
+<li>Atributos na tabela de símbolos: <b>variável</b> → categoria, tipo, endereço · <b>parâmetro</b> → esses + <b>passagem (valor ou referência)</b> · <b>procedimento</b> → categoria, rótulo, nível, nº de parâmetros, tipo e passagem de cada um. Colunas: ID, CAT, NÍVEL, TIPO, VAL, DESL.</li>
+<li>Mesmo nome em <b>níveis diferentes</b> (global, função, bloco) <b>não</b> é erro. Erro de unicidade é repetir <b>no mesmo nível</b>.</li>
+</ul>
 
 </div>
 </body>
