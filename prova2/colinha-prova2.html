@@ -7,7 +7,7 @@
 @page { size: A4; margin: 4.5mm; }
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; background: #fff; color: #111; }
-body { font-family: "Segoe UI", Arial, sans-serif; font-size: 7.3pt; line-height: 1.2;
+body { font-family: "Segoe UI", Arial, sans-serif; font-size: 7.1pt; line-height: 1.2;
   -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 .cols { column-count: 2; column-gap: 4mm; column-rule: 0.3pt solid #999; }
 h1 { font-size: 11pt; margin: 0; color: #12385e; }
@@ -78,6 +78,7 @@ td.t { font-weight: 700; white-space: nowrap; }
 <ul><li><b>Item</b> = 1 regra com ponto → <b>item canônico</b> = 1 <b>conjunto</b> de itens (vira uma linha da tabela) → <b>coleção canônica</b> = <b>todos</b> os conjuntos juntos.</li>
 <li><b>CLOSURE</b> <b>acrescenta</b> regras e o ponto <b>fica parado</b>. <b>GOTO</b> <b>anda com o ponto</b> por cima de um símbolo.</li>
 <li><b>Inicial</b> = ponto no começo. <b>Completo</b> = ponto no fim.</li></ul></div>
+<div class="ex"><span class="lbl">Exemplo: Q9 do AVA</span> "Recebe um conjunto de itens e retorna esse mesmo conjunto <span class="k">adicionado aos itens iniciais</span>…" → <span class="ok">Função CLOSURE</span>. "Conjunto de itens <span class="k">produzidos pela GOTO</span>" → <span class="ok">Item canônico</span> (não é coleção: coleção é a que "<span class="k">monta a tabela LR</span>"). "Ponto <span class="k">depois do último</span> símbolo" → <span class="ok">Item completo</span>. Leia só a palavra-chave e risque o termo já usado: cada termo entra uma vez.</div>
 <h3>Tipos de análise (Aula07 e Aula09)</h3>
 <table>
 <tr><td class="t">Descendente (ASD)</td><td><span class="k">top-down</span>, da <span class="k">raiz para as folhas</span>, derivação <span class="k">mais à esquerda</span></td></tr>
@@ -126,6 +127,15 @@ td.t { font-weight: 700; white-space: nowrap; }
 <tr><td>Usa um item com o <b>ponto no meio</b> como se estivesse pronto</td><td>Q3 d</td></tr>
 </table>
 Regra prática: frase que parece <b>copiada inteira do slide</b> → verdadeira. Frase com <b>"não"</b> ou com <b>um lado trocado</b> → falsa.</div>
+<div class="ex"><span class="lbl">Exemplo: Q6 do AVA (sobre a ascendente)</span>
+<table>
+<tr><th>Alternativa</th><th>Truque</th><th></th></tr>
+<tr><td>a. "<b>não ocorre</b> a construção de uma árvore"</td><td>pôs um "não"</td><td class="no">F</td></tr>
+<tr><td>b. "inicia com o <b>símbolo inicial</b> e faz substituições até gerar a sentença"</td><td>lado trocado (isso é a descendente)</td><td class="no">F</td></tr>
+<tr><td>c. "também chamada de <b>shift-reduce</b>"</td><td>copiada do slide</td><td class="ok">V</td></tr>
+<tr><td>d. "também chamada de <b>top-down</b>"</td><td>lado trocado (ascendente é bottom-up)</td><td class="no">F</td></tr>
+<tr><td>e. "LR canônicos <b>não podem</b> ser implementados com autômato com pilha"</td><td>pôs um "não"</td><td class="no">F</td></tr>
+</table>Resposta: só a <span class="ok">c</span>. Fez isso com cada alternativa e sobrou uma? É ela.</div>
 <div class="box tru"><span class="lbl">Frases certas dos slides</span>
 <ul>
 <li>A ASD é <b>top-down</b>: monta a árvore da <b>raiz para as folhas</b> e busca a derivação <b>mais à esquerda</b>.</li>
@@ -208,8 +218,18 @@ Confira: toda regra que não é ε aparece pelo menos uma vez. Se uma célula fi
 <li>Em <b>rN</b>, o N é o <b>número da regra</b> (o que está entre parênteses) e a <b>linha</b> é o número do I (I1 → linha 1).</li>
 <li>As <b>colunas</b> são o <b>FOLLOW do lado esquerdo</b> da regra (Y → *FY. → FOLLOW(Y)).</li>
 </ol></div>
+<div class="ex"><span class="lbl">Exemplo: Q3 do AVA</span> regras (5) F → (S) e (7) Y → *FY; FOLLOW(Y) = {+, $, )}.
+<table>
+<tr><th>Alternativa</th><th>Confere?</th><th></th></tr>
+<tr><td>a. I1 = {Y → *FY.} → r7 na linha 1, colunas +, $ e )</td><td>ponto no fim, regra 7, linha 1, FOLLOW(Y)</td><td class="ok">V</td></tr>
+<tr><td>b. I2 = {S' → S., …} → OK na linha 2, coluna $</td><td>S' → S. dá OK em $</td><td class="ok">V</td></tr>
+<tr><td>c. o mesmo I2 → e1 na coluna $</td><td>S' → S. é OK, não e</td><td class="no">F</td></tr>
+<tr><td>d. I3 = {F → (.S)} → r5</td><td>ponto no meio: não reduz</td><td class="no">F</td></tr>
+<tr><td>e. I1 = {Y → *FY.} → r1 na linha 7</td><td>inverteu regra e linha</td><td class="no">F</td></tr>
+</table>Resposta: <span class="ok">a e b</span>.</div>
 <h3>"Processo inverso: qual GOTO produziu" (tipo Q8)</h3>
 <div class="box tru">Olhe a célula [linha i, coluna X]: <b>eN</b> → GOTO(Ii, X) = <b>IN</b> · <b>número N</b> embaixo de uma maiúscula → <b>IN</b> · <b>rN</b> ou vazio → <b>"-"</b>, porque redução não vem de GOTO.</div>
+<div class="ex"><span class="lbl">Exemplo: Q8 do AVA</span> linha 1 da tabela: <span class="m">b: r1 · c: e2 · A: 1 · B: 2</span>. Então GOTO(I1, c) = <b>I2</b> (do e2) · GOTO(I1, A) = <b>I1</b> e GOTO(I1, B) = <b>I2</b> (números embaixo das maiúsculas) · GOTO(I1, b) = <b>-</b> (é r1) · colunas a e $ vazias → <b>-</b>.</div>
 <h3>Preencher do zero (listas 10.1 e 10.2)</h3>
 <div class="box tru"><ol>
 <li>Numere as regras 1, 2, 3… sem contar a S' → S. Calcule os FOLLOW.</li>
