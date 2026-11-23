@@ -36,7 +36,8 @@ A prova permite levar uma **colinha de consulta**. A numeração do cronograma n
 
 ## Materiais prontos (comece por eles)
 
-- `Colinha Prova 2 - LFC (4 pags).pdf` — colinha de consulta da Prova 2: regras, "Como fazer", pegadinhas, tabelas de diferenças e exercícios resolvidos de cada técnica (inclui as 10 questões de estudo do AVA). Fonte editável: `prova2/colinha-prova2.html` (regerar o PDF com Chrome headless).
+- `Colinha Prova 2 - LFC (3 pags).pdf` — colinha de consulta da Prova 2 feita para quem não conhece a matéria: tabela "que questão é essa?", dicionário dos termos e uma receita por tipo de questão (R1 a R10), com passos numerados e um exemplo resolvido linha a linha. Fonte: `prova2/colinha-prova2.html`.
+- `Questões Prova 2 - LFC (respostas marcadas, 8 pags).pdf` — todas as questões já vistas (listas 7.1 a 10.3 dos PDFs, exemplos/perguntas dos slides e as 10 do AVA), com a resposta certa marcada em verde, em blocos que apontam para a receita da colinha. Fonte: `prova2/questoes-prova2.html`.
 - `prova2/exercicios/` — prints das 10 questões de estudo da Prova 2 (`image*.png`) e `GABARITO.md` com a resolução de cada uma.
 
 - `Guia de Estudo - LFC Prova 1 (impressão, 6 pags).pdf` — guia completo das Aulas 1–6 explicado do zero, com passo a passo de cada técnica e as 12 questões do questionário do AVA resolvidas. Versão compacta em 2 colunas para imprimir.
