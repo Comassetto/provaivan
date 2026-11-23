@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Colinha Prova 2 LFC</title>
+<style>
+@page { size: A4; margin: 4.5mm; }
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: #fff; color: #111; }
+body { font-family: "Segoe UI", Arial, sans-serif; font-size: 6.35pt; line-height: 1.2;
+  -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.cols { column-count: 2; column-gap: 3mm; column-rule: 0.3pt solid #999; }
+h1 { font-size: 8.6pt; margin: 0; color: #12385e; }
+.sub { font-size: 5.9pt; color: #333; margin: 0.2mm 0 0.6mm; }
+h2 { font-size: 7.1pt; background: #12385e; color: #fff; padding: 0.35mm 1mm; margin: 1.1mm 0 0.5mm;
+  break-after: avoid; break-inside: avoid; }
+h3 { font-size: 6.5pt; color: #12385e; margin: 0.9mm 0 0.3mm; border-bottom: 0.3pt solid #12385e;
+  break-after: avoid; }
+p { margin: 0.3mm 0; }
+ul, ol { margin: 0.2mm 0; padding-left: 3.2mm; }
+li { margin: 0; }
+table { border-collapse: collapse; width: 100%; margin: 0.4mm 0; break-inside: avoid; }
+td, th { border: 0.3pt solid #8a8a8a; padding: 0.1mm 0.55mm; vertical-align: top; }
+th { background: #e4ebf3; font-weight: 700; text-align: left; }
+table.c td, table.c th { text-align: center; }
+table.c td:first-child, table.c th:first-child { text-align: left; }
+.m, code, pre { font-family: Consolas, "Courier New", monospace; font-size: 6.05pt; }
+pre { margin: 0.2mm 0; white-space: pre-wrap; line-height: 1.15; }
+.box { border: 0.5pt solid #555; padding: 0.4mm 0.9mm; margin: 0.5mm 0; break-inside: avoid; }
+.box > b:first-child { text-transform: uppercase; font-size: 5.7pt; letter-spacing: 0.1pt; }
+.como { border-color: #2e7d32; background: #f0f7f0; }
+.como > b:first-child { color: #1b5e20; }
+.peg { border-color: #c62828; background: #fcefef; }
+.peg > b:first-child { color: #b71c1c; }
+.dif { border-color: #6a1b9a; background: #f5eefa; }
+.dif > b:first-child { color: #4a148c; }
+.zero { border-color: #1565c0; background: #edf3fb; }
+.zero > b:first-child { color: #0d47a1; }
+.ex { border-left: 1.3pt solid #12385e; padding: 0.1mm 0 0.1mm 0.9mm; margin: 0.6mm 0; }
+.ex > b:first-child { color: #12385e; }
+.ava { color: #b26a00; font-weight: 700; }
+.ok { color: #1b5e20; font-weight: 700; }
+.no { color: #b71c1c; font-weight: 700; }
+.src { color: #666; font-size: 5.4pt; }
+.g { display: grid; grid-template-columns: 1fr 1fr; gap: 1mm; }
+.nb { break-inside: avoid; }
+.hl { background: #fff3c4; }
+table.t td { padding: 0 0.5mm; }
+table.vf td:last-child { width: 4mm; text-align: center; font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="cols">
+
+<h1>Colinha — Prova 2 · Linguagens Formais e Compiladores</h1>
+<p class="sub">Prof. Ivan L. Süptitz (UNISC). Baseada nos slides das aulas do cronograma 09 a 15. As questões marcadas com <span class="ava">★AVA</span> são as que o professor deixou para estudo. Cada técnica tem as regras, um <b>Como fazer</b>, as <b>pegadinhas</b> e exercícios resolvidos. A citação "A09 sl.10" quer dizer arquivo Aula09, slide 10.</p>
+
+<table>
+<tr><th>Se a questão…</th><th>Vá para</th></tr>
+<tr><td>dá a gramática e pede FIRST / FOLLOW</td><td>§2</td></tr>
+<tr><td>pede para preencher tabela com linhas = não terminais e colunas = terminais e $</td><td>§3</td></tr>
+<tr><td>tem colunas Pilha | Entrada | Saída e a pilha começa com <span class="m">$S</span></td><td>§4</td></tr>
+<tr><td>fala de handle, redução, bottom-up, LR, SLR, LALR</td><td>§5</td></tr>
+<tr><td>tem itens com ponto ".", gramática aumentada, CLOSURE, GOTO, I0, coleção canônica</td><td>§6</td></tr>
+<tr><td>tem tabela Estados | Ações | Transições (e5, r2, OK)</td><td>§7</td></tr>
+<tr><td>tem pilha de <b>números</b> (0 2 7) + Símbolos + Entrada + Ação</td><td>§8</td></tr>
+<tr><td>fala de Lex, Flex, Yacc, Bison, <span class="m">%{ %}</span>, <span class="m">%%</span></td><td>§9</td></tr>
+<tr><td>fala de tipos, tabela de símbolos, estática × dinâmica, unicidade</td><td>§10</td></tr>
+<tr><td>afirmações soltas de verdadeiro/falso</td><td>§11</td></tr>
+<tr><td>dúvida entre dois conceitos parecidos · mais exercícios completos</td><td>§12</td></tr>
+</table>
+<table>
+<tr><th>Aula (cronograma)</th><th>Arquivo</th><th>Conteúdo</th></tr>
+<tr><td>09</td><td>Aula07 parte 1</td><td>ASD: tipos, FIRST, FOLLOW</td></tr>
+<tr><td>10</td><td>Aula07 parte 2 + Aula08</td><td>Tabela preditiva; reconhecimento com AP</td></tr>
+<tr><td>11 (trabalho)</td><td>sem PDF (Aula05 sl.7, 9, 39)</td><td>Geradores léxicos (Lex/Flex) e sintáticos (Yacc/Bison)</td></tr>
+<tr><td>12</td><td>Aula09</td><td>ASA, LR, itens, CLOSURE, GOTO</td></tr>
+<tr><td>14</td><td>Aula10</td><td>Tabela LR (empilha/reduz) e reconhecimento</td></tr>
+<tr><td>15</td><td>Aula11</td><td>Análise semântica, tipos, tabela de símbolos</td></tr>
+</table>
+
+<h2>§0 Panorama: descendente × ascendente</h2>
+<div class="box zero"><b>Do zero</b> A análise sintática (parser) recebe os tokens do léxico e verifica se eles formam uma frase válida da gramática (GLC), montando a árvore de derivação. Existem duas formas. A <b>descendente</b> parte do símbolo inicial (a raiz) e vai trocando os não terminais pelos lados direitos até chegar na frase. A <b>ascendente</b> parte da frase (as folhas) e vai trocando pedaços pelo não terminal que os gera até chegar no símbolo inicial.</div>
+<table>
+<tr><th></th><th>ASD — descendente (top-down)</th><th>ASA — ascendente (bottom-up)</th></tr>
+<tr><td>Árvore</td><td>raiz → folhas</td><td>folhas → raiz</td></tr>
+<tr><td>Derivação</td><td>mais à <b>esquerda</b></td><td>mais à <b>direita</b>, em ordem inversa</td></tr>
+<tr><td>Operação</td><td>deriva: troca o NT pelo lado direito</td><td><b>reduz</b>: troca o lado direito (handle) pelo NT</td></tr>
+<tr><td>Outros nomes</td><td>top-down; preditiva = LL(1)</td><td>bottom-up, <b>shift-reduce</b> (empilha-reduz), LR</td></tr>
+<tr><td>Tipos</td><td>1 recursiva com retrocesso · 2 preditiva recursiva · 3 preditiva tabular</td><td>SLR (simples) · LR canônico (mais poderoso) · LALR (usado pelo YACC)</td></tr>
+<tr><td>Gramática exige</td><td>sem ambiguidade, sem recursão à esquerda; a preditiva exige também fatorada</td><td>gramática LR: quase todas as GLC (aceita recursão à esquerda)</td></tr>
+<tr><td>Precisa de</td><td>FIRST e FOLLOW → tabela M</td><td>gramática aumentada, itens, CLOSURE, GOTO, coleção canônica e FOLLOW → tabela LR</td></tr>
+<tr><td>Pilha</td><td>símbolos da gramática; começa com <span class="m">$S</span></td><td>pilha de <b>estados</b> (começa com 0) + pilha de símbolos</td></tr>
+</table>
+<div class="box dif"><b>Diferença: tabela preditiva × tabela LR</b>
+<table>
+<tr><th></th><th>Preditiva (ASD)</th><th>LR (ASA)</th></tr>
+<tr><td>Linhas</td><td>não terminais</td><td>estados 0, 1, 2… (um para cada item canônico I0, I1…)</td></tr>
+<tr><td>Colunas</td><td>terminais + $ (o $ fica no lugar do ε)</td><td><b>Ações</b>: terminais + $ · <b>Transições</b>: não terminais</td></tr>
+<tr><td>Célula</td><td>uma produção <span class="m">A → α</span></td><td><b>eN</b> empilha o estado N · <b>rN</b> reduz pela produção N · <b>OK</b> aceita · <b>N</b> (só número) em Transições</td></tr>
+<tr><td>FOLLOW serve para</td><td>colocar <span class="m">A → ε</span></td><td>colocar os <b>rN</b> (reduções)</td></tr>
+<tr><td>Célula vazia</td><td>erro</td><td>erro</td></tr>
+</table></div>
+
+<h2>§1 ASD: os 3 tipos <span class="src">(A07p1 sl.2–9)</span></h2>
+<table>
+<tr><th>Tipo</th><th>Exige da GLC</th><th>Como funciona</th></tr>
+<tr><td>1 Recursiva <b>com retrocesso</b></td><td>sem ambiguidade + sem recursão à esquerda</td><td>uma função por NT. Se escolher a regra errada, <b>volta</b> (backtracking) e tenta outra</td></tr>
+<tr><td>2 <b>Preditiva recursiva</b></td><td>+ <b>fatorada à esquerda</b> → gramática LL(1)</td><td>uma função por NT. Olha o token atual e já sabe a regra, sem voltar</td></tr>
+<tr><td>3 <b>Preditiva tabular</b></td><td>LL(1)</td><td>sem recursão: usa a <b>tabela M</b> (FIRST/FOLLOW) + <b>autômato de pilha</b></td></tr>
+</table>
+<p><b>Por que fatorar:</b> com <span class="m">C → if(E)C else C | if(E)C</span>, ao ler <span class="m">if</span> não se sabe qual regra usar, e escolher errado obriga a voltar. Fatorando fica <span class="m">C → if(E)C X</span> e <span class="m">X → else C | ε</span>, e a decisão fica para depois (sl.3, 8). <b>Por que tirar a recursão à esquerda:</b> em <span class="m">E → E+T</span>, a função E() chama E() sem consumir token e entra em laço infinito. A correção é <span class="m">E → TE'</span>, <span class="m">E' → +TE' | ε</span> (sl.9).</p>
+<p><b>LL(1):</b> o 1º L é a leitura da esquerda para a direita, o 2º L é a derivação mais à esquerda, e o 1 é que ele olha 1 token à frente.</p>
+<div class="ex"><b>D1 (preditiva recursiva, sl.8)</b> Para <span class="m">E → TE' · E' → +TE' | ε · T → a</span>, cada NT vira uma função, cada terminal vira <span class="m">reconhece()</span>, e o ε vira o <span class="m">else return</span>:
+<pre>E(){ T(); E'(); }        E'(){ if(token=="+"){ reconhece("+"); T(); E'(); } else return; }        T(){ reconhece("a"); }</pre>
+Na versão com retrocesso, duas regras começam pelo mesmo token (<span class="m">if</span>). Se a primeira falhar no meio, a função volta e tenta a outra.</div>
+
+<h2>§2 FIRST e FOLLOW <span class="src">(A07p1 sl.10–17)</span></h2>
+<div class="box zero"><b>Do zero</b> O <b>FIRST(X)</b> é o conjunto de terminais com que X pode <b>começar</b>. O <b>FOLLOW(X)</b> é o conjunto de terminais que podem vir <b>logo depois</b> de X numa frase. Com eles o parser decide qual produção usar olhando só o próximo token.</div>
+<h3>Regras do FIRST</h3>
+<ol>
+<li><span class="m">A → b…</span> (começa com terminal) → b entra no FIRST(A).</li>
+<li><span class="m">A → ε</span> → ε entra no FIRST(A).</li>
+<li><span class="m">A → BCD…</span> (começa com NT) → entra o FIRST(B) sem ε. Se B ⇒ ε, entra também o FIRST(C), e assim por diante. Se <b>todos</b> derivam ε, entra ε.</li>
+</ol>
+<h3>Regras do FOLLOW</h3>
+<ol>
+<li>O FOLLOW do <b>símbolo inicial</b> sempre tem <b>$</b> (fim da sentença).</li>
+<li><span class="m">A → αXβ</span> → o FIRST(β) sem ε entra no FOLLOW(X). Se β é terminal, entra ele mesmo.</li>
+<li>Se X é o <b>último</b> (<span class="m">A → αX</span>) ou se β ⇒ ε → o FOLLOW(A) (o gerador) entra no FOLLOW(X).</li>
+<li>FOLLOW <b>nunca tem ε</b>. Não repetir elementos.</li>
+</ol>
+<div class="box como"><b>Como fazer</b> <b>FIRST:</b> olhe as produções <b>de</b> X (X no lado esquerdo) e pegue o 1º símbolo de cada uma. Se for NT, use o FIRST dele. Calcule de baixo para cima (quem só tem terminal primeiro). <b>FOLLOW:</b> procure X do <b>lado direito</b> em <b>todas</b> as produções. Para cada aparição, veja o que vem logo depois: terminal (pega ele) · NT (pega o FIRST dele sem ε e, se ele pode sumir (⇒ ε), segue para o próximo) · nada (pega o FOLLOW do gerador). Calcule o FOLLOW do inicial primeiro e repita até nada mudar.</div>
+<div class="box dif"><b>Diferença: FIRST × FOLLOW</b>
+<table>
+<tr><th></th><th>FIRST(X)</th><th>FOLLOW(X)</th></tr>
+<tr><td>Pergunta</td><td>com que terminal X começa?</td><td>que terminal vem depois de X?</td></tr>
+<tr><td>Onde olhar</td><td>nas produções em que X está à <b>esquerda</b></td><td>onde X aparece à <b>direita</b></td></tr>
+<tr><td>ε</td><td>pode ter</td><td><b>nunca</b></td></tr>
+<tr><td>$</td><td><b>nunca</b></td><td>tem se X for o inicial ou herdar o FOLLOW do inicial</td></tr>
+<tr><td>Na tabela preditiva</td><td>colunas de <span class="m">A → α</span></td><td>colunas de <span class="m">A → ε</span></td></tr>
+</table></div>
+<div class="box peg"><b>Pegadinhas</b>
+<ul>
+<li>$ no FOLLOW de quem não é o inicial e não herda dele (★AVA Q10: FOLLOW(B) = {]} e não {], $}).</li>
+<li><span class="m">A → aA</span>: A é o último na própria produção, então o FOLLOW(A) entra no FOLLOW(A) e não acrescenta nada (sl.17).</li>
+<li>Esquecer que um NT ⇒ ε "deixa passar": em <span class="m">T → FT'</span> com T' ⇒ ε, o FOLLOW(F) = FIRST(T') sem ε + FOLLOW(T').</li>
+<li>Mesma produção repetida (<span class="m">T → FT'</span> e <span class="m">T' → &FT'</span>) dá a mesma contribuição. Não repetir.</li>
+</ul></div>
+
+<div class="ex"><b>E1 (slides, sl.11–17)</b> <span class="m">E → TE' · E' → vTE' | ε · T → FT' · T' → &FT' | ε · F → *F | id</span><br>
+FIRST: E = T = F = {*, id} · E' = {v, ε} · T' = {&, ε}<br>
+FOLLOW: E = {$} · E' = FOLLOW(E) = {$} · T = FIRST(E')−ε + FOLLOW(E') = {v, $} · T' = FOLLOW(T) = {v, $} · F = FIRST(T')−ε + FOLLOW(T') = {&, v, $}</div>
+<div class="ex"><b>E2 (ex. 7.1)</b> <span class="m">E → TE' · E' → +TE' | ε · T → a</span><br>FIRST: E = T = {a} · E' = {+, ε}. FOLLOW: E = E' = {$} · T = {+, $}.</div>
+<div class="ex"><b>E3 (ex. 7.2)</b> <span class="m">S → (S) | [S] | A · A → a</span><br>FIRST: S = {(, [, a} · A = {a}. FOLLOW: S = {$, ), ]} (o $ porque é o inicial; o ) e o ] porque vêm depois do S) · A = FOLLOW(S) = {$, ), ]}.</div>
+<div class="ex"><b>E4 <span class="ava">★AVA Q10</span></b> <span class="m">A → i[B]=C · B → n | nB · C → n | i | iC</span><br>FIRST: A = {i} · B = {n} · C = {n, i}. FOLLOW: A = {$} · B = {]} · C = FOLLOW(A) = {$} → <b>opção a</b>.</div>
+<div class="ex"><b>E5 (ex. 8.1)</b> <span class="m">S → TX · X → +TX | ε · T → FY · Y → *FY | ε · F → (S) | i</span><br>
+FIRST: S = T = F = {(, i} · X = {+, ε} · Y = {*, ε}<br>
+FOLLOW: S = {$, )} · X = FOLLOW(S) = {$, )} · T = {+} + FOLLOW(S) = {+, $, )} · Y = FOLLOW(T) = {+, $, )} · F = {*} + FOLLOW(T) = {*, +, $, )}</div>
+<div class="ex"><b>E6 (cadeia de ε)</b> <span class="m">S → ABc | d · A → a | ε · B → b | ε</span><br>
+FIRST(A) = {a, ε} · FIRST(B) = {b, ε} · FIRST(S) = {a, b, c, d}: A some, B some, chega no c. Não tem ε porque c é terminal.<br>
+FOLLOW(S) = {$} · FOLLOW(A) = FIRST(B)−ε + c = {b, c} · FOLLOW(B) = {c}</div>
+<div class="ex"><b>E7 <span class="ava">★AVA Q2</span></b> <span class="m">I → 01A2V · V → 45N7 | ε · A → N6N · N → 4I | 34</span> (o I em <span class="m">4I</span> é o NT I)<br>
+FIRST: I = {0} · V = {4, ε} · A = N = {3, 4}<br>
+FOLLOW: A = {2} · N = {7, 6} + FOLLOW(A) = {2, 6, 7} · I = {$} + FOLLOW(N) = {$, 2, 6, 7} · V = FOLLOW(I) = {$, 2, 6, 7}. A tabela está em §3.</div>
+
+<h2>§3 Tabela de análise preditiva <span class="src">(A07p2 sl.19–26)</span></h2>
+<p>Matriz <b>M</b>: as <b>linhas</b> são todos os NTs, as <b>colunas</b> são todos os terminais com <b>$ no lugar de ε</b>, e as células recebem produções.</p>
+<div class="box como"><b>Como fazer</b> Deixe <b>uma produção por linha</b> (separe os |) e trate cada uma:
+<ul>
+<li><span class="m">A → α</span> com α ≠ ε → coloque em <b>M[A, t]</b> para cada t do <b>FIRST(α)</b>, o FIRST do <b>lado direito</b>. Se α começa por NT que some (⇒ ε), siga para o próximo símbolo. Se α inteiro some, use também o FOLLOW(A).</li>
+<li><span class="m">A → ε</span> → coloque em <b>M[A, t]</b> para cada t do <b>FOLLOW(A)</b>.</li>
+<li>O que sobrar fica vazio, ou "-" no AVA, e significa <b>erro</b>.</li>
+</ul></div>
+<div class="box peg"><b>Pegadinhas</b> Use o FIRST do <b>lado direito daquela produção</b>, não o FIRST(A) inteiro (cada alternativa vai só nas colunas dela). Se uma célula receber <b>duas produções</b>, há <b>conflito</b> e a gramática não é LL(1): ou é ambígua, ou tem recursão à esquerda, ou não está fatorada. Ex.: <span class="m">S → aB | aC</span> põe as duas em M[S, a], e precisa fatorar.</div>
+<div class="ex"><b>T1 (slides, ex. 7.1)</b> FIRST/FOLLOW de E2.
+<table class="c t"><tr><th></th><th>+</th><th>a</th><th>$</th></tr>
+<tr><td>E</td><td></td><td>E→TE'</td><td></td></tr>
+<tr><td>E'</td><td>E'→+TE'</td><td></td><td>E'→ε</td></tr>
+<tr><td>T</td><td></td><td>T→a</td><td></td></tr></table>
+FIRST(TE') = {a} → [E, a] · FIRST(+TE') = {+} → [E', +] · E' → ε vai no FOLLOW(E') = {$} → [E', $] · [T, a].</div>
+<div class="ex"><b>T2 (ex. 7.3)</b> <span class="m">E → TA | E' · E' → +TE' | ε · T → a · A → x</span><br>
+FIRST: T = {a} · A = {x} · E' = {+, ε} · E = {a, +, ε}. FOLLOW: E = {$} · E' = {$} · T = {x} + {+} + FOLLOW(E') = {x, +, $} · A = {$}
+<table class="c t"><tr><th></th><th>+</th><th>a</th><th>x</th><th>$</th></tr>
+<tr><td>E</td><td>E→E'</td><td>E→TA</td><td></td><td>E→E'</td></tr>
+<tr><td>E'</td><td>E'→+TE'</td><td></td><td></td><td>E'→ε</td></tr>
+<tr><td>T</td><td></td><td>T→a</td><td></td><td></td></tr>
+<tr><td>A</td><td></td><td></td><td>A→x</td><td></td></tr></table>
+<span class="m">E → E'</span>: FIRST(E') = {+, ε} → [E, +], e como E' some, também FOLLOW(E) = {$} → [E, $].</div>
+<div class="ex"><b>T3 <span class="ava">★AVA Q2</span></b> (FIRST/FOLLOW em E7)
+<table class="c t"><tr><th></th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>$</th></tr>
+<tr><td>I</td><td>I→01A2V</td><td></td><td></td><td>-</td><td>-</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>V</td><td>-</td><td>-</td><td>V→ε</td><td>-</td><td>V→45N7</td><td>-</td><td>V→ε</td><td>V→ε</td><td>V→ε</td></tr>
+<tr><td>A</td><td>-</td><td></td><td></td><td>A→N6N</td><td>A→N6N</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>N</td><td>-</td><td></td><td></td><td>N→34</td><td>N→4I</td><td></td><td></td><td></td><td></td></tr></table></div>
+<div class="ex"><b>T4 (ex. 8.2)</b> gramática de E5
+<table class="c t"><tr><th></th><th>+</th><th>*</th><th>(</th><th>)</th><th>i</th><th>$</th></tr>
+<tr><td>S</td><td></td><td></td><td>S→TX</td><td></td><td>S→TX</td><td></td></tr>
+<tr><td>X</td><td>X→+TX</td><td></td><td></td><td>X→ε</td><td></td><td>X→ε</td></tr>
+<tr><td>T</td><td></td><td></td><td>T→FY</td><td></td><td>T→FY</td><td></td></tr>
+<tr><td>Y</td><td>Y→ε</td><td>Y→*FY</td><td></td><td>Y→ε</td><td></td><td>Y→ε</td></tr>
+<tr><td>F</td><td></td><td></td><td>F→(S)</td><td></td><td>F→i</td><td></td></tr></table></div>
+<div class="ex"><b>T5 (E6)</b> <span class="m">S → ABc</span> vai em [S, a], [S, b] e [S, c] (FIRST do lado direito inteiro) · <span class="m">S → d</span> em [S, d] · <span class="m">A → a</span> em [A, a] · <span class="m">A → ε</span> em [A, b] e [A, c] · <span class="m">B → b</span> em [B, b] · <span class="m">B → ε</span> em [B, c].</div>
+<div class="ex"><b>T6 (recursão à esquerda → tabela)</b> <span class="m">E → E+T | T · T → id</span>. As duas regras de E têm FIRST = {id} e cairiam juntas em [E, id], o que é <b>conflito</b>. Tirando a recursão à esquerda (Prova 1, Aula 6): <span class="m">E → TE' · E' → +TE' | ε · T → id</span>.<br>
+FIRST: E = T = {id} · E' = {+, ε}. FOLLOW: E = E' = {$} · T = {+, $}. Tabela: [E, id] = E→TE' · [E', +] = E'→+TE' · [E', $] = E'→ε · [T, id] = T→id. Sem conflito, então é LL(1).</div>
+<div class="ex"><b>T7 (conflito: "else pendente")</b> <span class="m">S → if E then S | if E then S else S | a · E → b</span>. Fatorando: <span class="m">S → if E then S S' | a · S' → else S | ε · E → b</span>.<br>
+FIRST: S = {if, a} · S' = {else, ε} · E = {b}. FOLLOW: S = {$, else} (o else vem do FIRST(S') e o $ do inicial) · S' = FOLLOW(S) = {$, else} · E = {then}.<br>
+[S', else] recebe <span class="m">S' → else S</span> (pelo FIRST) <b>e</b> <span class="m">S' → ε</span> (pelo FOLLOW). São <b>duas produções na mesma célula</b>, então a gramática <b>não é LL(1)</b>, porque é ambígua: o else pode ser do if de dentro ou do de fora. Na prática se escolhe <span class="m">S' → else S</span>, que liga o else ao if mais próximo.</div>
+
+<h2>§4 Reconhecimento com autômato de pilha (preditivo) <span class="src">(A08 sl.3–18)</span></h2>
+<div class="box como"><b>Como fazer</b> Pilha = <span class="m">$S</span> (o <b>topo é o último símbolo à direita</b>). Entrada = sentença + <span class="m">$</span>. Repita olhando o topo e o 1º símbolo da entrada:
+<ul>
+<li><b>Topo é NT</b> → pegue M[topo, entrada]. A saída é essa produção. Desempilhe o NT e <b>empilhe o lado direito ao contrário</b>, para o 1º símbolo ficar no topo (<span class="m">S → X[Y]=Z</span> empilha <span class="m">Z=]Y[X</span>). Se for ε, só desempilhe. A entrada não muda.</li>
+<li><b>Topo é terminal igual à entrada</b> → desempilhe e consuma a entrada. A saída é <b>"-"</b>.</li>
+<li><b>Topo $ e entrada $</b> → <b>sentença reconhecida</b>.</li>
+<li><b>Erro</b> (não reconhecida): célula vazia · terminal do topo ≠ entrada · sobrou $ só de um lado.</li>
+</ul></div>
+<div class="ex"><b>R1 <span class="ava">★AVA Q1</span></b> sentença <span class="m">x[y]=zz</span>. Gramática da tabela: <span class="m">S → X[Y]=Z · X → xJ · J → X | ε · Y → yK · K → Y | ε · Z → zL · L → Z | ε</span>. Na tabela: J → ε em [J, [] · K → ε em [K, ]] · L → ε em [L, $].
+<table class="t"><tr><th>Pilha</th><th>Entrada</th><th>Saída</th><th>Pilha</th><th>Entrada</th><th>Saída</th></tr>
+<tr><td class="m">$S</td><td class="m">x[y]=zz$</td><td>S→X[Y]=Z</td><td class="m">$Z=]K</td><td class="m">]=zz$</td><td>K→ε</td></tr>
+<tr><td class="m">$Z=]Y[X</td><td class="m">x[y]=zz$</td><td>X→xJ</td><td class="m">$Z=]</td><td class="m">]=zz$</td><td>-</td></tr>
+<tr><td class="m">$Z=]Y[Jx</td><td class="m">x[y]=zz$</td><td>-</td><td class="m">$Z=</td><td class="m">=zz$</td><td>-</td></tr>
+<tr><td class="m">$Z=]Y[J</td><td class="m">[y]=zz$</td><td>J→ε</td><td class="m">$Z</td><td class="m">zz$</td><td>Z→zL</td></tr>
+<tr><td class="m">$Z=]Y[</td><td class="m">[y]=zz$</td><td>-</td><td class="m">$Lz</td><td class="m">zz$</td><td>-</td></tr>
+<tr><td class="m">$Z=]Y</td><td class="m">y]=zz$</td><td>Y→yK</td><td class="m">$L</td><td class="m">z$</td><td>L→Z</td></tr>
+<tr><td class="m">$Z=]Ky</td><td class="m">y]=zz$</td><td>-</td><td class="m">$Z</td><td class="m">z$</td><td>Z→zL</td></tr>
+<tr><td></td><td></td><td></td><td class="m">$Lz</td><td class="m">z$</td><td>-</td></tr>
+<tr><td></td><td></td><td></td><td class="m">$L</td><td class="m">$</td><td>L→ε</td></tr>
+<tr><td></td><td></td><td></td><td class="m">$</td><td class="m">$</td><td>- → <b>Reconhecida</b></td></tr></table>
+Pegadinha: a opção <span class="m">Z → LL</span> não existe na tabela.</div>
+<div class="ex"><b>R2 (ex. 8.3)</b> sentença <span class="m">i*(i+i)</span> com a tabela T4. Leia coluna por coluna.
+<table class="t"><tr><th>Pilha</th><th>Entrada</th><th>Saída</th><th>Pilha</th><th>Entrada</th><th>Saída</th></tr>
+<tr><td class="m">$S</td><td class="m">i*(i+i)$</td><td>S→TX</td><td class="m">$XY)XY</td><td class="m">+i)$</td><td>Y→ε</td></tr>
+<tr><td class="m">$XT</td><td class="m">i*(i+i)$</td><td>T→FY</td><td class="m">$XY)X</td><td class="m">+i)$</td><td>X→+TX</td></tr>
+<tr><td class="m">$XYF</td><td class="m">i*(i+i)$</td><td>F→i</td><td class="m">$XY)XT+</td><td class="m">+i)$</td><td>-</td></tr>
+<tr><td class="m">$XYi</td><td class="m">i*(i+i)$</td><td>-</td><td class="m">$XY)XT</td><td class="m">i)$</td><td>T→FY</td></tr>
+<tr><td class="m">$XY</td><td class="m">*(i+i)$</td><td>Y→*FY</td><td class="m">$XY)XYF</td><td class="m">i)$</td><td>F→i</td></tr>
+<tr><td class="m">$XYF*</td><td class="m">*(i+i)$</td><td>-</td><td class="m">$XY)XYi</td><td class="m">i)$</td><td>-</td></tr>
+<tr><td class="m">$XYF</td><td class="m">(i+i)$</td><td>F→(S)</td><td class="m">$XY)XY</td><td class="m">)$</td><td>Y→ε</td></tr>
+<tr><td class="m">$XY)S(</td><td class="m">(i+i)$</td><td>-</td><td class="m">$XY)X</td><td class="m">)$</td><td>X→ε</td></tr>
+<tr><td class="m">$XY)S</td><td class="m">i+i)$</td><td>S→TX</td><td class="m">$XY)</td><td class="m">)$</td><td>-</td></tr>
+<tr><td class="m">$XY)XT</td><td class="m">i+i)$</td><td>T→FY</td><td class="m">$XY</td><td class="m">$</td><td>Y→ε</td></tr>
+<tr><td class="m">$XY)XYF</td><td class="m">i+i)$</td><td>F→i</td><td class="m">$X</td><td class="m">$</td><td>X→ε</td></tr>
+<tr><td class="m">$XY)XYi</td><td class="m">i+i)$</td><td>-</td><td class="m">$</td><td class="m">$</td><td><b>Reconhecida</b></td></tr></table></div>
+<div class="ex"><b>R3 (ex. 8.4, erro)</b> sentença <span class="m">i+)</span>: <span class="m">$S</span> | i+)$ | S→TX → <span class="m">$XT</span> | T→FY → <span class="m">$XYF</span> | F→i → <span class="m">$XYi</span> | - → <span class="m">$XY</span> | +)$ | Y→ε → <span class="m">$X</span> | X→+TX → <span class="m">$XT+</span> | - → <span class="m">$XT</span> | )$ | <b>M[T, )] vazia → não reconhecida</b>.</div>
+<div class="ex"><b>R4 (completo: FIRST/FOLLOW → tabela → pilha)</b> <span class="m">P → begin L end · L → C L' · L' → ; C L' | ε · C → id = num</span><br>
+FIRST: P = {begin} · L = C = {id} · L' = {;, ε}. FOLLOW: P = {$} · L = {end} · L' = FOLLOW(L) = {end} · C = {;} + FOLLOW(L) e FOLLOW(L') = {;, end}.<br>
+Tabela: [P, begin] = P→begin L end · [L, id] = L→C L' · [L', ;] = L'→; C L' · [L', end] = L'→ε · [C, id] = C→id = num.
+<table class="t"><tr><th>Pilha (topo à direita)</th><th>Entrada</th><th>Saída</th></tr>
+<tr><td class="m">$P</td><td class="m">begin id=num ; id=num end$</td><td>P→begin L end</td></tr>
+<tr><td class="m">$ end L begin</td><td class="m">begin id=num ; id=num end$</td><td>-</td></tr>
+<tr><td class="m">$ end L</td><td class="m">id=num ; id=num end$</td><td>L→C L'</td></tr>
+<tr><td class="m">$ end L' C</td><td class="m">id=num ; id=num end$</td><td>C→id=num</td></tr>
+<tr><td class="m">$ end L' num = id</td><td class="m">id=num ; id=num end$</td><td>- (3 linhas: casa id, =, num)</td></tr>
+<tr><td class="m">$ end L'</td><td class="m">; id=num end$</td><td>L'→; C L'</td></tr>
+<tr><td class="m">$ end L' C ;</td><td class="m">; id=num end$</td><td>-</td></tr>
+<tr><td class="m">$ end L' C</td><td class="m">id=num end$</td><td>C→id=num, depois 3× -</td></tr>
+<tr><td class="m">$ end L'</td><td class="m">end$</td><td>L'→ε</td></tr>
+<tr><td class="m">$ end</td><td class="m">end$</td><td>-</td></tr>
+<tr><td class="m">$</td><td class="m">$</td><td><b>Reconhecida</b></td></tr></table>
+No AVA, cada "casa terminal" é uma linha própria com saída "-".</div>
+
+<h2>§5 ASA: conceitos <span class="src">(A09 sl.2–11)</span></h2>
+<ul>
+<li>Também chamada de <b>bottom-up</b> ou <b>shift-reduce</b>. Constrói a árvore de derivação a partir das <b>folhas</b> em direção à <b>raiz</b> (sl.2). Começa com a entrada e tenta reescrevê-la até chegar no símbolo inicial (sl.3).</li>
+<li>Usa o método de <b>redução</b>, o inverso da derivação: acha um pedaço igual ao lado direito de uma produção e troca pelo NT da cabeça. Esse pedaço se chama <b>handle</b> (sl.8). O resultado é a <b>derivação mais à direita em ordem inversa</b>.</li>
+<li>"Na prática a árvore nunca é efetivamente construída": ela serve para descrever o método, e o front-end pode traduzir direto (sl.3).</li>
+<li><b>LR:</b> L = entrada lida da esquerda para a direita · R = derivação mais à direita (rightmost).</li>
+<li><b>Vantagens:</b> reconhece praticamente todas as GLC · bom desempenho · descobre erros sintáticos o mais cedo possível. <b>Desvantagem:</b> é difícil de construir à mão, por isso se usam <b>geradores</b> como YACC/Bison (sl.9).</li>
+<li><b>Tipos (sl.10):</b> <b>SLR</b> é fácil de implementar, mas vale para uma classe restrita de gramáticas (inclui a precedência de operadores) · <b>LR canônico</b> é o <b>mais poderoso</b> · <b>LALR</b> é intermediário e eficiente, funciona para a maioria das linguagens e é o <b>usado pelo YACC</b>.</li>
+<li>Os analisadores LR funcionam com um <b>autômato de pilha</b> + uma <b>tabela</b> que guia as ações de empilhar e desempilhar (sl.11).</li>
+</ul>
+<div class="ex"><b>H1 (slides)</b> <span class="m">S → aABe · A → Abc | b · B → d</span>, sentença <span class="m">abbcde</span>:<br>
+<span class="m">abbcde</span> (A→b) → <span class="m">aAbcde</span> (A→Abc) → <span class="m">aAde</span> (B→d) → <span class="m">aABe</span> (S→aABe) → <span class="m">S</span>, reconhecida. Na ordem inversa é a derivação mais à direita: S ⇒ aABe ⇒ aAde ⇒ aAbcde ⇒ abbcde. O handle do último passo é "aABe".</div>
+<div class="ex"><b>H2</b> <span class="m">S → aSb | c</span>, sentença <span class="m">aacbb</span>: <span class="m">aacbb</span> (S→c) → <span class="m">aaSbb</span> (S→aSb) → <span class="m">aSb</span> (S→aSb) → <span class="m">S</span>, reconhecida.</div>
+
+<h2>§6 Itens, CLOSURE, GOTO, coleção canônica <span class="src">(A09 sl.13–40)</span></h2>
+<ul>
+<li><b>Gramática aumentada:</b> antes de tudo, acrescente uma produção nova só para o símbolo inicial: <span class="m">S' → S</span> (sl.14).</li>
+<li><b>Itens de gramática:</b> são as produções em diferentes momentos, marcados pelo ponto. <span class="m">A → XYZ</span> gera 4 itens: <span class="m">A → .XYZ</span> (<b>item inicial</b>: ponto antes do 1º símbolo), <span class="m">A → X.YZ</span>, <span class="m">A → XY.Z</span> e <span class="m">A → XYZ.</span> (<b>item completo</b>: ponto depois do último). Com n símbolos no lado direito são n+1 itens. <span class="m">A → ε</span> gera só <span class="m">A → .</span>, que já é completo.</li>
+<li><b>CLOSURE(I):</b> recebe um conjunto de itens e devolve o mesmo conjunto mais os <b>itens iniciais</b> dos NTs que aparecem <b>logo depois do ponto</b>. Repete com os itens novos e não duplica.</li>
+<li><b>GOTO(I, X)</b>, com X terminal ou NT: pega os itens de I que têm o <b>ponto logo antes de X</b>, <b>passa o ponto para depois de X</b> e aplica o <b>CLOSURE</b> no resultado. Se nenhum item tem o ponto antes de X, dá <b>{ }</b>.</li>
+<li><b>Coleção canônica</b> C = {I0, I1, …}: I0 = CLOSURE({S' → .S}). Para cada Ii, calcule o GOTO com <b>todos</b> os símbolos, terminais e NTs. Conjunto novo e não vazio vira o próximo I. Se for igual a um que já existe, reaproveita o número. Para quando não surge nenhum novo. Cada Ii é um <b>item canônico</b> e vira um estado da tabela.</li>
+</ul>
+<div class="box como"><b>Como fazer CLOSURE</b> 1) Copie os itens da entrada. 2) Para cada item com o ponto antes de um NT B, acrescente <b>todas</b> as produções de B com o ponto no início (<span class="m">B → .γ</span>). 3) Se algum item novo tem o ponto antes de outro NT, repita. 4) Ponto antes de terminal ou no fim não acrescenta nada.</div>
+<div class="box peg"><b>Pegadinhas</b> A gramática aumentada <b>não dispensa</b> o CLOSURE: o I0 já é um CLOSURE (★AVA Q7a). O CLOSURE tem que trazer <b>todas</b> as alternativas (Q7b esqueceu <span class="m">A → .aAa</span>). O GOTO vale para <b>todos</b> os símbolos, não só os terminais. GOTO(I4, "(") = I4 não cria estado novo.</div>
+<div class="ex"><b>C1 (slides + gabarito Lista 9)</b> <span class="m">E' → E · E → E+T | T · T → T*F | F · F → (E) | id</span>
+<table class="t">
+<tr><td>I0</td><td>CLOSURE({E'→.E})</td><td class="m">E'→.E, E→.E+T, E→.T, T→.T*F, T→.F, F→.(E), F→.id</td></tr>
+<tr><td>I1</td><td>GOTO(I0,E)</td><td class="m">E'→E., E→E.+T</td></tr>
+<tr><td>I2</td><td>GOTO(I0,T)</td><td class="m">E→T., T→T.*F</td></tr>
+<tr><td>I3</td><td>GOTO(I0,F)</td><td class="m">T→F.</td></tr>
+<tr><td>I4</td><td>GOTO(I0,( )</td><td class="m">F→(.E), E→.E+T, E→.T, T→.T*F, T→.F, F→.(E), F→.id</td></tr>
+<tr><td>I5</td><td>GOTO(I0,id)</td><td class="m">F→id.</td></tr>
+<tr><td>I6</td><td>GOTO(I1,+)</td><td class="m">E→E+.T, T→.T*F, T→.F, F→.(E), F→.id</td></tr>
+<tr><td>I7</td><td>GOTO(I2,*)</td><td class="m">T→T*.F, F→.(E), F→.id</td></tr>
+<tr><td>I8</td><td>GOTO(I4,E)</td><td class="m">F→(E.), E→E.+T</td></tr>
+<tr><td>I9</td><td>GOTO(I6,T)</td><td class="m">E→E+T., T→T.*F</td></tr>
+<tr><td>I10</td><td>GOTO(I7,F)</td><td class="m">T→T*F.</td></tr>
+<tr><td>I11</td><td>GOTO(I8,) )</td><td class="m">F→(E).</td></tr></table>
+GOTOs que repetem estados: I4 com T→I2, F→I3, (→I4, id→I5 · I6 com F→I3, (→I4, id→I5 · I7 com (→I4, id→I5 · I8 com +→I6 · I9 com *→I7. Todos os outros dão { }. Ex.: GOTO(I0, E') = { }, GOTO(I0, +) = { } e GOTO(I3, qualquer) = { }.</div>
+<div class="ex"><b>C2 <span class="ava">★AVA Q7</span></b> <span class="m">A' → A · A → aAa | B · B → bAb | cc</span> → <b>c, e</b>. CLOSURE(A'→.A) = {A'→.A, A→.aAa, A→.B, B→.bAb, B→.cc} = I0. CLOSURE(A→.B) = {A→.B, B→.bAb, B→.cc}. O I0 sai do CLOSURE e não do GOTO (✘d). A coleção completa e a tabela estão em L2 (§7).</div>
+<div class="ex"><b>C3 <span class="ava">★AVA Q9</span> (relacionar)</b> Conjunto de itens usado para montar a tabela LR → <b>coleção canônica</b> · recebe itens e acrescenta os itens iniciais dos NTs → <b>CLOSURE</b> · ponto depois do último símbolo → <b>item completo</b> · ponto antes do primeiro → <b>item inicial</b> · recebe itens + símbolo e desloca o ponto → <b>GOTO</b> · conjunto de itens produzido pelo GOTO → <b>item canônico</b> · produção nova só para o símbolo inicial → <b>gramática aumentada</b> · produções em diferentes momentos, com o ponto → <b>itens de gramática</b>.</div>
+<div class="ex"><b>C4</b> GOTO({E'→E., E→E.+T}, +) = {E→E+.T} + CLOSURE(T) = {E→E+.T, T→.T*F, T→.F, F→.(E), F→.id}. O item E'→E. não entra porque não tem ponto antes do + (sl.22–24).</div>
+<div class="ex"><b>C5 (treino rápido)</b> Com <span class="m">B → d | e</span> e I = {<span class="m">A → a.Bc, B → .d, B → .e</span>}: GOTO(I, B) = {A → aB.c} (ponto antes de terminal, sem CLOSURE) · GOTO(I, d) = {B → d.} · GOTO(I, e) = {B → e.} · GOTO(I, a) = GOTO(I, c) = { }. Quantos itens gera <span class="m">S → aSbS</span>? <b>5</b> (4 símbolos + 1). E <span class="m">S → ε</span>? <b>1</b>, o item <span class="m">S → .</span></div>
+
+<h2>§7 Tabela LR: empilha e reduz <span class="src">(A10 sl.3–12)</span></h2>
+<div class="box como"><b>Como fazer</b> 1) Monte a coleção canônica (§6). 2) <b>Numere as produções</b> em sequência, <b>sem contar a aumentada</b>: r1, r2… 3) Calcule o <b>FOLLOW</b> de cada NT. 4) Preencha:
+<ul>
+<li><b>Empilha (shift):</b> GOTO(Ii, <b>terminal</b> t) = Ij → <b>ej</b> na linha i, coluna t.</li>
+<li><b>Transição:</b> GOTO(Ii, <b>NT</b> X) = Ij → só o número <b>j</b> (sem o "e") na linha i, coluna X.</li>
+<li><b>Reduz (reduce):</b> para cada <b>item completo</b> <span class="m">A → α.</span> em Ii (com A ≠ S') → <b>rN</b>, onde N é o número da produção, na <b>linha i</b>, nas colunas do <b>FOLLOW(A)</b>.</li>
+<li><b>Aceita:</b> <span class="m">S' → S.</span> em Ii → <b>OK</b> na linha i, coluna $.</li>
+</ul>
+As empilhas vêm da coleção canônica e as reduções precisam do FOLLOW.</div>
+<div class="box peg"><b>Pegadinhas</b> Não troque linha e número: o r<b>N</b> usa o número da <b>produção</b> e fica na linha do <b>estado</b> (Q3e trocou). Só item <b>completo</b> reduz: <span class="m">F → (.S)</span> não reduz (Q3d). Uma produção ε (<span class="m">X → ε</span>) dá o item <span class="m">X → .</span>, que já é completo e reduz em FOLLOW(X). Duas ações na mesma célula são um conflito (empilha/reduz ou reduz/reduz) e a gramática não serve para esse método.</div>
+<div class="ex"><b>L1 (slides)</b> produções (OK) E'→E · r1 E→E+T · r2 E→T · r3 T→T*F · r4 T→F · r5 F→(E) · r6 F→id. FOLLOW(E) = {+, ), $} · FOLLOW(T) = FOLLOW(F) = {+, *, ), $}
+<table class="c t"><tr><th>Est.</th><th>id</th><th>+</th><th>*</th><th>(</th><th>)</th><th>$</th><th>E</th><th>T</th><th>F</th></tr>
+<tr><td>0</td><td>e5</td><td></td><td></td><td>e4</td><td></td><td></td><td>1</td><td>2</td><td>3</td></tr>
+<tr><td>1</td><td></td><td>e6</td><td></td><td></td><td></td><td>OK</td><td></td><td></td><td></td></tr>
+<tr><td>2</td><td></td><td>r2</td><td>e7</td><td></td><td>r2</td><td>r2</td><td></td><td></td><td></td></tr>
+<tr><td>3</td><td></td><td>r4</td><td>r4</td><td></td><td>r4</td><td>r4</td><td></td><td></td><td></td></tr>
+<tr><td>4</td><td>e5</td><td></td><td></td><td>e4</td><td></td><td></td><td>8</td><td>2</td><td>3</td></tr>
+<tr><td>5</td><td></td><td>r6</td><td>r6</td><td></td><td>r6</td><td>r6</td><td></td><td></td><td></td></tr>
+<tr><td>6</td><td>e5</td><td></td><td></td><td>e4</td><td></td><td></td><td></td><td>9</td><td>3</td></tr>
+<tr><td>7</td><td>e5</td><td></td><td></td><td>e4</td><td></td><td></td><td></td><td></td><td>10</td></tr>
+<tr><td>8</td><td></td><td>e6</td><td></td><td></td><td>e11</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>9</td><td></td><td>r1</td><td>e7</td><td></td><td>r1</td><td>r1</td><td></td><td></td><td></td></tr>
+<tr><td>10</td><td></td><td>r3</td><td>r3</td><td></td><td>r3</td><td>r3</td><td></td><td></td><td></td></tr>
+<tr><td>11</td><td></td><td>r5</td><td>r5</td><td></td><td>r5</td><td>r5</td><td></td><td></td><td></td></tr></table>
+Linha 2: I2 = {E→T., T→T.*F}. O E→T. dá r2 em FOLLOW(E) = {+, ), $} e o T→T.*F dá e7 em *. Não há conflito porque * ∉ FOLLOW(E). A linha 0 não reduz porque o I0 não tem item completo. Linha 1: E'→E. dá OK em $.</div>
+<div class="ex"><b>L2 <span class="ava">★ gramática da Q7</span>, completa</b> (OK) A'→A · r1 A→aAa · r2 A→B · r3 B→bAb · r4 B→cc. FOLLOW(A) = {$, a, b} (A'→A dá $, aAa dá a, bAb dá b) · FOLLOW(B) = FOLLOW(A) (por A→B).<br>
+<span class="m">I0 = {A'→.A, A→.aAa, A→.B, B→.bAb, B→.cc}</span> · I1 = G(I0,A) = <span class="m">{A'→A.}</span> · I2 = G(I0,B) = <span class="m">{A→B.}</span> · I3 = G(I0,a) = <span class="m">{A→a.Aa, A→.aAa, A→.B, B→.bAb, B→.cc}</span> · I4 = G(I0,b) = <span class="m">{B→b.Ab, A→.aAa, A→.B, B→.bAb, B→.cc}</span> · I5 = G(I0,c) = <span class="m">{B→c.c}</span> · I6 = G(I3,A) = <span class="m">{A→aA.a}</span> · I7 = G(I4,A) = <span class="m">{B→bA.b}</span> · I8 = G(I5,c) = <span class="m">{B→cc.}</span> · I9 = G(I6,a) = <span class="m">{A→aAa.}</span> · I10 = G(I7,b) = <span class="m">{B→bAb.}</span>. Repetidos: I3 e I4 com a→I3, b→I4, c→I5, B→I2.
+<table class="c t"><tr><th>Est.</th><th>a</th><th>b</th><th>c</th><th>$</th><th>A</th><th>B</th></tr>
+<tr><td>0</td><td>e3</td><td>e4</td><td>e5</td><td></td><td>1</td><td>2</td></tr>
+<tr><td>1</td><td></td><td></td><td></td><td>OK</td><td></td><td></td></tr>
+<tr><td>2</td><td>r2</td><td>r2</td><td></td><td>r2</td><td></td><td></td></tr>
+<tr><td>3</td><td>e3</td><td>e4</td><td>e5</td><td></td><td>6</td><td>2</td></tr>
+<tr><td>4</td><td>e3</td><td>e4</td><td>e5</td><td></td><td>7</td><td>2</td></tr>
+<tr><td>5</td><td></td><td></td><td>e8</td><td></td><td></td><td></td></tr>
+<tr><td>6</td><td>e9</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>7</td><td></td><td>e10</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>8</td><td>r4</td><td>r4</td><td></td><td>r4</td><td></td><td></td></tr>
+<tr><td>9</td><td>r1</td><td>r1</td><td></td><td>r1</td><td></td><td></td></tr>
+<tr><td>10</td><td>r3</td><td>r3</td><td></td><td>r3</td><td></td><td></td></tr></table></div>
+<div class="ex"><b>L3 <span class="ava">★AVA Q3</span></b> gramática de E5 aumentada, com (1) S→TX … (7) Y→*FY (8) Y→ε → <b>a, b</b>. a ✔ Y→*FY. é a produção 7: r7 na linha 1, colunas FOLLOW(Y) = {+, $, )} · b ✔ S'→S. dá OK em [2, $] · c ✘ não é e1, é aceitação · d ✘ F→(.S) não está completo · e ✘ trocou: seria r1 na linha 7.</div>
+<div class="ex"><b>L4 <span class="ava">★AVA Q8</span> (tabela → GOTO, ao contrário)</b> Tabela: linha 0 tem e1 em b · linha 1 tem r1 em b, e2 em c, A→1, B→2 · linha 2 tem r2 em b, e3 em $. A regra é: <b>eN</b> ou número em Transições → <b>IN</b> · rN ou vazio → <b>-</b>.<br>
+GOTO(I0,b) = <b>I1</b> · GOTO(I1,c) = <b>I2</b> · GOTO(I1,A) = <b>I1</b> · GOTO(I1,B) = <b>I2</b> · GOTO(I2,$) = <b>I3</b> · <b>todos os outros = -</b>, inclusive (I1,b) e (I2,b), que são reduções.</div>
+
+<h2>§8 Reconhecimento LR (pilha de estados) <span class="src">(A10 sl.13–26)</span></h2>
+<div class="box como"><b>Como fazer</b> Colunas Pilha (estados) | Símbolos | Entrada | Ação. A pilha começa com <b>0</b>, os símbolos vazios e a entrada = sentença + $. Olhe a célula [estado do topo, 1º da entrada]:
+<ul>
+<li><b>eN</b> → empilhe o estado N e passe o terminal da entrada para os símbolos.</li>
+<li><b>rN</b> → produção N <span class="m">A → β</span>: <b>desempilhe |β| estados</b>, tantos quanto os símbolos do lado direito (ε desempilha 0). Troque β por A nos símbolos. Com o estado que ficou no topo, s, empilhe <b>Transição[s, A]</b>. A <b>entrada não muda</b>.</li>
+<li><b>OK</b> → <b>reconhecida</b>. Célula vazia → <b>erro</b> (não reconhecida).</li>
+</ul></div>
+<div class="ex"><b>P1 (slides)</b> <span class="m">id*id+id</span> com a tabela L1
+<table class="t"><tr><th>Pilha</th><th>Símb.</th><th>Entrada</th><th>Ação</th><th>Por quê</th></tr>
+<tr><td class="m">0</td><td></td><td class="m">id*id+id$</td><td>e5</td><td>[0,id]</td></tr>
+<tr><td class="m">0 5</td><td class="m">id</td><td class="m">*id+id$</td><td>r6</td><td>F→id: tira 1 → topo 0; [0,F] = 3</td></tr>
+<tr><td class="m">0 3</td><td class="m">F</td><td class="m">*id+id$</td><td>r4</td><td>T→F: tira 1 → 0; [0,T] = 2</td></tr>
+<tr><td class="m">0 2</td><td class="m">T</td><td class="m">*id+id$</td><td>e7</td><td>[2,*]</td></tr>
+<tr><td class="m">0 2 7</td><td class="m">T*</td><td class="m">id+id$</td><td>e5</td><td></td></tr>
+<tr><td class="m">0 2 7 5</td><td class="m">T*id</td><td class="m">+id$</td><td>r6</td><td>tira 1 → 7; [7,F] = 10</td></tr>
+<tr><td class="m">0 2 7 10</td><td class="m">T*F</td><td class="m">+id$</td><td>r3</td><td>T→T*F: tira <b>3</b> → 0; [0,T] = 2</td></tr>
+<tr><td class="m">0 2</td><td class="m">T</td><td class="m">+id$</td><td>r2</td><td>E→T: tira 1 → 0; [0,E] = 1</td></tr>
+<tr><td class="m">0 1</td><td class="m">E</td><td class="m">+id$</td><td>e6</td><td></td></tr>
+<tr><td class="m">0 1 6</td><td class="m">E+</td><td class="m">id$</td><td>e5</td><td></td></tr>
+<tr><td class="m">0 1 6 5</td><td class="m">E+id</td><td class="m">$</td><td>r6</td><td>tira 1 → 6; [6,F] = 3</td></tr>
+<tr><td class="m">0 1 6 3</td><td class="m">E+F</td><td class="m">$</td><td>r4</td><td>tira 1 → 6; [6,T] = 9</td></tr>
+<tr><td class="m">0 1 6 9</td><td class="m">E+T</td><td class="m">$</td><td>r1</td><td>E→E+T: tira 3 → 0; [0,E] = 1</td></tr>
+<tr><td class="m">0 1</td><td class="m">E</td><td class="m">$</td><td><b>OK</b></td><td>reconhecida</td></tr></table></div>
+<div class="ex"><b>P2 (ex. 10.3, erro)</b> <span class="m">id*(id</span>: 0 | id*(id$ e5 → 0 5 r6 → 0 3 (F) r4 → 0 2 (T) e7 → 0 2 7 (T*) e4 → 0 2 7 4 (T*() e5 → 0 2 7 4 5 (T*(id) | $ | r6 → tira 1 → topo 4; [4,F] = 3 → 0 2 7 4 3 r4 → [4,T] = 2 → 0 2 7 4 2 r2 → [4,E] = 8 → 0 2 7 4 8 (T*(E) | $ | <b>[8,$] vazia → erro</b>: faltou o ")".</div>
+<div class="ex"><b>P3</b> <span class="m">acca</span> com a tabela L2
+<table class="t"><tr><th>Pilha</th><th>Símb.</th><th>Entrada</th><th>Ação</th><th>Por quê</th></tr>
+<tr><td class="m">0</td><td></td><td class="m">acca$</td><td>e3</td><td></td></tr>
+<tr><td class="m">0 3</td><td class="m">a</td><td class="m">cca$</td><td>e5</td><td></td></tr>
+<tr><td class="m">0 3 5</td><td class="m">ac</td><td class="m">ca$</td><td>e8</td><td></td></tr>
+<tr><td class="m">0 3 5 8</td><td class="m">acc</td><td class="m">a$</td><td>r4</td><td>B→cc: tira 2 → 3; [3,B] = 2</td></tr>
+<tr><td class="m">0 3 2</td><td class="m">aB</td><td class="m">a$</td><td>r2</td><td>A→B: tira 1 → 3; [3,A] = 6</td></tr>
+<tr><td class="m">0 3 6</td><td class="m">aA</td><td class="m">a$</td><td>e9</td><td></td></tr>
+<tr><td class="m">0 3 6 9</td><td class="m">aAa</td><td class="m">$</td><td>r1</td><td>A→aAa: tira 3 → 0; [0,A] = 1</td></tr>
+<tr><td class="m">0 1</td><td class="m">A</td><td class="m">$</td><td><b>OK</b></td><td>reconhecida</td></tr></table>
+Erro: <span class="m">ab</span> → 0 e3 → 0 3 e4 → 0 3 4 | $ | [4,$] vazia → não reconhecida.</div>
+<div class="ex"><b>P4 (completo: itens → tabela → pilha)</b> (OK) S'→S · r1 S → (L) · r2 S → x · r3 L → L,S · r4 L → S. FOLLOW(L) = {), ,} · FOLLOW(S) = {$} + FOLLOW(L) = {$, ), ,}.<br>
+I0 = <span class="m">{S'→.S, S→.(L), S→.x}</span> · I1 = G(I0,S) = <span class="m">{S'→S.}</span> · I2 = G(I0,( ) = <span class="m">{S→(.L), L→.L,S, L→.S, S→.(L), S→.x}</span> · I3 = G(I0,x) = <span class="m">{S→x.}</span> · I4 = G(I2,L) = <span class="m">{S→(L.), L→L.,S}</span> · I5 = G(I2,S) = <span class="m">{L→S.}</span> · I6 = G(I4,) ) = <span class="m">{S→(L).}</span> · I7 = G(I4,,) = <span class="m">{L→L,.S, S→.(L), S→.x}</span> · I8 = G(I7,S) = <span class="m">{L→L,S.}</span>. Repetidos: G(I2,( ) = G(I7,( ) = I2 · G(I2,x) = G(I7,x) = I3.
+<div class="g"><table class="c t"><tr><th>Est.</th><th>(</th><th>)</th><th>x</th><th>,</th><th>$</th><th>S</th><th>L</th></tr>
+<tr><td>0</td><td>e2</td><td></td><td>e3</td><td></td><td></td><td>1</td><td></td></tr>
+<tr><td>1</td><td></td><td></td><td></td><td></td><td>OK</td><td></td><td></td></tr>
+<tr><td>2</td><td>e2</td><td></td><td>e3</td><td></td><td></td><td>5</td><td>4</td></tr>
+<tr><td>3</td><td></td><td>r2</td><td></td><td>r2</td><td>r2</td><td></td><td></td></tr>
+<tr><td>4</td><td></td><td>e6</td><td></td><td>e7</td><td></td><td></td><td></td></tr>
+<tr><td>5</td><td></td><td>r4</td><td></td><td>r4</td><td></td><td></td><td></td></tr>
+<tr><td>6</td><td></td><td>r1</td><td></td><td>r1</td><td>r1</td><td></td><td></td></tr>
+<tr><td>7</td><td>e2</td><td></td><td>e3</td><td></td><td></td><td>8</td><td></td></tr>
+<tr><td>8</td><td></td><td>r3</td><td></td><td>r3</td><td></td><td></td><td></td></tr></table>
+<table class="t"><tr><th>Pilha</th><th>Símb.</th><th>Entr.</th><th>Ação</th></tr>
+<tr><td class="m">0</td><td></td><td class="m">(x,x)$</td><td>e2</td></tr>
+<tr><td class="m">0 2</td><td class="m">(</td><td class="m">x,x)$</td><td>e3</td></tr>
+<tr><td class="m">0 2 3</td><td class="m">(x</td><td class="m">,x)$</td><td>r2 → [2,S]=5</td></tr>
+<tr><td class="m">0 2 5</td><td class="m">(S</td><td class="m">,x)$</td><td>r4 → [2,L]=4</td></tr>
+<tr><td class="m">0 2 4</td><td class="m">(L</td><td class="m">,x)$</td><td>e7</td></tr>
+<tr><td class="m">0 2 4 7</td><td class="m">(L,</td><td class="m">x)$</td><td>e3</td></tr>
+<tr><td class="m">0 2 4 7 3</td><td class="m">(L,x</td><td class="m">)$</td><td>r2 → [7,S]=8</td></tr>
+<tr><td class="m">0 2 4 7 8</td><td class="m">(L,S</td><td class="m">)$</td><td>r3: tira 3 → [2,L]=4</td></tr>
+<tr><td class="m">0 2 4</td><td class="m">(L</td><td class="m">)$</td><td>e6</td></tr>
+<tr><td class="m">0 2 4 6</td><td class="m">(L)</td><td class="m">$</td><td>r1: tira 3 → [0,S]=1</td></tr>
+<tr><td class="m">0 1</td><td class="m">S</td><td class="m">$</td><td><b>OK</b></td></tr></table></div></div>
+<div class="ex"><b>P5 (redução por ε: desempilha 0)</b> (OK) S'→S · r1 S → aSb · r2 S → ε. FOLLOW(S) = {b, $}. I0 = <span class="m">{S'→.S, S→.aSb, S→.}</span>: o <span class="m">S→.</span> já é completo e dá r2 em b e $ · I1 = <span class="m">{S'→S.}</span> · I2 = G(I0,a) = <span class="m">{S→a.Sb, S→.aSb, S→.}</span> · I3 = G(I2,S) = <span class="m">{S→aS.b}</span> · I4 = G(I3,b) = <span class="m">{S→aSb.}</span> · G(I2,a) = I2.<br>
+Tabela: 0: a e2, b r2, $ r2, S 1 · 1: $ OK · 2: a e2, b r2, $ r2, S 3 · 3: b e4 · 4: b r1, $ r1.<br>
+<span class="m">ab</span>: 0 | ab$ | e2 → 0 2 | a | b$ | <b>r2</b>: tira 0 estados, o topo continua 2, [2,S] = 3 → 0 2 3 | aS | b$ | e4 → 0 2 3 4 | aSb | $ | r1: tira 3 → [0,S] = 1 → 0 1 | S | $ | <b>OK</b>.</div>
+
+<h2>§9 Geradores: Lex/Flex e Yacc/Bison <span class="src">(trabalho; Aula05 sl.7, 9, 39)</span></h2>
+<p class="src">Não há slide desta aula. Esta seção segue o Lex/Flex e o Yacc/Bison padrão.</p>
+<table>
+<tr><th></th><th>Lex / Flex (JLex, JFlex)</th><th>Yacc / Bison</th></tr>
+<tr><td>Gera</td><td>analisador <b>léxico</b> (scanner)</td><td>analisador <b>sintático</b> (parser), <b>ascendente LALR</b></td></tr>
+<tr><td>Entrada</td><td>arquivo <span class="m">.l</span>/<span class="m">.lex</span> com <b>expressões regulares</b> + ações</td><td>arquivo <span class="m">.y</span> com a <b>GLC</b> + ações semânticas</td></tr>
+<tr><td>Saída</td><td>programa em C <span class="m">lex.yy.c</span> com a função <span class="m">yylex()</span></td><td>programa em C <span class="m">y.tab.c</span> (Bison: <span class="m">arq.tab.c</span>) com <span class="m">yyparse()</span></td></tr>
+</table>
+<p><b>Fluxo:</b> <span class="m">arq.l → flex → lex.yy.c → gcc → executável</span>, e é o <b>executável</b> que lê o texto e devolve os tokens. O Lex <b>não</b> lê o .txt: ele gera o programa que vai ler. O Yacc chama o <span class="m">yylex()</span> para pedir cada token, e os dois trabalham juntos.</p>
+<pre>%{                          ← código C copiado SEM mudança para o .c
+#include &lt;stdio.h&gt;            (includes, #define/constantes, variáveis)
+#define NUM 1
+%}
+digito   [0-9]               ← definições regulares: nome  ER
+numero   {digito}+            ← reusa definição anterior com {nome}
+n_real   {digito}+\.{digito}+
+%%                           ← seção de REGRAS: padrão  { ação em C }
+{numero}   { return (NUM); } ← {numero} = definição; NUM = constante
+"if"       { return (IF); }
+[ \t\n]    ;                 ← ignora espaços
+%%
+int yywrap(){ return 1; }   ← código do usuário (main etc.)</pre>
+<p><span class="m">yytext</span> = lexema reconhecido · <span class="m">yyleng</span> = tamanho dele. Se duas regras casam, vale o <b>maior lexema</b>, e no empate a <b>regra que vem primeiro</b>. O arquivo <span class="m">.y</span> tem as mesmas 3 partes, com <span class="m">%token NUM</span> nas declarações e regras do tipo <span class="m">exp : exp '+' termo { $$ = $1 + $3; } ;</span>.</p>
+<div class="ex"><b>G1 <span class="ava">★AVA Q5</span></b> → <b>d, e</b>. a ✘ o Lex gera C, e quem lê o .txt é o programa gerado · b ✘ <span class="m">%{ %}</span> não guarda ações, elas ficam na seção de regras entre <span class="m">%%</span> · c ✘ <span class="m">{numero}</span> exige uma definição regular chamada <b>numero</b>, e NUM é a constante do token · d ✔ <span class="m">%{ %}</span> declara constantes copiadas sem modificação · e ✔ definições podem reutilizar outras (<span class="m">n_real {digito}.{digito}+</span>).</div>
+<div class="ex"><b>G2 (qual regra vence?)</b> Regras na ordem <span class="m">"if" {return IF;}</span>, <span class="m">{id} {return ID;}</span>, <span class="m">{numero} {return NUM;}</span>. A entrada <span class="m">if</span> casa com "if" e com {id}, os dois com 2 caracteres. No empate vence a que vem primeiro, então sai <b>IF</b>. Por isso as palavras reservadas vêm antes do id. A entrada <span class="m">ifx</span> dá <b>ID</b>, porque o maior lexema vence (3 &gt; 2). A entrada <span class="m">123</span> dá <b>NUM</b>, com yytext = "123" e yyleng = 3.</div>
+
+<h2>§10 Análise semântica <span class="src">(A11)</span></h2>
+<div class="box zero"><b>Do zero</b> O parser só confere a <b>forma</b>. <span class="m">x = 3 * "penny";</span> está sintaticamente certo, mas não tem sentido. A análise semântica verifica se as estruturas, embora corretas sintaticamente, têm <b>significado admissível</b> (sl.3).</div>
+<ul>
+<li>Aspectos sensíveis ao contexto (nomes de variáveis, funções, tipos) ficam <b>fora da GLC</b> por causa da <b>eficiência e simplicidade do autômato com pilha</b>. São tratados à parte (sl.3).</li>
+<li>Um componente importante é a <b>checagem de tipos</b>. Usa a <b>tabela de símbolos</b>. A <b>saída</b> é a <b>árvore de parse anotada</b>.</li>
+<li>A forma mais comum é com <b>definições dirigidas pela sintaxe (ações semânticas)</b>, colocadas dentro das funções da análise sintática (sl.6).</li>
+<li>Erros semânticos típicos (sl.5): variável não declarada (<span class="m">vida_universo_tudo_mais = 42</span>), operação impossível (<span class="m">3 * "penny"</span>), atribuição incompatível (<span class="m">float hal = "monolito"</span>). Em <span class="m">C = A + B;</span> é preciso ver se A, B e C foram declarados, se A e B aceitam + e se o resultado cabe em C.</li>
+</ul>
+<div class="box dif"><b>Diferença: verificação estática × dinâmica (sl.7)</b>
+<table><tr><th>Estática</th><th>Dinâmica</th></tr>
+<tr><td>Feita no <b>código-fonte</b>, durante a <b>compilação</b></td><td>Feita em <b>tempo de execução</b></td></tr>
+<tr><td>Compilador maior, restringe a flexibilidade, linguagem menos expressiva</td><td>Mais cara, pode ser tarde demais, <b>mais flexível</b></td></tr>
+<tr><td>Ex.: <span class="m">a % b</span> com b float, break fora do laço, variável repetida</td><td>Ex. (fora dos slides): índice fora do vetor, divisão por zero com valor lido</td></tr></table></div>
+<table>
+<tr><th>Verificação estática</th><th>O que confere / exemplo (sl.8–11)</th></tr>
+<tr><td><b>de tipos</b></td><td>os operandos são compatíveis? <span class="m">int f(int a, float b){ return a % b; }</span> dá erro porque % não aceita float</td></tr>
+<tr><td><b>de fluxo de controle</b></td><td>o comando que sai de uma construção tem para onde ir? <span class="m">break</span> fora de while/for/switch é erro</td></tr>
+<tr><td><b>de unicidade</b></td><td>o objeto foi definido <b>exatamente uma vez</b>? Identificador declarado 2× <b>no mesmo nível</b> · rótulos de case repetidos · elementos repetidos num enum</td></tr>
+<tr><td><b>relacionada aos nomes</b></td><td>palavra reservada usada como identificador · o mesmo nome tem que aparecer 2 ou mais vezes (Ada: nome do laço no início e no fim)</td></tr>
+</table>
+<p><b>Tipos (sl.12):</b> <b>básicos</b> não têm estrutura interna: inteiro, real, booleano, caractere, <b>string, intervalo e enumeração</b>. <b>Construídos</b> são feitos de outros tipos: ponteiros, estruturas, registros, vetores e matrizes. A <b>expressão de tipo</b> é o tipo de qualquer construção: os básicos, nomes de tipo (<span class="m">type linha = record…</span>) e os construídos (sl.13).</p>
+<p><b>Esquema de tradução (sl.14–16):</b> <span class="m">D → id : T {incluir_ID(id.entrada, T.tipo)}</span> · <span class="m">T → char {T.tipo := caracter}</span> · <span class="m">T → integer {inteiro}</span> · <span class="m">T → array[num] of T1 {vetor(1..num.val, T1.tipo)}</span> · <span class="m">E → literal {caracter}</span> · <span class="m">E → num {inteiro}</span> · <span class="m">E → id {procurar(id.entrada)}</span> · <span class="m">E → E1 mod E2</span> {inteiro se os dois forem inteiros, senão tipo_erro} · <span class="m">E → E1[E2]</span> {t se E1 = vetor(s, t) e E2 = inteiro, senão tipo_erro}.</p>
+<div class="box"><b>Tabela de símbolos (sl.17–21)</b> Funciona como índice ou dicionário dos identificadores que o compilador conhece. <b>Quem insere os identificadores são as ações semânticas</b> do analisador sintático, e não mais o léxico (sl.17, ★AVA Q4 → <b>e</b>). Os atributos dependem da categoria:
+<ul><li><b>variável simples:</b> categoria, tipo, endereço</li>
+<li><b>parâmetro simples:</b> categoria, tipo, endereço, <b>mecanismo de passagem</b> (valor ou referência)</li>
+<li><b>procedimento:</b> categoria, rótulo interno, nível em que foi declarado, nº de parâmetros, tipo e mecanismo de cada parâmetro</li></ul>
+Colunas do exemplo: <b>ID</b> (nº da entrada) · <b>CAT</b> (variável, função, constante…) · <b>NIVEL</b> (escopo: global, local, bloco) · <b>TIPO</b> · <b>VAL</b> (valor da constante ou valor inicial) · <b>DESL</b> (deslocamento, posição de memória). O <b>descritor de tipos</b> é a estrutura que guarda as informações de um tipo (TAM, NELEM, limites…).</div>
+<div class="ex"><b>S1 (escopo, sl.20)</b> <span class="m">int i, j; int f(int size){ char i, temp; { double j; } { char *j; } }</span> → global: i, j, f · função f: size, i, temp · bloco 1: j (double) · bloco 2: j (char*). Não é erro de unicidade porque os nomes repetidos estão em <b>níveis diferentes</b>.</div>
+<div class="ex"><b>S2 (relacione)</b> break fora do laço → <b>fluxo</b> · <span class="m">int x; int x;</span> no mesmo bloco → <b>unicidade</b> · <span class="m">case 1:</span> repetido → <b>unicidade</b> · <span class="m">enum {A, B, A}</span> → <b>unicidade</b> · <span class="m">a % b</span> com float → <b>tipos</b> · <span class="m">float hal = "monolito"</span> → <b>tipos</b> · variável chamada <span class="m">while</span> → <b>nomes</b> · laço Ada com nomes diferentes no início e no fim → <b>nomes</b>.</div>
+<div class="ex"><b>S3 (tipo de expressão)</b> Com <span class="m">x : integer; c : char; v : array[10] of integer</span>, a TS fica x = inteiro, c = caracter, v = vetor(1..10, inteiro). Então: <span class="m">v[x]</span> → inteiro · <span class="m">x mod 2</span> → inteiro · <span class="m">x mod c</span> → tipo_erro · <span class="m">c[x]</span> → tipo_erro (c não é vetor) · <span class="m">v[c]</span> → tipo_erro (índice não é inteiro).</div>
+<div class="ex"><b>S4 (básico ou construído?)</b> inteiro B · string <b>B</b> · intervalo <b>B</b> · enumeração <b>B</b> · booleano B · ponteiro C · registro C · estrutura C · vetor C · matriz C.</div>
+<div class="ex"><b>S5 (atributos na TS)</b> <span class="m">procedure soma(a: integer; var b: integer)</span>. Para <b>soma</b> (procedimento): categoria, rótulo interno, nível, nº de parâmetros = 2, e para cada parâmetro o tipo e o mecanismo (a: integer por valor · b: integer por referência). Para <b>a</b> (parâmetro simples): categoria, tipo, endereço e passagem por valor. Para uma variável <b>x</b> local: categoria, tipo e endereço.</div>
+<div class="ex"><b>S6 (estática ou dinâmica?)</b> somar int com string (detectado ao compilar) → <b>estática</b> · <span class="m">break</span> fora do laço → <b>estática</b> · <span class="m">v[i]</span> com i lido do teclado e fora do limite → <b>dinâmica</b> · divisão <span class="m">x / y</span> com y = 0 só na execução → <b>dinâmica</b>. A pergunta é se dá para saber só olhando o código-fonte: se sim, é estática; se depende dos dados da execução, é dinâmica.</div>
+
+<h2>§11 Verdadeiro ou falso rápido</h2>
+<table class="vf">
+<tr><td>A ASD constrói a árvore da raiz para as folhas e busca a derivação mais à esquerda</td><td class="ok">V</td></tr>
+<tr><td>A ASD com retrocesso exige gramática fatorada</td><td class="no">F</td></tr>
+<tr><td>A preditiva (LL(1)) exige: sem ambiguidade, sem recursão à esquerda e fatorada à esquerda</td><td class="ok">V</td></tr>
+<tr><td>FIRST e FOLLOW servem para preencher a tabela que controla o autômato de pilha</td><td class="ok">V</td></tr>
+<tr><td>O $ pode aparecer no FIRST · o ε pode aparecer no FOLLOW</td><td class="no">F</td></tr>
+<tr><td>A tabela preditiva tem uma coluna ε</td><td class="no">F</td></tr>
+<tr><td>A produção A → ε vai nas colunas do FOLLOW(A)</td><td class="ok">V</td></tr>
+<tr><td>A pilha preditiva começa com $ e o símbolo inicial, e a fila é a sentença + $</td><td class="ok">V</td></tr>
+<tr><td>A pilha preditiva só tem não terminais</td><td class="no">F</td></tr>
+<tr><td>Com terminal no topo igual ao da fila: desempilha e desenfileira</td><td class="ok">V</td></tr>
+<tr><td>A ASA parte do símbolo inicial e faz substituições até gerar a sentença</td><td class="no">F</td></tr>
+<tr><td>A ASA também é chamada bottom-up ou shift-reduce</td><td class="ok">V</td></tr>
+<tr><td>A ASA corresponde à derivação mais à direita em ordem inversa, e o handle é o trecho reduzido</td><td class="ok">V</td></tr>
+<tr><td>Na ASA não ocorre construção de árvore <span class="src">(pela definição do sl.2; "na prática não é efetivamente construída", sl.3, é V)</span></td><td class="no">F</td></tr>
+<tr><td>LR: leitura da esquerda para a direita e derivação mais à direita</td><td class="ok">V</td></tr>
+<tr><td>LR: reconhece quase todas as GLC, tem bom desempenho e acha erros cedo, mas é difícil de fazer à mão</td><td class="ok">V</td></tr>
+<tr><td>O SLR é o mais poderoso</td><td class="no">F</td></tr>
+<tr><td>O LR canônico é o mais poderoso e o LALR é o do YACC</td><td class="ok">V</td></tr>
+<tr><td>O LR canônico não pode ser implementado com autômato de pilha</td><td class="no">F</td></tr>
+<tr><td>A gramática aumentada acrescenta S' → S, e por isso dispensa o CLOSURE</td><td class="no">F</td></tr>
+<tr><td>O GOTO só é calculado para terminais</td><td class="no">F</td></tr>
+<tr><td>O GOTO move o ponto para depois do símbolo e depois aplica o CLOSURE</td><td class="ok">V</td></tr>
+<tr><td>Empilhar vem da coleção canônica e reduzir precisa do FOLLOW</td><td class="ok">V</td></tr>
+<tr><td>Em Transições vai só o número, sem o "e"</td><td class="ok">V</td></tr>
+<tr><td>No reduce, a entrada é consumida</td><td class="no">F</td></tr>
+<tr><td>No reduce, desempilha tantos estados quanto os símbolos do lado direito</td><td class="ok">V</td></tr>
+<tr><td>Lex gera o scanner a partir de ERs, e Yacc gera o parser a partir de uma GLC</td><td class="ok">V</td></tr>
+<tr><td>%{ %} contém as ações das regras</td><td class="no">F</td></tr>
+<tr><td>O Yacc gera analisador descendente</td><td class="no">F</td></tr>
+<tr><td>A semântica verifica significado admissível, e a saída é a árvore de parse anotada</td><td class="ok">V</td></tr>
+<tr><td>A verificação estática ocorre em tempo de execução</td><td class="no">F</td></tr>
+<tr><td>A dinâmica é mais flexível, mas mais cara e pode ser tarde</td><td class="ok">V</td></tr>
+<tr><td>String e enumeração são tipos construídos</td><td class="no">F</td></tr>
+<tr><td>Quem insere identificadores na TS são as ações semânticas</td><td class="ok">V</td></tr>
+<tr><td>CLOSURE e GOTO inserem identificadores na TS</td><td class="no">F</td></tr>
+<tr><td>Mesmo nome em blocos diferentes é erro de unicidade</td><td class="no">F</td></tr>
+<tr><td><span class="ava">★AVA Q6</span> (ASA) → só a <b>c</b> (shift-reduce) está certa</td><td class="ok">c</td></tr>
+</table>
+
+<h2>§12 Simulado extra + confusões que mais caem</h2>
+<div class="box dif"><b>Não confunda</b>
+<table>
+<tr><th>Isto…</th><th>…não é isto</th></tr>
+<tr><td><b>Item de gramática</b>: uma produção com ponto (<span class="m">T→T.*F</span>)</td><td><b>Item canônico</b>: um <b>conjunto</b> de itens (I0, I1…), que vira estado</td></tr>
+<tr><td><b>Item canônico</b>: um Ii</td><td><b>Coleção canônica</b>: todos os Ii juntos, C = {I0, …, In}</td></tr>
+<tr><td><b>Item inicial</b>: <span class="m">A→.XYZ</span></td><td><b>Item completo</b>: <span class="m">A→XYZ.</span>, que reduz</td></tr>
+<tr><td><b>CLOSURE</b>: só <b>acrescenta</b> itens iniciais (o ponto não anda)</td><td><b>GOTO</b>: <b>anda o ponto</b> sobre um símbolo e depois faz o CLOSURE</td></tr>
+<tr><td><b>e</b>N: N é o <b>estado</b> a empilhar (shift)</td><td><b>r</b>N: N é o <b>número da produção</b> (reduce)</td></tr>
+<tr><td>Número em <b>Transições</b>: estado depois de uma redução</td><td>eN em <b>Ações</b>: estado depois de ler um terminal</td></tr>
+<tr><td>Tabela preditiva: A→α pelo <b>FIRST</b>, A→ε pelo <b>FOLLOW</b></td><td>Tabela LR: empilha pelo <b>GOTO</b>, reduz pelo <b>FOLLOW</b></td></tr>
+<tr><td>Pilha preditiva: <span class="m">$S</span> com símbolos; aceita com $ e $</td><td>Pilha LR: <span class="m">0</span> com estados; aceita com <b>OK</b></td></tr>
+<tr><td>Preditiva: NT no topo → <b>empilha o lado direito ao contrário</b></td><td>LR rN: <b>desempilha |β|</b> estados e empilha Transição[topo, A]</td></tr>
+<tr><td>Verificação <b>estática</b>: compilação</td><td>Verificação <b>dinâmica</b>: execução</td></tr>
+<tr><td><b>Lex</b>: léxico, ERs, tokens</td><td><b>Yacc</b>: sintático, GLC, LALR</td></tr>
+</table></div>
+<div class="ex"><b>X1 (preditiva do início ao fim)</b> <span class="m">S → AB · A → a | ε · B → b | c</span><br>
+FIRST: A = {a, ε} · B = {b, c} · S = {a, b, c} (A some, então entra o FIRST(B)). FOLLOW: S = {$} · A = FIRST(B) = {b, c} · B = FOLLOW(S) = {$}.<br>
+Tabela: [S, a], [S, b] e [S, c] = S→AB · [A, a] = A→a · [A, b] e [A, c] = A→ε · [B, b] = B→b · [B, c] = B→c · a coluna $ fica toda "-".<br>
+<span class="m">c</span>: <span class="m">$S</span> | c$ | S→AB → <span class="m">$BA</span> | c$ | A→ε → <span class="m">$B</span> | c$ | B→c → <span class="m">$c</span> | c$ | - → <span class="m">$</span> | $ | <b>reconhecida</b>.<br>
+<span class="m">aa</span>: <span class="m">$S</span> | S→AB → <span class="m">$BA</span> | A→a → <span class="m">$Ba</span> | - → <span class="m">$B</span> | a$ | <b>M[B, a] vazia → não reconhecida</b>.</div>
+<div class="ex"><b>X2 (LR do início ao fim)</b> (OK) S'→S · r1 S → CC · r2 C → cC · r3 C → d. FOLLOW(S) = {$} · FOLLOW(C) = FIRST(C) + FOLLOW(S) = {c, d, $}.<br>
+I0 = <span class="m">{S'→.S, S→.CC, C→.cC, C→.d}</span> · I1 = G(I0,S) = <span class="m">{S'→S.}</span> · I2 = G(I0,C) = <span class="m">{S→C.C, C→.cC, C→.d}</span> · I3 = G(I0,c) = <span class="m">{C→c.C, C→.cC, C→.d}</span> · I4 = G(I0,d) = <span class="m">{C→d.}</span> · I5 = G(I2,C) = <span class="m">{S→CC.}</span> · I6 = G(I3,C) = <span class="m">{C→cC.}</span> · repetidos: G(I2,c) = G(I3,c) = I3 e G(I2,d) = G(I3,d) = I4.
+<div class="g"><table class="c t"><tr><th>Est.</th><th>c</th><th>d</th><th>$</th><th>S</th><th>C</th></tr>
+<tr><td>0</td><td>e3</td><td>e4</td><td></td><td>1</td><td>2</td></tr>
+<tr><td>1</td><td></td><td></td><td>OK</td><td></td><td></td></tr>
+<tr><td>2</td><td>e3</td><td>e4</td><td></td><td></td><td>5</td></tr>
+<tr><td>3</td><td>e3</td><td>e4</td><td></td><td></td><td>6</td></tr>
+<tr><td>4</td><td>r3</td><td>r3</td><td>r3</td><td></td><td></td></tr>
+<tr><td>5</td><td></td><td></td><td>r1</td><td></td><td></td></tr>
+<tr><td>6</td><td>r2</td><td>r2</td><td>r2</td><td></td><td></td></tr></table>
+<table class="t"><tr><th>Pilha</th><th>Símb.</th><th>Entr.</th><th>Ação</th></tr>
+<tr><td class="m">0</td><td></td><td class="m">cdd$</td><td>e3</td></tr>
+<tr><td class="m">0 3</td><td class="m">c</td><td class="m">dd$</td><td>e4</td></tr>
+<tr><td class="m">0 3 4</td><td class="m">cd</td><td class="m">d$</td><td>r3 → [3,C]=6</td></tr>
+<tr><td class="m">0 3 6</td><td class="m">cC</td><td class="m">d$</td><td>r2: tira 2 → [0,C]=2</td></tr>
+<tr><td class="m">0 2</td><td class="m">C</td><td class="m">d$</td><td>e4</td></tr>
+<tr><td class="m">0 2 4</td><td class="m">Cd</td><td class="m">$</td><td>r3 → [2,C]=5</td></tr>
+<tr><td class="m">0 2 5</td><td class="m">CC</td><td class="m">$</td><td>r1: tira 2 → [0,S]=1</td></tr>
+<tr><td class="m">0 1</td><td class="m">S</td><td class="m">$</td><td><b>OK</b></td></tr></table></div>
+Ao contrário: qual GOTO produziu o I6? A célula [3, C] = 6, então <b>GOTO(I3, C) = I6</b>. O [4, c] = r3 não vem de GOTO, então GOTO(I4, c) = <b>-</b>.</div>
+<div class="ex"><b>X3 (relacione o tipo de ASD)</b> "se escolher a regra errada precisa voltar" → <b>recursiva com retrocesso</b> · "uma função por NT, decide pelo token sem voltar, gramática fatorada" → <b>preditiva recursiva</b> · "tabela M + autômato de pilha, sem recursão" → <b>preditiva tabular</b> · "gera derivação mais à direita invertida, reduzindo handles" → <b>ascendente (LR)</b>.</div>
+<div class="ex"><b>X4 (handle)</b> Com <span class="m">S → aABe · A → Abc | b · B → d</span>, em <span class="m">aAbcde</span> o handle é <b>Abc</b> (vira A), em <span class="m">aAde</span> é <b>d</b> (vira B) e em <span class="m">aABe</span> é <b>aABe</b> (vira S). O handle é sempre um lado direito inteiro de alguma produção.</div>
+<div class="ex"><b>X5 (complete)</b> A análise semântica recebe a árvore de parse e devolve a <b>árvore de parse anotada</b> · quem insere ids na TS são as <b>ações semânticas</b> · o tipo mais poderoso de LR é o <b>LR canônico</b> e o do YACC é o <b>LALR</b> · em LL(1), o "1" é <b>1 token de lookahead</b> · a coluna da tabela preditiva que substitui o ε é o <b>$</b> · o I0 é o <b>CLOSURE({S'→.S})</b> · a produção acrescentada na gramática aumentada é a <b>S'→S</b>, que não recebe número de redução e gera o <b>OK</b>.</div>
+<div class="ex"><b>X6 (FIRST/FOLLOW difícil, muito ε)</b> <span class="m">S → ACB | CbB | Ba · A → da | BC · B → g | ε · C → h | ε</span><br>
+FIRST: B = {g, ε} · C = {h, ε} · A = {d} + FIRST(BC) = {d, g, h, ε} (B e C somem) · S = FIRST(ACB) {d, g, h, ε} + FIRST(CbB) {h, b} + FIRST(Ba) {g, a} = <b>{a, b, d, g, h, ε}</b><br>
+FOLLOW: S = {$} · A (em ACB) = {h} + {g} + FOLLOW(S) = <b>{g, h, $}</b> · B = {$} (fim de ACB e CbB) + {a} (Ba) + {h} + FOLLOW(A) (em A → BC) = <b>{a, g, h, $}</b> · C = {g} + {$} (em ACB) + {b} (CbB) + FOLLOW(A) (fim de BC) = <b>{b, g, h, $}</b>.</div>
+<div class="ex"><b>X7 (conflito na tabela LR)</b> <span class="m">E → E+E | id</span> (ambígua). I0 = <span class="m">{E'→.E, E→.E+E, E→.id}</span> · I1 = <span class="m">{E'→E., E→E.+E}</span> · I2 = <span class="m">{E→id.}</span> · I3 = G(I1,+) = <span class="m">{E→E+.E, E→.E+E, E→.id}</span> · I4 = G(I3,E) = <span class="m">{E→E+E., E→E.+E}</span>. FOLLOW(E) = {+, $}. Na linha 4, coluna +, entram <b>e3</b> (por E→E.+E) e <b>r1</b> (por E→E+E., já que + ∈ FOLLOW(E)). É um <b>conflito empilha/reduz</b>: <span class="m">id+id+id</span> pode ser (id+id)+id ou id+(id+id). A gramática ambígua não serve, ou então escolhe-se r1, que dá associatividade à esquerda.</div>
+<div class="ex"><b>X8 (preencha a TS)</b> <span class="m">const MAX = 10; var x: integer; procedure p(a: integer; var b: char); var y: integer;</span>
+<table class="c t"><tr><th>ID</th><th>Nome</th><th>CAT</th><th>NÍVEL</th><th>TIPO</th><th>Outros</th></tr>
+<tr><td>0</td><td>MAX</td><td>CONST</td><td>0</td><td>integer</td><td>VAL = 10</td></tr>
+<tr><td>1</td><td>x</td><td>VAR</td><td>0</td><td>integer</td><td>endereço (DESL)</td></tr>
+<tr><td>2</td><td>p</td><td>PROC</td><td>0</td><td>-</td><td>rótulo, 2 parâmetros</td></tr>
+<tr><td>3</td><td>a</td><td>PARAM</td><td>1</td><td>integer</td><td>por valor</td></tr>
+<tr><td>4</td><td>b</td><td>PARAM</td><td>1</td><td>char</td><td>por referência (var)</td></tr>
+<tr><td>5</td><td>y</td><td>VAR</td><td>1</td><td>integer</td><td>local de p</td></tr></table></div>
+
+</div>
+</body>
+</html>
